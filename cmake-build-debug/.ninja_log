@@ -1,0 +1,19 @@
+# ninja log v5
+1	398	1681288583133847172	TestTask/libs/complex/CMakeFiles/Complex.dir/source/complex.cpp.o	90540ad914d4e060
+630	697	1681288583429842119	tddProject/binaries/tddProject	32aeeb8aaeea77f6
+0	630	1681288583365843211	CMakeFiles/tddProject.dir/main.cpp.o	b0ce881d7e11d3e1
+291	358	1681288583089847924	tddProject/binaries/lib/libPrinter.so	a7730df9b7c22694
+0	291	1681288583025849016	TestTask/libs/printer/CMakeFiles/Printer.dir/source/printer.cpp.o	341695aaf15cc2b6
+398	455	1681288583189846216	tddProject/binaries/lib/libComplex.so	41042d0df6e26290
+2	2078	1681288696855905354	TestTask/libs/signal/CMakeFiles/Signal.dir/source/signal.cpp.o	8349cd31131841a0
+2	2095	1681288696875905013	CMakeFiles/tddProject.dir/main.cpp.o	47252a8de6c9036a
+2079	2246	1681288697023902485	tddProject/binaries/lib/libSignal.so	a624c01e97e9616b
+2246	2407	1681288697183899753	tddProject/binaries/tddProject	dcee158cb4295c0
+3	2849	1681288750966981288	CMakeFiles/tddProject.dir/main.cpp.o	47252a8de6c9036a
+2850	3071	1681288751186977531	tddProject/binaries/tddProject	dcee158cb4295c0
+2	2598	1681288936439813487	CMakeFiles/tddProject.dir/main.cpp.o	47252a8de6c9036a
+3	2720	1681288936559811437	TestTask/libs/signal/CMakeFiles/Signal.dir/source/signal.cpp.o	8349cd31131841a0
+2720	2916	1681288936755808090	tddProject/binaries/lib/libSignal.so	a624c01e97e9616b
+2916	3138	1681288936975804332	tddProject/binaries/tddProject	dcee158cb4295c0
+2	1957	1681288962387370267	CMakeFiles/tddProject.dir/main.cpp.o	47252a8de6c9036a
+1957	2206	1681288962635366031	tddProject/binaries/tddProject	dcee158cb4295c0

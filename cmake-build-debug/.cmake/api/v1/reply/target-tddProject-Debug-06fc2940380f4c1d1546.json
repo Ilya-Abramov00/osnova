@@ -1,0 +1,181 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "tddProject/binaries/tddProject"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"target_link_libraries"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 38,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 40,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 42,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 41,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -fdiagnostics-color=always"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"path" : "/home/ilya/itog/sturdy-octo-winner-0bfcb0c8c2b48c5aaea2cd7629432a9e5c3ac91d/cmake-build-debug"
+				},
+				{
+					"path" : "/home/ilya/itog/sturdy-octo-winner-0bfcb0c8c2b48c5aaea2cd7629432a9e5c3ac91d"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/ilya/itog/sturdy-octo-winner-0bfcb0c8c2b48c5aaea2cd7629432a9e5c3ac91d/TestTask/libs/printer/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/home/ilya/itog/sturdy-octo-winner-0bfcb0c8c2b48c5aaea2cd7629432a9e5c3ac91d/TestTask/libs/complex/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/home/ilya/itog/sturdy-octo-winner-0bfcb0c8c2b48c5aaea2cd7629432a9e5c3ac91d/TestTask/libs/complex/lib"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/home/ilya/itog/sturdy-octo-winner-0bfcb0c8c2b48c5aaea2cd7629432a9e5c3ac91d/TestTask/libs/complex/include/Complex"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/ilya/itog/sturdy-octo-winner-0bfcb0c8c2b48c5aaea2cd7629432a9e5c3ac91d/TestTask/libs/signal/include"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/ilya/itog/sturdy-octo-winner-0bfcb0c8c2b48c5aaea2cd7629432a9e5c3ac91d/TestTask/libs/signal/lib"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/ilya/itog/sturdy-octo-winner-0bfcb0c8c2b48c5aaea2cd7629432a9e5c3ac91d/TestTask/libs/signal/include/Signal"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "Printer::@2943423362c741623ec0"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "Complex::@b3b08f0fa2f69b691d60"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "Signal::@ce143932ad8051f4b40d"
+		}
+	],
+	"id" : "tddProject::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/home/ilya/itog/sturdy-octo-winner-0bfcb0c8c2b48c5aaea2cd7629432a9e5c3ac91d/cmake-build-debug/tddProject/binaries/lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "tddProject/binaries/lib/libPrinter.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "tddProject/binaries/lib/libSignal.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "tddProject/binaries/lib/libComplex.so",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "tddProject",
+	"nameOnDisk" : "tddProject",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "main.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

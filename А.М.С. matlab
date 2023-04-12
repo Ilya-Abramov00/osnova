@@ -1,0 +1,36 @@
+clear
+close all
+
+fid = fopen('D:\am_sound.dat', 'r');
+a = fread(fid, 'int32','l');
+fclose(fid);
+
+
+s = complex(a(1:2:end), a(2:2:end));
+
+q=0.875;
+Fs = q*16000;
+
+t = 0:1/(length(s)-1):1;
+t=t.';% масив времени
+ 
+% данные
+
+I = double(real(s));
+
+Q = double(imag(s)); % квадратуры
+
+sig=I+i*Q;
+
+
+
+sig=sqrt(I.^2 + Q.^2);
+sig=sig/max(sig);
+e=1;
+sig=resample(sig, 1, e);
+
+
+%  filename = 'handel.wav';
+%  audiowrite(filename,sig,Fs);
+%  [y,Fs] = audioread(filename);
+  sound(sig,Fs/e);
