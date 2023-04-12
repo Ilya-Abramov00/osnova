@@ -1,4 +1,4 @@
-# Install script for directory: /home/ilya/c/tddProject-master/googletests
+# Install script for directory: /home/ilya/CLionProjects/osnov/googletests
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/ilya/c/tddProject-master/googletests/gtest/cmake_install.cmake")
+  include("/home/ilya/CLionProjects/osnov/googletests/gtest/cmake_install.cmake")
 
 endif()
 

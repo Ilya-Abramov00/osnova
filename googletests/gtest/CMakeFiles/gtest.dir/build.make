@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ilya/c/tddProject-master
+CMAKE_SOURCE_DIR = /home/ilya/CLionProjects/osnov
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ilya/c/tddProject-master
+CMAKE_BINARY_DIR = /home/ilya/CLionProjects/osnov
 
 # Include any dependencies generated for this target.
 include googletests/gtest/CMakeFiles/gtest.dir/depend.make
@@ -72,30 +72,30 @@ include googletests/gtest/CMakeFiles/gtest.dir/flags.make
 googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o: googletests/gtest/CMakeFiles/gtest.dir/flags.make
 googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o: googletests/gtest/gmock/src/gmock-all.cc
 googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o: googletests/gtest/CMakeFiles/gtest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ilya/c/tddProject-master/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o"
-	cd /home/ilya/c/tddProject-master/googletests/gtest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o -MF CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o.d -o CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o -c /home/ilya/c/tddProject-master/googletests/gtest/gmock/src/gmock-all.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ilya/CLionProjects/osnov/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o"
+	cd /home/ilya/CLionProjects/osnov/googletests/gtest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o -MF CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o.d -o CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o -c /home/ilya/CLionProjects/osnov/googletests/gtest/gmock/src/gmock-all.cc
 
 googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.i"
-	cd /home/ilya/c/tddProject-master/googletests/gtest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ilya/c/tddProject-master/googletests/gtest/gmock/src/gmock-all.cc > CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.i
+	cd /home/ilya/CLionProjects/osnov/googletests/gtest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ilya/CLionProjects/osnov/googletests/gtest/gmock/src/gmock-all.cc > CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.i
 
 googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.s"
-	cd /home/ilya/c/tddProject-master/googletests/gtest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ilya/c/tddProject-master/googletests/gtest/gmock/src/gmock-all.cc -o CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.s
+	cd /home/ilya/CLionProjects/osnov/googletests/gtest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ilya/CLionProjects/osnov/googletests/gtest/gmock/src/gmock-all.cc -o CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.s
 
 googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o: googletests/gtest/CMakeFiles/gtest.dir/flags.make
 googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o: googletests/gtest/gtest/src/gtest-all.cc
 googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o: googletests/gtest/CMakeFiles/gtest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ilya/c/tddProject-master/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o"
-	cd /home/ilya/c/tddProject-master/googletests/gtest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o -MF CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o.d -o CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o -c /home/ilya/c/tddProject-master/googletests/gtest/gtest/src/gtest-all.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ilya/CLionProjects/osnov/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o"
+	cd /home/ilya/CLionProjects/osnov/googletests/gtest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o -MF CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o.d -o CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o -c /home/ilya/CLionProjects/osnov/googletests/gtest/gtest/src/gtest-all.cc
 
 googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.i"
-	cd /home/ilya/c/tddProject-master/googletests/gtest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ilya/c/tddProject-master/googletests/gtest/gtest/src/gtest-all.cc > CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.i
+	cd /home/ilya/CLionProjects/osnov/googletests/gtest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ilya/CLionProjects/osnov/googletests/gtest/gtest/src/gtest-all.cc > CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.i
 
 googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.s"
-	cd /home/ilya/c/tddProject-master/googletests/gtest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ilya/c/tddProject-master/googletests/gtest/gtest/src/gtest-all.cc -o CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.s
+	cd /home/ilya/CLionProjects/osnov/googletests/gtest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ilya/CLionProjects/osnov/googletests/gtest/gtest/src/gtest-all.cc -o CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.s
 
 # Object files for target gtest
 gtest_OBJECTS = \
@@ -109,18 +109,18 @@ googletests/gtest/libgtest.so: googletests/gtest/CMakeFiles/gtest.dir/gmock/src/
 googletests/gtest/libgtest.so: googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o
 googletests/gtest/libgtest.so: googletests/gtest/CMakeFiles/gtest.dir/build.make
 googletests/gtest/libgtest.so: googletests/gtest/CMakeFiles/gtest.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ilya/c/tddProject-master/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX shared library libgtest.so"
-	cd /home/ilya/c/tddProject-master/googletests/gtest && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gtest.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ilya/CLionProjects/osnov/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX shared library libgtest.so"
+	cd /home/ilya/CLionProjects/osnov/googletests/gtest && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gtest.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 googletests/gtest/CMakeFiles/gtest.dir/build: googletests/gtest/libgtest.so
 .PHONY : googletests/gtest/CMakeFiles/gtest.dir/build
 
 googletests/gtest/CMakeFiles/gtest.dir/clean:
-	cd /home/ilya/c/tddProject-master/googletests/gtest && $(CMAKE_COMMAND) -P CMakeFiles/gtest.dir/cmake_clean.cmake
+	cd /home/ilya/CLionProjects/osnov/googletests/gtest && $(CMAKE_COMMAND) -P CMakeFiles/gtest.dir/cmake_clean.cmake
 .PHONY : googletests/gtest/CMakeFiles/gtest.dir/clean
 
 googletests/gtest/CMakeFiles/gtest.dir/depend:
-	cd /home/ilya/c/tddProject-master && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ilya/c/tddProject-master /home/ilya/c/tddProject-master/googletests/gtest /home/ilya/c/tddProject-master /home/ilya/c/tddProject-master/googletests/gtest /home/ilya/c/tddProject-master/googletests/gtest/CMakeFiles/gtest.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ilya/CLionProjects/osnov && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ilya/CLionProjects/osnov /home/ilya/CLionProjects/osnov/googletests/gtest /home/ilya/CLionProjects/osnov /home/ilya/CLionProjects/osnov/googletests/gtest /home/ilya/CLionProjects/osnov/googletests/gtest/CMakeFiles/gtest.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : googletests/gtest/CMakeFiles/gtest.dir/depend
 
