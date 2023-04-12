@@ -1,5 +1,0 @@
-/snap/clion/233/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/233/bin/ninja/linux/x64/ninja -G Ninja -S /home/ilya/itog/sturdy-octo-winner-0bfcb0c8c2b48c5aaea2cd7629432a9e5c3ac91d -B /home/ilya/itog/sturdy-octo-winner-0bfcb0c8c2b48c5aaea2cd7629432a9e5c3ac91d/cmake-build-debug
- output lib dir /home/ilya/itog/sturdy-octo-winner-0bfcb0c8c2b48c5aaea2cd7629432a9e5c3ac91d/cmake-build-debug/tddProject/binaries/lib
--- Configuring done
--- Generating done
--- Build files have been written to: /home/ilya/itog/sturdy-octo-winner-0bfcb0c8c2b48c5aaea2cd7629432a9e5c3ac91d/cmake-build-debug
