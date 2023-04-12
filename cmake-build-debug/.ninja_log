@@ -67,3 +67,9 @@
 1	521	1681298695641560183	TestTask/libs/signal/CMakeFiles/Signal.dir/source/signal.cpp.o	8349cd31131841a0
 521	574	1681298695693560843	tddProject/binaries/lib/libSignal.so	a624c01e97e9616b
 574	622	1681298695741561453	tddProject/binaries/tddProject	dcee158cb4295c0
+0	364	1681299103560901987	CMakeFiles/tddProject.dir/main.cpp.o	47252a8de6c9036a
+0	536	1681299103732902802	TestTask/libs/signal/CMakeFiles/Signal.dir/source/signal.cpp.o	8349cd31131841a0
+536	588	1681299103780903030	tddProject/binaries/lib/libSignal.so	a624c01e97e9616b
+588	637	1681299103832903276	tddProject/binaries/tddProject	dcee158cb4295c0
+1	346	1681299175037209457	CMakeFiles/tddProject.dir/main.cpp.o	47252a8de6c9036a
+346	394	1681299175085209643	tddProject/binaries/tddProject	dcee158cb4295c0

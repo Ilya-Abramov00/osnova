@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 #include "complex.h"
+#include <iostream>
+using namespace std;
 
 /**
  * @brief этот тест ничего не тестирует. это стартовый тест, который был написан до написания кода свомого принтера.
