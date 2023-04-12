@@ -2,64 +2,57 @@
 #define COMPLEX_H
 
 #include "complex.h"
-using namespace std;
 #include <fstream>
 #include <iostream>
 #include <vector>
 #include <algorithm>
 
+std::vector<complex<float>> downsample(std::vector<complex<float>> &vtr, unsigned int Fd) {
+    auto m = vtr.size();
 
-vector<complex<float>> downsample(vector<complex<float>> &vtr, unsigned int Fd)
-{
-    auto m=vtr.size();
-
-    vector<complex<float>> x(0,0);
+    std::vector<complex<float>> x(0, 0);
     x.reserve(m);
-    for(int i=0; i<=m-1; i=i+Fd)
-    {
+    for (int i = 0; i <= m - 1; i = i + Fd) {
         x.push_back(vtr.at(i));
     }
     return x;
 }
-vector <float> downsample(vector<float> &vtr, unsigned int Fd)
-{
-    auto m=vtr.size();
 
-    vector<float> x(0,0);
+std::vector<float> downsample(std::vector<float> &vtr, unsigned int Fd) {
+    auto m = vtr.size();
+
+    std::vector<float> x(0, 0);
     x.reserve(m);
-    for(int i=0; i<=m-1; i=i+Fd)
-    {
+    for (int i = 0; i <= m - 1; i = i + Fd) {
         x.emplace_back(vtr.at(i));
     }
     return x;
 }
 
 
-vector<float> diff(vector<float> vec)
-{
+std::vector<float> diff(std::vector<float> &vec) {
     auto m = vec.size();
-    vector<float> d(0,0);
-    d.reserve(m+1);
-    for(int i=1; i!=m;i++)
-    {
-        auto p=vec.at(i)-vec.at(i-1);
+    std::vector<float> d(0, 0);
+    d.reserve(m + 1);
+    for (int i = 1; i != m; i++) {
+        auto p = vec.at(i) - vec.at(i - 1);
         d.push_back(p);
     }
     return d;
 }
 
 
-struct Filter
-{
+struct Filter {
 
-    virtual vector<float> filsr1( vector<float> &c,int m) const =0;
-virtual ~Filter(){}
+    virtual std::vector<float> filsr1(std::vector<float> &c, int m) const = 0;
+
+    virtual ~Filter() {}
 };
 
-struct Recursiv: Filter {
-    static  vector<float> filsr(vector<float> &c, int m) {
+struct Recursiv : Filter {
+    static std::vector<float> filsr(std::vector<float> &c, int m) {
         size_t N = c.size();
-        vector<float> rez(0, 0);
+        std::vector<float> rez(0, 0);
         rez.reserve(m);
         for (int i = 0; i != N; ++i) {
             if (i < m) {
@@ -75,11 +68,10 @@ struct Recursiv: Filter {
     }
 };
 
-struct norecursiv: Filter {
-    static vector<float> filsr(vector<float> &c, int m)
-    {
+struct norecursiv : Filter {
+    static std::vector<float> filsr(std::vector<float> &c, int m) {
         size_t N = c.size();
-        vector<float> rez(0, 0);
+        std::vector<float> rez(0, 0);
         rez.reserve(N);
         --m;
         float y = 0;
@@ -98,34 +90,36 @@ struct norecursiv: Filter {
     }
 };
 
-struct Demodulator{
+struct Demodulator {
 
-    virtual vector <float> demodul1(vector<complex<float>> & sig) const=0;
-virtual ~Demodulator(){}
+    virtual std::vector<float> demodul1(std::vector<complex<float>> &sig) const = 0;
+
+    virtual ~Demodulator() {}
 };
-struct DemodulatorAM: Demodulator{
-    static vector <float> demodul(vector<complex<float>> & sig)
-    {
-        size_t m=sig.size();
-        vector<float> demo(0, 0);
+
+struct DemodulatorAM : Demodulator {
+    static std::vector<float> demodul(std::vector<complex<float>> &sig) {
+        size_t m = sig.size();
+        std::vector<float> demo(0, 0);
         demo.reserve(m);
 
-        for (int i = 0; i != m; i++)
-        {
+        for (int i = 0; i != m; i++) {
+
             demo.emplace_back(sig.at(i).Abs());
         }
         return demo;
     }
 
 };
-struct DemodulatorFM: Demodulator {
-    static vector<float> demodul(vector<complex<float>> &sig) {
+
+struct DemodulatorFM : Demodulator {
+    static std::vector<float> demodul(std::vector<complex<float>> &sig) {
         size_t m = sig.size();
-        vector<float> im(0, 0);
+        std::vector<float> im(0, 0);
         im.reserve(m);
-        vector<float> re(0, 0);
+        std::vector<float> re(0, 0);
         re.reserve(m);
-        vector<float> abs(0, 0);
+        std::vector<float> abs(0, 0);
         abs.reserve(m);
         for (int i = 0; i != sig.size(); ++i) {
             re.emplace_back(sig.at(i).Re());
@@ -143,7 +137,7 @@ struct DemodulatorFM: Demodulator {
         auto imd = diff(im);
         imd.push_back(0);
 
-        vector<float> sigINF(0, 0);
+        std::vector<float> sigINF(0, 0);
         sig.reserve(m);
 
         for (int i = 0; i != sig.size(); ++i) {
@@ -156,15 +150,14 @@ struct DemodulatorFM: Demodulator {
     }
 };
 
-template <class T> //в каком типе данных считывать
-struct FileManeger{
+template<class T> //в каком типе данных считывать
+struct FileManeger {
 
-    static vector<complex<float>>  SavedSignal(string ad)
-    {
-        static vector<complex<float>> c;
-        ifstream fin;
-        fin.open(ad, ios_base::binary | ios_base::in);
-        if (!fin.is_open()) { cout << "Файл не может быть открыт\n"; }
+    static std::vector<complex<float>> SavedSignal(std::string ad) {
+        static std::vector<complex<float>> c;
+        std::ifstream fin;
+        fin.open(ad, std::ios_base::binary | std::ios_base::in);
+        if (!fin.is_open()) { std::cout << "Файл не может быть открыт\n"; }
         else {
             int a = 0;
             int i = 0;
@@ -175,36 +168,34 @@ struct FileManeger{
                 if (i % 2 == 0) { RE = float(a); }
                 if (i % 2 != 0) {
                     IM = float(a);
-                    c.push_back(complex<float>(RE, IM));
+                    c.push_back( complex<float>(RE, IM));
                 }
                 i++;
 
             }
-            cout << "Файл открыт\n";
+            std::cout << "Файл открыт\n";
             fin.close();
 
         }
         return c;
     }
 
-    void SaveSignal(string ad1, vector<complex<float>> c){
-        ofstream fout(ad1, ios_base::binary | ios_base::trunc);
-        if (!fout.is_open()) { cout << "Файл не может быть открыт\n"; }
+    void SaveSignal(std::string ad1, std::vector<complex<float>> c) {
+        std::ofstream fout(ad1, std::ios_base::binary | std::ios_base::trunc);
+        if (!fout.is_open()) { std::cout << "Файл не может быть открыт\n"; }
         else {
             int m = c.size();
-            for (int i = 0; i !=2*m; ++i)
-            {
+            for (int i = 0; i != 2 * m; ++i) {
                 float re;
                 float im;
-                if (i % 2 == 0)
-                {
-                    auto p = c.at(int(i/2));
+                if (i % 2 == 0) {
+                    auto p = c.at(int(i / 2));
                     re = p.Re();
                     im = p.Im();
                     fout.write((char *) &re, sizeof(re));
 
                 }
-                if ( i%2 ==1){
+                if (i % 2 == 1) {
                     fout.write((char *) &im, sizeof(im));
 
                 }
@@ -217,14 +208,13 @@ struct FileManeger{
 
     }
 
-    static void SaveSignal(string ad1, vector<float> c){
-        ofstream fout(ad1, ios_base::binary | ios_base::trunc);
-        if (!fout.is_open()) { cout << "Файл не может быть открыт\n"; }
+    static void SaveSignal(std::string ad1, std::vector<float> c) {
+        std::ofstream fout(ad1, std::ios_base::binary | std::ios_base::trunc);
+        if (!fout.is_open()) { std::cout << "Файл не может быть открыт\n"; }
         else {
             int m = c.size();
-            for (int i = 0; i !=m; ++i)
-            {
-                float sig=c.at(i);
+            for (int i = 0; i != m; ++i) {
+                float sig = c.at(i);
 
                 fout.write((char *) &sig, sizeof(sig));
 
@@ -235,6 +225,10 @@ struct FileManeger{
 
     }
 };
+
+
+
+
 
 /*vector<float> normirovca(vector<float>& v)
 {
