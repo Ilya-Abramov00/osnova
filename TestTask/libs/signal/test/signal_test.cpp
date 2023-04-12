@@ -13,6 +13,20 @@ vector<float>a={1,2,3,4};
     ASSERT_TRUE(b.at(0)==1);
     ASSERT_TRUE(b.at(1)==3);
     }
+TEST(signal_test, downsample1)
+{
+    vector<complex<float>>a={{1,2},{3,4}};
+    auto b=downsample(a,2);
+    auto m=a.size();
+    ASSERT_TRUE(m==2);
+    ASSERT_TRUE(b.at(0).Re()==1);
+    ASSERT_TRUE(b.at(0).Im()==2);
+    ASSERT_TRUE(b.at(1).Re()==1);
+    ASSERT_TRUE(b.at(1).Im()==3);
+}
+
+
+
 
 TEST(signal_test, diff)
 {
