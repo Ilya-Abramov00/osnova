@@ -84,11 +84,11 @@ return ARGDeg;
 struct Factory {
 
 static complex CreateComplexFromPhaseDeg(float phi)
-{ return{cos(phi),sin(phi)};}
+{ return{float(cos(phi)),float(sin(phi))};}
 
 static complex CreateComplexFromPhase(float phi)
 { phi=phi*PI/180;
-return {cos(phi),sin(phi)};}
+return {float(cos(phi)),float(sin(phi))};}
 };
 
 
