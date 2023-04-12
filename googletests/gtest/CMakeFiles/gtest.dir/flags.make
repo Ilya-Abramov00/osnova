@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -Dgtest_EXPORTS
 
-CXX_INCLUDES = -I/home/ilya/CLionProjects/osnov/googletests/gtest -I/home/ilya/CLionProjects/osnov/googletests/gtest/gmock/include -I/home/ilya/CLionProjects/osnov/googletests/gtest/gmock -I/home/ilya/CLionProjects/osnov/googletests/gtest/gtest -I/home/ilya/CLionProjects/osnov/googletests/gtest/gtest/include
+CXX_INCLUDES = -I/home/ilya/CLionProjects/osno/googletests/gtest -I/home/ilya/CLionProjects/osno/googletests/gtest/gmock/include -I/home/ilya/CLionProjects/osno/googletests/gtest/gmock -I/home/ilya/CLionProjects/osno/googletests/gtest/gtest -I/home/ilya/CLionProjects/osno/googletests/gtest/gtest/include
 
 CXX_FLAGS = -fPIC -std=gnu++11
 

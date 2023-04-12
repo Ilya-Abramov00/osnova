@@ -5,16 +5,16 @@
 #include <vector>
 #include <algorithm>
 
-//std::vector<complex<float>> downsample(std::vector<complex<float>> &vtr, unsigned int Fd) {
-  //  auto m = vtr.size();
+std::vector<complex<float>> downsample(std::vector<complex<float>> &vtr, unsigned int Fd) {
+   auto m = vtr.size();
 
-  //  std::vector<complex<float>> x(0, 0);
-   // x.reserve(m);
-   // for (int i = 0; i <= m - 1; i = i + Fd) {
-  //      x.push_back(vtr.at(i));
-  //  }
-  //  return x;
-//}
+    std::vector<complex<float>> x(0, 0);
+    x.reserve(m);
+    for (int i = 0; i <= m - 1; i = i + Fd) {
+        x.emplace_back(vtr.at(i));
+   }
+    return x;
+}
 std::vector<float> downsample(std::vector<float> &vtr, unsigned int Fd) {
     auto m = vtr.size();
 

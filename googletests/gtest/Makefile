@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ilya/CLionProjects/osnov
+CMAKE_SOURCE_DIR = /home/ilya/CLionProjects/osno
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ilya/CLionProjects/osnov
+CMAKE_BINARY_DIR = /home/ilya/CLionProjects/osno
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -97,14 +97,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/ilya/CLionProjects/osnov && $(CMAKE_COMMAND) -E cmake_progress_start /home/ilya/CLionProjects/osnov/CMakeFiles /home/ilya/CLionProjects/osnov/googletests/gtest//CMakeFiles/progress.marks
-	cd /home/ilya/CLionProjects/osnov && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletests/gtest/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ilya/CLionProjects/osnov/CMakeFiles 0
+	cd /home/ilya/CLionProjects/osno && $(CMAKE_COMMAND) -E cmake_progress_start /home/ilya/CLionProjects/osno/CMakeFiles /home/ilya/CLionProjects/osno/googletests/gtest//CMakeFiles/progress.marks
+	cd /home/ilya/CLionProjects/osno && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletests/gtest/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ilya/CLionProjects/osno/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/ilya/CLionProjects/osnov && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletests/gtest/clean
+	cd /home/ilya/CLionProjects/osno && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletests/gtest/clean
 .PHONY : clean
 
 # The main clean target
@@ -113,22 +113,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/ilya/CLionProjects/osnov && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletests/gtest/preinstall
+	cd /home/ilya/CLionProjects/osno && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletests/gtest/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/ilya/CLionProjects/osnov && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletests/gtest/preinstall
+	cd /home/ilya/CLionProjects/osno && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletests/gtest/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/ilya/CLionProjects/osnov && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/ilya/CLionProjects/osno && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 googletests/gtest/CMakeFiles/gtest.dir/rule:
-	cd /home/ilya/CLionProjects/osnov && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletests/gtest/CMakeFiles/gtest.dir/rule
+	cd /home/ilya/CLionProjects/osno && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletests/gtest/CMakeFiles/gtest.dir/rule
 .PHONY : googletests/gtest/CMakeFiles/gtest.dir/rule
 
 # Convenience name for target.
@@ -137,7 +137,7 @@ gtest: googletests/gtest/CMakeFiles/gtest.dir/rule
 
 # fast build rule for target.
 gtest/fast:
-	cd /home/ilya/CLionProjects/osnov && $(MAKE) $(MAKESILENT) -f googletests/gtest/CMakeFiles/gtest.dir/build.make googletests/gtest/CMakeFiles/gtest.dir/build
+	cd /home/ilya/CLionProjects/osno && $(MAKE) $(MAKESILENT) -f googletests/gtest/CMakeFiles/gtest.dir/build.make googletests/gtest/CMakeFiles/gtest.dir/build
 .PHONY : gtest/fast
 
 gmock/src/gmock-all.o: gmock/src/gmock-all.cc.o
@@ -145,7 +145,7 @@ gmock/src/gmock-all.o: gmock/src/gmock-all.cc.o
 
 # target to build an object file
 gmock/src/gmock-all.cc.o:
-	cd /home/ilya/CLionProjects/osnov && $(MAKE) $(MAKESILENT) -f googletests/gtest/CMakeFiles/gtest.dir/build.make googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o
+	cd /home/ilya/CLionProjects/osno && $(MAKE) $(MAKESILENT) -f googletests/gtest/CMakeFiles/gtest.dir/build.make googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o
 .PHONY : gmock/src/gmock-all.cc.o
 
 gmock/src/gmock-all.i: gmock/src/gmock-all.cc.i
@@ -153,7 +153,7 @@ gmock/src/gmock-all.i: gmock/src/gmock-all.cc.i
 
 # target to preprocess a source file
 gmock/src/gmock-all.cc.i:
-	cd /home/ilya/CLionProjects/osnov && $(MAKE) $(MAKESILENT) -f googletests/gtest/CMakeFiles/gtest.dir/build.make googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.i
+	cd /home/ilya/CLionProjects/osno && $(MAKE) $(MAKESILENT) -f googletests/gtest/CMakeFiles/gtest.dir/build.make googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.i
 .PHONY : gmock/src/gmock-all.cc.i
 
 gmock/src/gmock-all.s: gmock/src/gmock-all.cc.s
@@ -161,7 +161,7 @@ gmock/src/gmock-all.s: gmock/src/gmock-all.cc.s
 
 # target to generate assembly for a file
 gmock/src/gmock-all.cc.s:
-	cd /home/ilya/CLionProjects/osnov && $(MAKE) $(MAKESILENT) -f googletests/gtest/CMakeFiles/gtest.dir/build.make googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.s
+	cd /home/ilya/CLionProjects/osno && $(MAKE) $(MAKESILENT) -f googletests/gtest/CMakeFiles/gtest.dir/build.make googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.s
 .PHONY : gmock/src/gmock-all.cc.s
 
 gtest/src/gtest-all.o: gtest/src/gtest-all.cc.o
@@ -169,7 +169,7 @@ gtest/src/gtest-all.o: gtest/src/gtest-all.cc.o
 
 # target to build an object file
 gtest/src/gtest-all.cc.o:
-	cd /home/ilya/CLionProjects/osnov && $(MAKE) $(MAKESILENT) -f googletests/gtest/CMakeFiles/gtest.dir/build.make googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o
+	cd /home/ilya/CLionProjects/osno && $(MAKE) $(MAKESILENT) -f googletests/gtest/CMakeFiles/gtest.dir/build.make googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o
 .PHONY : gtest/src/gtest-all.cc.o
 
 gtest/src/gtest-all.i: gtest/src/gtest-all.cc.i
@@ -177,7 +177,7 @@ gtest/src/gtest-all.i: gtest/src/gtest-all.cc.i
 
 # target to preprocess a source file
 gtest/src/gtest-all.cc.i:
-	cd /home/ilya/CLionProjects/osnov && $(MAKE) $(MAKESILENT) -f googletests/gtest/CMakeFiles/gtest.dir/build.make googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.i
+	cd /home/ilya/CLionProjects/osno && $(MAKE) $(MAKESILENT) -f googletests/gtest/CMakeFiles/gtest.dir/build.make googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.i
 .PHONY : gtest/src/gtest-all.cc.i
 
 gtest/src/gtest-all.s: gtest/src/gtest-all.cc.s
@@ -185,7 +185,7 @@ gtest/src/gtest-all.s: gtest/src/gtest-all.cc.s
 
 # target to generate assembly for a file
 gtest/src/gtest-all.cc.s:
-	cd /home/ilya/CLionProjects/osnov && $(MAKE) $(MAKESILENT) -f googletests/gtest/CMakeFiles/gtest.dir/build.make googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.s
+	cd /home/ilya/CLionProjects/osno && $(MAKE) $(MAKESILENT) -f googletests/gtest/CMakeFiles/gtest.dir/build.make googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.s
 .PHONY : gtest/src/gtest-all.cc.s
 
 # Help Target
@@ -215,6 +215,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/ilya/CLionProjects/osnov && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/ilya/CLionProjects/osno && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

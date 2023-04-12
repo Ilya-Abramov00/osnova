@@ -1,4 +1,4 @@
-# Install script for directory: /home/ilya/CLionProjects/osnov/googletests/gtest
+# Install script for directory: /home/ilya/CLionProjects/osno/googletests/gtest
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
