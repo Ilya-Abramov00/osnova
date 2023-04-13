@@ -1,5 +1,5 @@
-#ifndef PRINTER_H
-#define PRINTER_H
+#ifndef COMPLEX_H
+#define COMPLEX_H
 #include <iostream>
 #include <cmath>
 

@@ -1,5 +1,5 @@
-#ifndef COMPLEX_H
-#define COMPLEX_H
+#ifndef SIGNAL_H
+#define SIGNAL_H
 
 #include "complex.h"
 #include <fstream>
