@@ -93,8 +93,8 @@ return {float(cos(phi)),float(sin(phi))};}
 
 
 private:
-T RE;
-    T IM;
+ T RE;
+ T IM;
 };
 
 template <class T>
