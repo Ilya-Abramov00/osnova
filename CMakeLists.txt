@@ -28,6 +28,7 @@ add_subdirectory(TestTask/libs/printer)
 add_subdirectory(TestTask/libs/complex)
 
 add_subdirectory(TestTask/libs/signal)
+add_subdirectory(TestTask/libs/AudioFile-master)
 
 if(UNITTEST)
         message(" output lib dir " ${CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG})
@@ -42,6 +43,7 @@ target_link_libraries(${PROJECT_NAME} Printer)
 target_link_libraries(${PROJECT_NAME} Complex)
 
 target_link_libraries(${PROJECT_NAME} Signal)
+target_link_libraries(${PROJECT_NAME} AudioFile)
 if(UNIX)
         add_custom_target( distclean COMMAND find . -name *_automoc.cpp -type f -delete
                 COMMAND find . -name moc_*cpp -type f -delete
