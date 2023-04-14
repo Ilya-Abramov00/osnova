@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/ilya/CLionProjects/osno/googletests/gtest/gmock/src/gmock-all.cc" "googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o" "gcc" "googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o.d"
-  "/home/ilya/CLionProjects/osno/googletests/gtest/gtest/src/gtest-all.cc" "googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o" "gcc" "googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o.d"
+  "/home/ilya/CLionProjects/osnova/googletests/gtest/gmock/src/gmock-all.cc" "googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o" "gcc" "googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.o.d"
+  "/home/ilya/CLionProjects/osnova/googletests/gtest/gtest/src/gtest-all.cc" "googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o" "gcc" "googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.o.d"
   )
 
 # Targets to which this target links.
