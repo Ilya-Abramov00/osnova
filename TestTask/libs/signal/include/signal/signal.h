@@ -6,7 +6,7 @@
 #include <iostream>
 #include <vector>
 
-
+std::vector<float> normirovca(std::vector<float>& v);
 std::vector<complex<float>> downsample(std::vector<complex<float>> &vtr, unsigned int Fd);
 
 std::vector<float> downsample(std::vector<float> &vtr, unsigned int Fd);
@@ -125,6 +125,8 @@ struct FileManeger{
     }
 };
 
+
+
 namespace little_endian_io
 {
     template <typename Word>
@@ -135,9 +137,23 @@ namespace little_endian_io
         return outs;
     }
 }
+/*
 using namespace little_endian_io;
+string ad3 = "/home/ilya/Загрузки/examplAM";
+AudioFile<float> audioFile;
+auto m=c2.size();
+audioFile.setSampleRate(16000);
+audioFile.setAudioBufferSize(1,m);
 
- std::vector<float> normirovca(std::vector<float>& v);
+audioFile.setBitDepth(32);
+audioFile.setNumChannels(1);
+for(int i=0;i<m;i++)
+{
+audioFile.samples[0][i]=(c2[i]);
+}
+audioFile.save(ad3,AudioFileFormat::Wave);
+ */
+
 
 
 

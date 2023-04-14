@@ -2,6 +2,23 @@
 #include <vector>
 #include <algorithm>
 
+
+std::vector<float> normirovca(std::vector<float>& v)
+{
+
+    auto max = *max_element(v.begin(), v.end());
+
+    auto m=v.size();
+    std::vector<float> sig(0,0);
+    sig.reserve(m);
+    for (int i = 0; i <m; ++i)
+    {
+        sig.emplace_back(v.at(i) / max);
+    }
+    return sig;
+}
+
+
 std::vector<complex<float>> downsample(std::vector<complex<float>> &vtr, unsigned int Fd) {
    auto m = vtr.size();
 
@@ -124,20 +141,6 @@ std::vector<float> DemodulatorAM::demodul(std::vector<complex<float>> &sig) {
     }
 
 
-std::vector<float> normirovca(std::vector<float>& v)
-{
-
-   auto max = *max_element(v.begin(), v.end());
-
-    auto m=v.size();
-     std::vector<float> sig(0,0);
-    sig.reserve(m);
-    for (int i = 0; i <m; ++i)
-    {
-        sig.emplace_back(v.at(i) / max);
-    }
-    return sig;
-}
 
 
 
