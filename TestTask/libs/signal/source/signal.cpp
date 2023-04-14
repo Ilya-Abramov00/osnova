@@ -124,21 +124,21 @@ std::vector<float> DemodulatorAM::demodul(std::vector<complex<float>> &sig) {
     }
 
 
-/*vector<float> normirovca(vector<float>& v)
+std::vector<float> normirovca(std::vector<float>& v)
 {
-    cout<<"2";
-    float max = 1;
-    cout<<max;
+
+   auto max = *max_element(v.begin(), v.end());
+
     auto m=v.size();
-    vector<float> sig(0,0);
+     std::vector<float> sig(0,0);
     sig.reserve(m);
-    for (int i = 0; i != m; ++i)
+    for (int i = 0; i <m; ++i)
     {
-        sig.push_back(sig.at(i) / max);
+        sig.emplace_back(v.at(i) / max);
     }
     return sig;
 }
-*/
+
 
 
 

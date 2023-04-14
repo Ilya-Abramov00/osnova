@@ -13,10 +13,10 @@ int main() {
     string ud1 = "/home/ilya/Загрузки/pere_file1EuropaPlus.bin";
 
     auto c=FileManeger<int>::SavedSignal(ad);
-   // auto c1=DemodulatorAM::demodul(c);
+   auto c1=DemodulatorAM::demodul(c);
+auto c2=normirovca(c1);
 
-
-   //FileManeger<float>::SaveSignal(ad1,c1);
+   FileManeger<float>::SaveSignal(ad1,c1);
 
 
 
@@ -29,21 +29,23 @@ int main() {
     auto a2=Recursiv::filsr(a1,8);
 
 
-    auto c1= downsample(a2,25);
+    auto a3= downsample(a2,25);
 
 
-   //FileManeger<float>::SaveSignal(ud1,a3);
+   FileManeger<float>::SaveSignal(ud1,a3);
 
 
     string ad3 = "/home/ilya/Загрузки/exampl";
 AudioFile<float> audioFile;
-    audioFile.setSampleRate(20000);
-    audioFile.setAudioBufferSize(1,c1.size());
-    audioFile.setBitDepth(32);
+    auto m=c2.size();
+    audioFile.setSampleRate(16000);
+    audioFile.setAudioBufferSize(1,m);
+
+    audioFile.setBitDepth(16);
     audioFile.setNumChannels(1);
-    for(int i=0;i<c1.size();i++)
+    for(int i=0;i<m;i++)
     {
-        audioFile.samples[0][i]=float(c1[i]);
+        audioFile.samples[0][i]=(c2[i]);
     }
 audioFile.save(ad3,AudioFileFormat::Wave);
 

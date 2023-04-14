@@ -137,7 +137,7 @@ namespace little_endian_io
 }
 using namespace little_endian_io;
 
-
+ std::vector<float> normirovca(std::vector<float>& v);
 
 
 
