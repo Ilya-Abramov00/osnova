@@ -41,7 +41,7 @@ AudioFile<float> audioFile;
     audioFile.setSampleRate(16000);
     audioFile.setAudioBufferSize(1,m);
 
-    audioFile.setBitDepth(16);
+    audioFile.setBitDepth(32);
     audioFile.setNumChannels(1);
     for(int i=0;i<m;i++)
     {
