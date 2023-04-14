@@ -14,12 +14,13 @@ auto b=downsample(a,2);
     }
 TEST(signal_test, downsample1)
 {
-    vector<complex<float>>a={{1,2},{3,4}};
+    vector<complex<float>>a={{1,2},{3,4},{1,2},{3,4}};
     auto b=downsample(a,2);
 
     ASSERT_TRUE(b.at(0).Re()==1);
     ASSERT_TRUE(b.at(0).Im()==2);
-
+    ASSERT_TRUE(b.at(1).Re()==1);
+    ASSERT_TRUE(b.at(1).Im()==2);
 }
 
 
