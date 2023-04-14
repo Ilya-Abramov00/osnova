@@ -1,7 +1,4 @@
-#include "signal.h"
-#include "complex.h"
-#include <fstream>
-#include <iostream>
+#include "signal/signal.h"
 #include <vector>
 #include <algorithm>
 

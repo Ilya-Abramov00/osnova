@@ -1,6 +1,6 @@
 
 using namespace std;
-#include "signal.h"
+#include "TestTask/libs/signal/include/signal/signal.h"
 #include <iostream>
 #include <vector>
 

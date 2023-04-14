@@ -1,7 +1,7 @@
 #ifndef SIGNAL_H
 #define SIGNAL_H
 
-#include "complex.h"
+#include "complex/complex.h"
 #include <fstream>
 #include <iostream>
 #include <vector>
