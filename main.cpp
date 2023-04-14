@@ -35,7 +35,7 @@ auto c2=normirovca(c1);
    FileManeger<float>::SaveSignal(ud1,a3);
 
 
-    string ad3 = "/home/ilya/Загрузки/exampl";
+    string ad3 = "/home/ilya/Загрузки/examplAM";
 AudioFile<float> audioFile;
     auto m=c2.size();
     audioFile.setSampleRate(16000);
@@ -48,5 +48,19 @@ AudioFile<float> audioFile;
         audioFile.samples[0][i]=(c2[i]);
     }
 audioFile.save(ad3,AudioFileFormat::Wave);
+
+    string ad4 = "/home/ilya/Загрузки/examplFM";
+    AudioFile<float> audioFile1;
+    auto n=a3.size();
+    audioFile1.setSampleRate(20000);
+    audioFile1.setAudioBufferSize(1,n);
+
+    audioFile1.setBitDepth(32);
+    audioFile1.setNumChannels(1);
+    for(int i=0;i<n;i++)
+    {
+        audioFile1.samples[0][i]=(a3[i]);
+    }
+    audioFile1.save(ad4,AudioFileFormat::Wave);
 
 }
