@@ -17,8 +17,6 @@ std::vector<float> diff(std::vector<float> &vec) ;
 
 struct Filter {
 
-    virtual std::vector<float> filsr1(std::vector<float> &c, int m) const = 0;
-
     virtual ~Filter() {}
 };
 
@@ -29,9 +27,8 @@ struct Recursiv : Filter {
 struct Norecursiv : Filter {
     static std::vector<float> filsr(std::vector<float> &c, int m);
 };
-struct Demodulator {
 
-    virtual std::vector<float> demodul1(std::vector<complex<float>> &sig) const = 0;
+struct Demodulator {
 
     virtual ~Demodulator() {}
 };
