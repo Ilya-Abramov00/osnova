@@ -1,7 +1,7 @@
 #include "signal/signal.h"
 #include <vector>
 #include <algorithm>
-
+#include <cmath>
 
 std::vector<float> normirovca(std::vector<float>& v)
 {
@@ -13,7 +13,7 @@ std::vector<float> normirovca(std::vector<float>& v)
     sig.reserve(m);
     for (int i = 0; i <m; ++i)
     {
-        sig.emplace_back(v.at(i) / max);
+        sig.emplace_back(v.at(i) / abs(max));
     }
     return sig;
 }
