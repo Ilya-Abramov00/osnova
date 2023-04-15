@@ -6,14 +6,16 @@
 std::vector<float> normirovca(std::vector<float>& v)
 {
 
-    auto max = *max_element(v.begin(), v.end());
+    auto max = abs(*max_element(v.begin(), v.end()));
+    auto min= abs(*min_element(v.begin(), v.end()));
+    if(min>max) {max=min;}
 
     auto m=v.size();
     std::vector<float> sig(0,0);
     sig.reserve(m);
     for (int i = 0; i <m; ++i)
     {
-        sig.emplace_back(v.at(i) / abs(max));
+        sig.emplace_back(v.at(i) / max);
     }
     return sig;
 }

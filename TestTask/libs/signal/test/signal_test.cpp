@@ -57,11 +57,11 @@ ASSERT_TRUE(b.at(3)==3.5);
 
 TEST(signal_test,normir)
 {
-    vector<float>a={-1,2,3,4};
+    vector<float>a={-4,2,3,3};
     auto b=normirovca(a);
 
-    ASSERT_TRUE(b.at(0)==-0.25);
+    ASSERT_TRUE(b.at(0)==-1);
     ASSERT_TRUE(b.at(1)==0.5);
     ASSERT_TRUE(b.at(2)==0.75);
-    ASSERT_TRUE(b.at(3)==1);
+    ASSERT_TRUE(b.at(3)==0.75);
 }
