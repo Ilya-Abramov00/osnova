@@ -25,9 +25,8 @@ auto c2=normirovca(c1);
 
     auto a1=DemodulatorFM::demodul(a);
 
-    Recursiv q(a1);
 
-    auto a2=q.filsr(8);
+    auto a2=Recursiv::filsr(a1,8);
 
 
     auto a3= downsample(a2,25);

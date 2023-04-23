@@ -52,7 +52,7 @@ std::vector<float> diff(std::vector<float> &vec) {
     return d;
 }
 
- std::vector<float> Recursiv:: filsr( int m)
+ std::vector<float> Recursiv:: filsr(std::vector<float> &c, int m)
 {
            size_t N = c.size();
         std::vector<float> rez(0, 0);
@@ -70,7 +70,7 @@ std::vector<float> diff(std::vector<float> &vec) {
         return rez;
     }
 
-std::vector<float> Norecursiv::filsr( int m){
+std::vector<float> Norecursiv::filsr(std::vector<float> &c, int m){
 
     size_t N = c.size();
     std::vector<float> rez(0, 0);
