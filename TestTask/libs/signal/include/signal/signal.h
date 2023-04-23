@@ -17,15 +17,25 @@ std::vector<float> diff(std::vector<float> &vec) ;
 
 struct Filter {
 
+    Filter(std::vector<float> a):c(a) {}
+
+    virtual std::vector<float> filsr() {return 1};
     virtual ~Filter() {}
+    std::vector<float> c;
 };
 
 struct Recursiv : Filter {
-    static std::vector<float> filsr(std::vector<float> &c, int m);
+
+    Recursiv(std::vector<float> e): Filter(e) {}
+
+    std::vector<float> filsr( int m);
 };
 
 struct Norecursiv : Filter {
-    static std::vector<float> filsr(std::vector<float> &c, int m);
+
+    Norecursiv(std::vector<float> e): Filter(e) {}
+
+     std::vector<float> filsr( int m);
 };
 
 struct Demodulator {
