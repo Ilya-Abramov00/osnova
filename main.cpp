@@ -1,5 +1,4 @@
 
-
 #include <fstream>
 #include <iostream>
 #include <queue>
@@ -14,11 +13,12 @@ std::condition_variable cv;
 int main()
 {
     int time=20;
-    std::queue <char> ad1;
+    std::queue <char> buf;
 
 
 
-    std::thread qw1([&ad1,&time]
+
+    std::thread qw1([&buf,&time]
     {
         char a = 1;//иммитация данных
 
@@ -28,7 +28,7 @@ int main()
             for (int j = 0; j != 1024 * 8; j++)
             {
 
-                ad1.push(a);
+                buf.push(a);
             }
             mtx.unlock();
             std::this_thread::sleep_for(std::chrono::microseconds(time));
@@ -36,25 +36,26 @@ int main()
     });
 
 
-
-    std::cout <<"\n"<< ad1.size()<<"\n";
-
-        std::ofstream fout("/home/ilya/zad2.txt", std::ios_base::trunc);
+    std::thread qw2([&buf]
+    {
+        std::cout <<"\n"<< buf.size()<<"\n";
+        std::ofstream fout("/home/ilya/zad2.txt", std::ios_base::app | std::ios_base::out);
         if (!fout.is_open()) { std::cout << "Файл не может быть открыт\n"; }
         else
         {
 
-            int m = ad1.size();
-            while(ad1.empty())
+            int m =buf.size();
+            while(buf.empty())
             {
-                auto p = ad1.front();
+                auto p = buf.front();
                 fout.write((char *) &p, sizeof(p));
-                ad1.pop();
+                buf.pop();
             }
         fout.close();
 
         }
-
+    });
 qw1.join();
+qw2.join();
     return 1;
 }
