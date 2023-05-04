@@ -10,49 +10,70 @@
 std::mutex mtx;
 std::condition_variable cv;
 
-int main()
-{
-    int time=20;
-    std::queue <char> buf;
+bool var= true;//для остановки второго потока
+bool ret() { return var;}
+
+bool stop= true;//для остановки первого потока
+int k=0;
+
+bool stops(){
+    if(k==1024){stop=false;}
+    return stop;
+};
 
 
 
 
-    std::thread qw1([&buf,&time]
+    void read(std::queue <char>& buf1 , int time1)
     {
-        char a = 1;//иммитация данных
-        for(int i=0; i!=1024 ; i++)
+        char a = 'q';//иммитация записи данных
+        while (stops())
         {
             std::unique_lock<std::mutex> mtx_0(mtx);
-            for (int j = 0; j != 1024 * 8; j++)
+            while(buf1.size()!=0)
             {
-                buf.push(a);
+                    cv.wait(mtx_0);//пока он занят, запись запрещена
             }
-            mtx.unlock();
-            std::this_thread::sleep_for(std::chrono::microseconds(time));
+
+            for (int j = 0; j != 1024; j++) { buf1.push(a); }
+
+            mtx_0.unlock();
+
+            std::this_thread::sleep_for(std::chrono::microseconds(time1));
+            k++;
         }
-    });
+        var = false;
+    }
 
-
-    std::thread qw2([&buf]
+void write(std::queue <char>& buf1 )
+{
+    std::ofstream fout("/home/ilya/zad2.txt", std::ios_base::app | std::ios_base::out);
+    while (ret())
     {
-        std::cout <<"\n"<< buf.size()<<"\n";
-        std::ofstream fout("/home/ilya/zad2.txt", std::ios_base::app | std::ios_base::out);
-        if (!fout.is_open()) { std::cout << "Файл не может быть открыт\n"; }
-        else
+        while (buf1.size() != 0)
         {
-            int m =buf.size();
-            while(buf.empty())
-            {
-                auto p = buf.front();
-                fout.write((char *) &p, sizeof(p));
-                buf.pop();
-            }
-        fout.close();
+            auto p = buf1.front();
+            fout.write((char *) &p, 1);
+            buf1.pop();
         }
-    });
+        cv.notify_one();
 
-qw1.join();
-qw2.join();
+    }
+    fout.close();
+}
+
+int main()
+{
+        int time=20;
+        std::queue <char> buf;
+
+        std::thread q1(read, std::ref (buf) , time );
+
+        std::thread q2(write, std::ref (buf) );
+
+        q1.join();
+        q2.join();
+
+    if( buf.size()==0){ std::cout<<" \n Очередь пуста";}
     return 1;
 }
