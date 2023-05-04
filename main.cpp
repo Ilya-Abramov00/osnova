@@ -21,13 +21,11 @@ int main()
     std::thread qw1([&buf,&time]
     {
         char a = 1;//иммитация данных
-
         for(int i=0; i!=1024 ; i++)
         {
             std::unique_lock<std::mutex> mtx_0(mtx);
             for (int j = 0; j != 1024 * 8; j++)
             {
-
                 buf.push(a);
             }
             mtx.unlock();
@@ -43,7 +41,6 @@ int main()
         if (!fout.is_open()) { std::cout << "Файл не может быть открыт\n"; }
         else
         {
-
             int m =buf.size();
             while(buf.empty())
             {
@@ -52,9 +49,9 @@ int main()
                 buf.pop();
             }
         fout.close();
-
         }
     });
+
 qw1.join();
 qw2.join();
     return 1;
