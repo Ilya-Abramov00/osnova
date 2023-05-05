@@ -124,7 +124,7 @@ void read( std::queue <Msg> & queue ,char *buf_0 )
             {
                 char data=*( msg.begin );
                 fout.write((char *) &data, 1);
-                std::this_thread::sleep_for(std::chrono::microseconds(20));
+                std::this_thread::sleep_for(std::chrono::microseconds(GetRandomNumber(15,25)));
             }
 
         }
