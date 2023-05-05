@@ -1,7 +1,5 @@
-#ifndef potoc_H
-#define potoc_H
-
-
+#ifndef POTOC_H
+#define POTOC_H
 
 #include <fstream>
 #include <iostream>
