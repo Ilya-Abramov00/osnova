@@ -37,11 +37,6 @@ bool ret() { return var;}
 
 bool stop= true;//для остановки первого потока
 
-struct Msg
-        {
- char * begin;
- char * end;
-        };
 
 bool stops()
 {
@@ -69,6 +64,12 @@ int  write_buf( char *buf_0, int sdvig )//иммитация записи дан
     return data_size;
 }
 
+struct Msg
+{
+    char * begin;
+    char * end;
+};
+
 
 void write(std::queue <Msg> & queue , char *buf_0 )
 {
@@ -91,7 +92,6 @@ void write(std::queue <Msg> & queue , char *buf_0 )
         queue.push( msg) ;
 
         mtx_0.unlock();
-
 
 
         if (queue.size()>255 )
