@@ -9,12 +9,14 @@
 
 std::mutex mtx;
 std::condition_variable cv;
+int k=0;
 
 bool var= true;//для остановки второго потока
+
 bool ret() { return var;}
 
 bool stop= true;//для остановки первого потока
-int k=0;
+
 
 bool stops()
 {
@@ -37,12 +39,17 @@ return data_size;
 
     void write(std::queue <char*> & queue , char *buf_0 )
     {
-
         while ( stops() )
+
         {
             int sdvig=1024*k;//уже записано столько мб
 
             std::unique_lock<std::mutex> mtx_0(mtx);
+            while (queue.size()>255 )
+            {
+                std::cout<<"\n Очередь почти переполнена \n";//останавливаем поток с записью данных
+                cv.wait(mtx_0);
+            }
 
             int data_size= write_buf( buf_0, sdvig);
 
@@ -67,10 +74,8 @@ void read( std::queue <char *> & queue ,char *buf_0 )
 
     while ( ret() )
     {
-
         while ( queue.empty() == 0)
         {
-
             auto p_begin = queue.front();
             queue.pop();
             auto p_end = queue.front();
@@ -81,6 +86,7 @@ void read( std::queue <char *> & queue ,char *buf_0 )
                char data=*(p_begin);
                fout.write((char *) &data, 1);
             }
+           cv.notify_one();//проверка на заполненность очереди
         }
     }
     fout.close();
@@ -97,7 +103,7 @@ int main()
         std::thread q2 (read , std::ref (queue) , buf_0) ;
 
         q1.join();
-        q2.join();
+       q2.join();
 
     if( queue.empty() ){ std::cout<<" \n Очередь пуста";}
     return 1;
