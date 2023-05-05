@@ -2,9 +2,10 @@
 
 int main()
 {
-    std::queue <char *> queue ;
-    char buf[1024*1024];
-    char* buf_0=buf;
+    std::queue <Msg> queue ;
+    int v=1024*1024;
+    char buf[v];
+    char * buf_0=buf;
 
     std::thread q1 (write, std::ref (queue) , buf_0);
 

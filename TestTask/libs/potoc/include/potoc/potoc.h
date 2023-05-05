@@ -7,7 +7,25 @@
 #include <thread>
 #include <chrono>
 #include <mutex>
-#include <condition_variable>//12
+#include <condition_variable>
+#include <stdlib.h> // нужен для вызова функций rand(), srand()
+#include <time.h> // нужен для вызова функции time()
+
+
+
+
+
+int GetRandomNumber(int min, int max)
+{
+    // Установить генератор случайных чисел
+    srand(time(NULL));
+
+    // Получить случайное число - формула
+    int num = min + rand() % (max - min + 1);
+
+    return num;
+}
+
 
 std::mutex mtx;
 std::condition_variable cv;
@@ -19,6 +37,11 @@ bool ret() { return var;}
 
 bool stop= true;//для остановки первого потока
 
+struct Msg
+        {
+ char * begin;
+ char * end;
+        };
 
 bool stops()
 {
@@ -30,67 +53,84 @@ int  write_buf( char *buf_0, int sdvig )//иммитация записи дан
 {
     char a='q';
     int data_size=1024;
+    auto start=std::chrono::high_resolution_clock::now();
+
     for (int j = 0; j != data_size ; j++)
     {
         *(buf_0+sdvig +j)=a ;
-        std::this_thread::sleep_for(std::chrono::microseconds(20));
+        std::this_thread::sleep_for(std::chrono::microseconds(GetRandomNumber(1,2)));
     }
+
+    auto end=std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<float> duration=end-start;
+    std::cout<<"\n количество операций в секунду= "<<int(1024/duration.count())<<"\n";
+
     return data_size;
 }
 
 
-void write(std::queue <char*> & queue , char *buf_0 )
+void write(std::queue <Msg> & queue , char *buf_0 )
 {
+
     while ( stops() )
 
     {
         int sdvig=1024*k;//уже записано столько мб
 
 
-       if (queue.size()>253 )
+        auto start=std::chrono::high_resolution_clock::now();
+
+        int data_size= write_buf( buf_0, sdvig);
+        Msg msg;
+        msg.begin =buf_0+sdvig;
+        msg.end =msg.begin+data_size;
+
+       std::unique_lock <std::mutex> mtx_0 (mtx);
+
+        queue.push( msg) ;
+
+        mtx_0.unlock();
+
+
+
+        if (queue.size()>255 )
         {
             std::cout<<"\n Очередь переполнена, Ошибка \n";
             stop=false;
         }
-
-        int data_size= write_buf( buf_0, sdvig);
-
-        auto buf_begin=buf_0+sdvig;
-        auto buf_end=buf_begin+data_size;
-
-        queue.push(buf_begin ) ;
-        queue.push(buf_end );
-
-
-
         k++;
     }
     var = false;
 }
 
-void read( std::queue <char *> & queue ,char *buf_0 )
+void read( std::queue <Msg> & queue ,char *buf_0 )
 {
 
     std::ofstream fout("/home/ilya/zad2.txt", std::ios_base::app | std::ios_base::out);
-int e=1;//механизм на случай, не сработки функции ret()
-    while ( ret() && e<1024)
+
+
+
+    while ( ret() )
     {
         while ( queue.size() != 0)
         {
-            auto p_begin = queue.front();
-            queue.pop();
-            auto p_end = queue.front();
+            Msg msg;
+            std::cout<<"\n количество элементов в очереди на сохрание= "<< queue.size();
+            msg= queue.front();
             queue.pop();
 
-            for( ; p_begin != p_end ; p_begin++ )
+            for( ;  msg.begin !=msg.end ;  msg.begin ++ )
             {
-                char data=*(p_begin);
+                char data=*( msg.begin );
                 fout.write((char *) &data, 1);
+                std::this_thread::sleep_for(std::chrono::microseconds(20));
             }
 
         }
-        e++;
+
     }
+    std::cout<<"\n количество элементов в очереди сохран= "<< queue.size();
     fout.close();
 }
 
