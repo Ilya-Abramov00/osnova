@@ -37,14 +37,14 @@ bool ret() { return var;}
 
 bool stop= true;//для остановки первого потока
 
-
 bool stops()
 {
     if( k==1023 ) { stop=false; }
     return stop;
 };
 
-int  write_buf( char *buf_0, int sdvig )//иммитация записи данных
+
+int  write_buf( char *buf_0, int sdvig )//иммитация записи данных с рандомной скоростью
 {
     char a='q';
     int data_size=1024;
@@ -59,12 +59,12 @@ int  write_buf( char *buf_0, int sdvig )//иммитация записи дан
     auto end=std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<float> duration=end-start;
-    std::cout<<"\n количество операций в секунду= "<<int(1024/duration.count())<<"\n";
+    std::cout<<"\n количество операций записи данных в секунду= "<<int(1024/duration.count())<<"\n";
 
     return data_size;
 }
 
-struct Msg
+struct Msg//сообщение
 {
     char * begin;
     char * end;
@@ -78,9 +78,6 @@ void write(std::queue <Msg> & queue , char *buf_0 )
 
     {
         int sdvig=1024*k;//уже записано столько мб
-
-
-        auto start=std::chrono::high_resolution_clock::now();
 
         int data_size= write_buf( buf_0, sdvig);
         Msg msg;
@@ -104,12 +101,11 @@ void write(std::queue <Msg> & queue , char *buf_0 )
     var = false;
 }
 
+
 void read( std::queue <Msg> & queue ,char *buf_0 )
 {
 
     std::ofstream fout("/home/ilya/zad2.txt", std::ios_base::app | std::ios_base::out);
-
-
 
     while ( ret() )
     {
@@ -130,7 +126,7 @@ void read( std::queue <Msg> & queue ,char *buf_0 )
         }
 
     }
-    std::cout<<"\n количество элементов в очереди сохран= "<< queue.size();
+    std::cout<<"\n количество элементов в очереди на сохрание= "<< queue.size();
     fout.close();
 }
 
