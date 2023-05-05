@@ -15,7 +15,6 @@ TEST(potoc_test, inicializ) {
     char* buf_0=buf;
     int a=write_buf( buf_0, 0);
     ASSERT_TRUE(a == 1024);
-    ASSERT_TRUE(21 == 103);
 
 }
 
