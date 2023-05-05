@@ -22,7 +22,7 @@ bool stop= true;//для остановки первого потока
 
 bool stops()
 {
-    if( k==1024 ) { stop=false; }
+    if( k==1023 ) { stop=false; }
     return stop;
 };
 
@@ -46,11 +46,11 @@ void write(std::queue <char*> & queue , char *buf_0 )
     {
         int sdvig=1024*k;//уже записано столько мб
 
-        std::unique_lock<std::mutex> mtx_0(mtx);
-        while (queue.size()>255 )
+
+       if (queue.size()>253 )
         {
-            std::cout<<"\n Очередь почти переполнена \n";//останавливаем поток с записью данных
-            cv.wait(mtx_0);
+            std::cout<<"\n Очередь переполнена, Ошибка \n";
+            stop=false;
         }
 
         int data_size= write_buf( buf_0, sdvig);
@@ -61,7 +61,7 @@ void write(std::queue <char*> & queue , char *buf_0 )
         queue.push(buf_begin ) ;
         queue.push(buf_end );
 
-        mtx_0.unlock();
+
 
         k++;
     }
@@ -72,11 +72,10 @@ void read( std::queue <char *> & queue ,char *buf_0 )
 {
 
     std::ofstream fout("/home/ilya/zad2.txt", std::ios_base::app | std::ios_base::out);
-
-
-    while ( ret() )
+int e=1;//механизм на случай, не сработки функции ret()
+    while ( ret() && e<1024)
     {
-        while ( queue.empty() == 0)
+        while ( queue.size() != 0)
         {
             auto p_begin = queue.front();
             queue.pop();
@@ -88,8 +87,9 @@ void read( std::queue <char *> & queue ,char *buf_0 )
                 char data=*(p_begin);
                 fout.write((char *) &data, 1);
             }
-            cv.notify_one();//проверка на заполненность очереди
+
         }
+        e++;
     }
     fout.close();
 }
