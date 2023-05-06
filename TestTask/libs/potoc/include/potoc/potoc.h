@@ -40,7 +40,7 @@ bool stop= true;//для остановки первого потока
 
 bool stops()
 {
-    if( k==255 ) { stop=false; }
+    if( k==256 ) { stop=false; }
     return stop;
 };
 
@@ -93,7 +93,7 @@ void write(std::queue <Msg> & queue , char *buf_0 )
         mtx_0.unlock();
 
 
-        if (queue.size()>255 )
+        if (queue.size()>=256 )
         {
             std::cout<<"\n Очередь переполнена, Ошибка \n";
             std::cout<<"\n Сообщений отправлено="<<k;

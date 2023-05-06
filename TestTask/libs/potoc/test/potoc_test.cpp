@@ -15,26 +15,26 @@ TEST(potoc_test, write_buf) {
 
     int a=write_buf( buf_0, 0);
 
-    ASSERT_TRUE(a == 1024);
+    ASSERT_TRUE(a == 1024*1024);
 
-      ASSERT_TRUE(buf[1023]== 'q');
+    ASSERT_TRUE(buf[1023*1024-1]== 'q');
 }
 
 
 TEST(potoc_test, write_read )
 {
     std::queue <Msg> queue ;
-    char buf[1024*1024];
-    char* buf_0=buf;
+    char * buf_0=new char[1024*1024*256];
 
     write( queue , buf_0 );
+
     ASSERT_TRUE(queue.size() == 256);
 
     var=true;
     read( queue , buf_0 );
 
     ASSERT_TRUE(queue.size() == 0);
-    ASSERT_TRUE(buf[1024*256-1]== 'q');
+    ASSERT_TRUE(*(buf_0+1024*256-1)== 'q');
 
 }
 
