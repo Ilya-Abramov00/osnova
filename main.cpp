@@ -3,9 +3,7 @@
 int main()
 {
     std::queue <Msg> queue ;
-    int v=1024*1024;
-    char buf[v];
-    char * buf_0=buf;
+    char * buf_0=new char[1024*1024*256];
 
     std::thread q1 (write, std::ref (queue) , buf_0);
 
@@ -14,6 +12,9 @@ int main()
     q1.join();
     q2.join();
 
-    if( queue.empty() ){ std::cout<<" \n работа закончена";}
+    if( queue.empty() ){ std::cout<<" \n \n работа закончена";}
+
+   delete [] buf_0;
+
     return 1;
 }
