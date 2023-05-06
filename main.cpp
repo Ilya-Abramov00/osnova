@@ -12,7 +12,7 @@ int main()
     q1.join();
     q2.join();
 
-    if( queue.empty() ){ std::cout<<" \n \n работа закончена";}
+  std::cout<<" \n \n работа закончена";
 
    delete [] buf_0;
 
