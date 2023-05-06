@@ -45,7 +45,7 @@ bool stops()
 };
 
 
-int  write_buf( char *buf_0, int sdvig )//иммитация записи 1 мб данных с рандомной скоростью
+int  write_buf( char *buf_0, int sdvig )//иммитация записи 1 мб данных( с рандомной скоростью)
 {
     char a='q';
     int data_size=1024*1024;
@@ -79,7 +79,7 @@ void write(std::queue <Msg> & queue , char *buf_0 )
     while ( stops() )
 
     {
-        int sdvig=1024*k;//уже записано столько мб
+        int sdvig=1024*1024*k;//уже записано столько мб
 
         int data_size= write_buf( buf_0, sdvig);
         Msg msg;
