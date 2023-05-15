@@ -41,13 +41,13 @@ endif()
 
 add_executable(tddProject main.cpp TestTask/libs/potoc/include/potoc/potoc.h)
 
-target_link_libraries(${PROJECT_NAME} Printer)
+#target_link_libraries(${PROJECT_NAME} Printer)
 
-target_link_libraries(${PROJECT_NAME} Complex)
+#target_link_libraries(${PROJECT_NAME} Complex)
 
-target_link_libraries(${PROJECT_NAME} Signal)
+#target_link_libraries(${PROJECT_NAME} Signal)
 
-target_link_libraries(${PROJECT_NAME} AudioFile)
+#target_link_libraries(${PROJECT_NAME} AudioFile)
 
 target_link_libraries(${PROJECT_NAME} Potoc)
 
