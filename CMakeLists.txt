@@ -28,6 +28,7 @@ add_subdirectory(TestTask/libs/printer)
 add_subdirectory(TestTask/libs/complex)
 
 add_subdirectory(TestTask/libs/signal)
+
 add_subdirectory(TestTask/libs/AudioFile-master)
 
 if(UNITTEST)
