@@ -16,19 +16,12 @@ int  write_buf( char *buf_0, int sdvig )//иммитация записи 1 мб
     char a='q';
     int data_size=1024*1024;
 
-    auto start=std::chrono::high_resolution_clock::now();
-
     for (int j = 0; j != data_size ; j++)
     {
         *(buf_0+sdvig +j)=a ;
-
     }
+
     std::this_thread::sleep_for(std::chrono::microseconds(GetRandomNumber(0,5000)));//искуственное рандомое замедление
-    auto end=std::chrono::high_resolution_clock::now();
-
-    std::chrono::duration<float> duration=end-start;
-    std::cout<<"\n скорость записи мб/с= "<<int(1/duration.count())<<"\n";
-
     return data_size;
 }
 
@@ -40,7 +33,16 @@ void write(std::queue <Msg> & queue , char *buf_0 )
     {
         int sdvig=1024*1024*k;//уже записано столько (к мегабайт)
 
+        auto start=std::chrono::high_resolution_clock::now();
+
+
         int data_size= write_buf( buf_0, sdvig);
+
+
+        auto end=std::chrono::high_resolution_clock::now();
+        std::chrono::duration<float> duration=end-start;
+        std::cout<<"\n скорость записи мб/с= "<<int(1/duration.count())<<"\n";
+
         Msg msg;
         msg.begin =buf_0+sdvig;
         msg.end =msg.begin+data_size;
