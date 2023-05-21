@@ -9,15 +9,6 @@
 #include <mutex>
 #include <condition_variable>
 
-#include <stdlib.h> // нужен для вызова функций rand(), srand()
-#include <time.h> // нужен для вызова функции time()
-
-
-
-
-
-int GetRandomNumber(int min, int max);
-
 
 std::mutex mtx;
 std::condition_variable cv;
@@ -48,7 +39,7 @@ struct Msg//сообщение
 void write(std::queue <Msg> & queue , char *buf_0 );
 
 
-void read( std::queue <Msg> & queue ,char *buf_0 );
+void read( std::queue <Msg> & queue ,char *buf_0, std::string ptr );
 
 
 class Write_thread
@@ -64,8 +55,7 @@ public:
     }
 
 private:
-    static void MyFunc(Write_thread *p)
-    {
+    static void MyFunc(Write_thread *p){
         write( p->queue ,  p->buf_0);
     }
     std::queue <Msg> & queue;
@@ -76,10 +66,9 @@ class Read_thread
 {
 public:
 
-    Read_thread(std::queue <Msg> & queue , char *&buf_0) : queue(queue), buf_0(buf_0) {}
+    Read_thread(std::queue <Msg> & queue , char *&buf_0, std::string ptr) : queue(queue), buf_0(buf_0), ptr(ptr) {}
 
-    void CreateThr()
-    {
+    void CreateThr(){
         std::thread thr(MyFunc, this);
         thr.join();
     }
@@ -87,10 +76,11 @@ public:
 private:
     static void MyFunc(Read_thread *p)
     {
-        read( p->queue ,  p->buf_0);
+        read( p->queue ,  p->buf_0, p->ptr);
     }
     std::queue <Msg> & queue;
     char *&buf_0;
+    std::string ptr;
 };
 
 

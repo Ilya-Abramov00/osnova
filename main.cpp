@@ -11,7 +11,7 @@ int main()
 
  // /*
     Write_thread q1(queue,buf_0);
-    Read_thread q2( queue,buf_0);
+    Read_thread q2( queue,buf_0,"/home/ilya/zad2.txt" );
     q1.CreateThr();
     q2.CreateThr();
  // */
@@ -24,7 +24,7 @@ int main()
     q2.join();
    */
 
-    std::cout<<" \n \n работа закончена";
+
     delete [] buf_0;
 
     auto end=std::chrono::high_resolution_clock::now();

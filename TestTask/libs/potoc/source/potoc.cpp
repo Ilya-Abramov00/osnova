@@ -1,48 +1,28 @@
 #include "potoc/potoc.h"
 
 
-
-
-
-int GetRandomNumber(int min, int max)
-{
-    // Установить генератор случайных чисел
-    srand(time(NULL));
-
-    // Получить случайное число - формула
-    int num = min + rand() % (max - min + 1);
-
-    return num;
-}
-
 int  write_buf( char *buf_0, int sdvig )//иммитация записи 1 мб данных( с рандомной скоростью)
 {
     char a='q';
     int data_size=1024*1024;
-
     for (int j = 0; j != data_size ; j++)
     {
         *(buf_0+sdvig +j)=a ;
     }
 
-    std::this_thread::sleep_for(std::chrono::microseconds(GetRandomNumber(0,5000)));//искуственное рандомое замедление
     return data_size;
 }
 
-
+int q=0;
 void write(std::queue <Msg> & queue , char *buf_0 )
 {
-
     while ( stops() )
-
     {
         int sdvig=1024*1024*k;//уже записано столько (к мегабайт)
 
         auto start=std::chrono::high_resolution_clock::now();
 
-
         int data_size= write_buf( buf_0, sdvig);
-
 
         auto end=std::chrono::high_resolution_clock::now();
         std::chrono::duration<float> duration=end-start;
@@ -55,9 +35,10 @@ void write(std::queue <Msg> & queue , char *buf_0 )
         std::unique_lock <std::mutex> mtx_0 (mtx);
 
         queue.push( msg) ;
-
+        std::cout<<"\n размер очереди= "<< queue.size()<<std::endl;
         mtx_0.unlock();
 
+        if (queue.size()>=q ) q=queue.size();
 
         if (queue.size()>=256 )
         {
@@ -65,7 +46,6 @@ void write(std::queue <Msg> & queue , char *buf_0 )
             std::cout<<"\n Сообщений отправлено="<<k;
             stop=false;
         }
-
         k++;
     }
     var = false;
@@ -73,37 +53,35 @@ void write(std::queue <Msg> & queue , char *buf_0 )
 }
 
 
-void read( std::queue <Msg> & queue ,char *buf_0 )
+void read( std::queue <Msg> & queue ,char *buf_0, std::string ptr )
 {
 
-    std::ofstream fout("/home/ilya/zad2.txt", std::ios_base::app | std::ios_base::out);
-
+    std::ofstream fout(ptr, std::ios_base::app | std::ios_base::out);
     while ( ret() )
     {
         while ( queue.size() != 0)
         {
             Msg msg;
-            std::cout<<"\n размер очереди= "<< queue.size();
             msg= queue.front();
             queue.pop();
 
             auto start=std::chrono::high_resolution_clock::now();
 
-
             for( ;  msg.begin !=msg.end ;  msg.begin ++ )
             {
                 char data=*( msg.begin );
                 fout.write((char *) &data, 1);
-
             }
 
             auto end=std::chrono::high_resolution_clock::now();
             std::chrono::duration<float> duration=end-start;
-            std::cout<<"\n скорость сохранения мб/с= "<<int(1/duration.count())<<"\n";
-        }
 
+            std::cout<<"\n скорость сохранения мб/с= "<<int(1/duration.count())<<"\n";
+            std::cout<<"\n размер очереди= "<< queue.size()<<std::endl;
+        }
     }
-    std::cout<<"\n размер очереди=  "<< queue.size();
+    std::cout<<" \n\n\n сохранениe завершено\n ";
+    std::cout<<"\n максимальный размер очереди= "<< q<<"\n ";
     fout.close();
 }
 
