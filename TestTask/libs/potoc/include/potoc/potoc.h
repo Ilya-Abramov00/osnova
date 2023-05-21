@@ -50,4 +50,81 @@ void write(std::queue <Msg> & queue , char *buf_0 );
 
 void read( std::queue <Msg> & queue ,char *buf_0 );
 
+
+class Write
+{
+public:
+
+    Write(std::queue <Msg> & queue , char *&buf_0):queue(queue), buf_0(buf_0) {}
+
+    void CreateThr()
+    {
+        std::thread thr(MyFunc, this);
+        thr.detach();
+    }
+
+private:
+    static void MyFunc(Write *p)
+    {
+        write( p->queue ,  p->buf_0);
+    }
+    std::queue <Msg> & queue;
+    char *&buf_0;
+};
+
+class Read
+{
+public:
+
+    Read(std::queue <Msg> & queue , char *&buf_0) : queue(queue), buf_0(buf_0) {}
+
+    void CreateThr()
+    {
+        std::thread thr(MyFunc, this);
+        thr.join();
+    }
+
+private:
+    static void MyFunc(Read *p)
+    {
+        read( p->queue ,  p->buf_0);
+    }
+    std::queue <Msg> & queue;
+    char *&buf_0;
+};
+
+
+/*
+class Write
+{
+public:
+
+    Write(std::queue <Msg> & queue , char *&buf_0):queue(queue), buf_0(buf_0) {}
+
+    void operator()() const
+    {
+        write( queue ,  buf_0);
+    }
+
+private:
+    std::queue <Msg> & queue;
+    char *&buf_0;
+};
+
+class Read
+{
+public:
+
+    Read(std::queue <Msg> & queue , char *&buf_0) : queue(queue), buf_0(buf_0) {}
+
+    void operator()() const
+    {
+        read( queue ,  buf_0);
+    }
+
+private:
+    std::queue <Msg> & queue;
+    char *&buf_0;
+};
+*/
 #endif

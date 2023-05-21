@@ -1,5 +1,9 @@
 #include "potoc/potoc.h"
 
+
+
+
+
 int GetRandomNumber(int min, int max)
 {
     // Установить генератор случайных чисел
@@ -24,6 +28,7 @@ int  write_buf( char *buf_0, int sdvig )//иммитация записи 1 мб
     std::this_thread::sleep_for(std::chrono::microseconds(GetRandomNumber(0,5000)));//искуственное рандомое замедление
     return data_size;
 }
+
 
 void write(std::queue <Msg> & queue , char *buf_0 )
 {
@@ -66,6 +71,8 @@ void write(std::queue <Msg> & queue , char *buf_0 )
     var = false;
     std::cout<<"\n Запись закончена \n";
 }
+
+
 void read( std::queue <Msg> & queue ,char *buf_0 )
 {
 
