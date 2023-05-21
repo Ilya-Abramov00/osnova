@@ -10,8 +10,8 @@ int main()
 
 
  // /*
-    Write q1(queue,buf_0);
-    Read q2( queue,buf_0);
+    Write_thread q1(queue,buf_0);
+    Read_thread q2( queue,buf_0);
     q1.CreateThr();
     q2.CreateThr();
  // */

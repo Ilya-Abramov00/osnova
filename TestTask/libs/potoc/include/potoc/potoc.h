@@ -51,11 +51,11 @@ void write(std::queue <Msg> & queue , char *buf_0 );
 void read( std::queue <Msg> & queue ,char *buf_0 );
 
 
-class Write
+class Write_thread
 {
 public:
 
-    Write(std::queue <Msg> & queue , char *&buf_0):queue(queue), buf_0(buf_0) {}
+    Write_thread(std::queue <Msg> & queue , char *&buf_0):queue(queue), buf_0(buf_0) {}
 
     void CreateThr()
     {
@@ -64,7 +64,7 @@ public:
     }
 
 private:
-    static void MyFunc(Write *p)
+    static void MyFunc(Write_thread *p)
     {
         write( p->queue ,  p->buf_0);
     }
@@ -72,11 +72,11 @@ private:
     char *&buf_0;
 };
 
-class Read
+class Read_thread
 {
 public:
 
-    Read(std::queue <Msg> & queue , char *&buf_0) : queue(queue), buf_0(buf_0) {}
+    Read_thread(std::queue <Msg> & queue , char *&buf_0) : queue(queue), buf_0(buf_0) {}
 
     void CreateThr()
     {
@@ -85,7 +85,7 @@ public:
     }
 
 private:
-    static void MyFunc(Read *p)
+    static void MyFunc(Read_thread *p)
     {
         read( p->queue ,  p->buf_0);
     }
