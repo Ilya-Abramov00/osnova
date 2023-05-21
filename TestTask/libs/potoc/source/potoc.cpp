@@ -9,7 +9,6 @@ int  write_buf( char *buf_0, int sdvig )//иммитация записи 1 мб
     {
         *(buf_0+sdvig +j)=a ;
     }
-
     return data_size;
 }
 
