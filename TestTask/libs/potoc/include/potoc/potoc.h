@@ -94,37 +94,4 @@ private:
 };
 
 
-/*
-class Write
-{
-public:
-
-    Write(std::queue <Msg> & queue , char *&buf_0):queue(queue), buf_0(buf_0) {}
-
-    void operator()() const
-    {
-        write( queue ,  buf_0);
-    }
-
-private:
-    std::queue <Msg> & queue;
-    char *&buf_0;
-};
-
-class Read
-{
-public:
-
-    Read(std::queue <Msg> & queue , char *&buf_0) : queue(queue), buf_0(buf_0) {}
-
-    void operator()() const
-    {
-        read( queue ,  buf_0);
-    }
-
-private:
-    std::queue <Msg> & queue;
-    char *&buf_0;
-};
-*/
 #endif

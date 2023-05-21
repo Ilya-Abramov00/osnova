@@ -30,14 +30,10 @@ TEST(potoc_test, write_read )
 
     ASSERT_TRUE(queue.size() == 256);
 
-    //var=true;
-   // read( queue , buf_0 );
 
-    //ASSERT_TRUE(queue.size() == 0);
-    //ASSERT_TRUE(*(buf_0+1024*1024*256-1)== 'q');
+
 
 }
-
 
 
 
