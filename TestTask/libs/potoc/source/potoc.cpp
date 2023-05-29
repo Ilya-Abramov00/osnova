@@ -1,19 +1,12 @@
 #include "potoc/potoc.h"
-int GetRandomNumber(int min, int max)
-{
-    // Установить генератор случайных чисел
-    srand(time(NULL));
 
-    // Получить случайное число - формула
-    int num = min + rand() % (max - min + 1);
-
-    return num;
-}
+std::mutex mtx;
+std::condition_variable cv;
 
 
 int  write_buf( char *buf_0, int sdvig )//иммитация записи 1 мб данных
 {
-    char a='q';
+    char a='s';
     int data_size=1024*1024;
     for (int j = 0; j != data_size ; j++)
     {
@@ -22,7 +15,7 @@ int  write_buf( char *buf_0, int sdvig )//иммитация записи 1 мб
     return data_size;
 }
 
-int q=0;
+int q=1;
 
 void Write_thread:: write(std::queue <Msg> & queue , char *buf_0 )
 {
@@ -57,7 +50,7 @@ void Write_thread:: write(std::queue <Msg> & queue , char *buf_0 )
             stop=false;
         }
         k++;
-        std::this_thread::sleep_for(std::chrono::microseconds(GetRandomNumber(2000,20000)));
+        std::this_thread::sleep_for(std::chrono::microseconds(GetRandomNumber(2000,10000)));
         //искуственное рандомое замедление иммитирующей приход сообщений
     }
     var = false;
@@ -93,7 +86,7 @@ void Read_thread::read( std::queue <Msg> & queue ,char *buf_0, std::string ptr )
         }
     }
     std::cout<<" \n\n\n сохранениe завершено\n ";
-    std::cout<<"\n максимальный размер очереди= "<< q<<"\n ";
+    std::cout<<"\n максимальный размер очереди= "<< q <<"\n ";
     fout.close();
 }
 

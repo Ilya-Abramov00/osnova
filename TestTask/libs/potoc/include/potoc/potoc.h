@@ -10,10 +10,17 @@
 #include <condition_variable>
 #include <stdlib.h> // нужен для вызова функций rand(), srand()
 #include <time.h> // нужен для вызова функции time()
-int GetRandomNumber(int min, int max);
 
-std::mutex mtx;
-std::condition_variable cv;
+int GetRandomNumber(int min, int max)
+{
+    // Установить генератор случайных чисел
+    srand(time(NULL));
+
+    // Получить случайное число - формула
+    int num = min + rand() % (max - min + 1);
+
+    return num;
+}
 
 int k=0;//счетчик сообщений
 bool stop= true;//для остановки  потока записи
