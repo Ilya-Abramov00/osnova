@@ -40,8 +40,7 @@ if(UNITTEST)
         enable_testing()
 endif()
 
-
-add_executable(tddProject main.cpp TestTask/libs/potoc/include/potoc/potoc.h TestTask/libs/list/include/list/list.h)
+add_executable(tddProject main.cpp)
 
 target_link_libraries(${PROJECT_NAME} Printer)
 
@@ -54,6 +53,7 @@ target_link_libraries(${PROJECT_NAME} Signal)
 target_link_libraries(${PROJECT_NAME} Potoc)
 
 target_link_libraries(${PROJECT_NAME} List)
+
 
 if(UNIX)
         add_custom_target( distclean COMMAND find . -name *_automoc.cpp -type f -delete
