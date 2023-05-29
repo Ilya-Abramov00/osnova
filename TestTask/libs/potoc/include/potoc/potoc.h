@@ -14,7 +14,8 @@ std::mutex mtx;
 std::condition_variable cv;
 
 int k=0;
-
+bool stop= true;//для остановки  потока записи
+bool var= true;//для остановки потока чтения
 
 struct Msg//сообщение
 {
@@ -36,10 +37,11 @@ public:
         std::thread thr(MyFunc, this);
         thr.detach();
     }
-    bool stop= true;//для остановки  потока записи
+
 
 private:
     static void write(std::queue <Msg> & queue , char *buf_0 );
+
     static void MyFunc(Write_thread *p){
         write( p->queue ,  p->buf_0);
     }
@@ -64,7 +66,7 @@ public:
         std::thread thr(MyFunc, this);
         thr.join();
     }
-    bool var= true;//для остановки потока чтения
+
 private:
     static void MyFunc(Read_thread *p)
     {
@@ -73,7 +75,7 @@ private:
     static void read( std::queue <Msg> & queue ,char *buf_0, std::string ptr );
 
 
-    bool ret() { return var;}
+   static bool ret() { return var;}
 
     std::queue <Msg> & queue;
     char *&buf_0;
