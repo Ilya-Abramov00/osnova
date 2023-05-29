@@ -14,14 +14,7 @@ std::mutex mtx;
 std::condition_variable cv;
 
 int k=0;
-bool var= true;//для остановки потока чтения
-bool ret() { return var;}
-bool stop= true;//для остановки  потока записи
-bool stops()
-{
-    if( k==256 ) { stop=false; }
-    return stop;
-};
+
 
 struct Msg//сообщение
 {
@@ -30,12 +23,6 @@ struct Msg//сообщение
 };
 
 int  write_buf( char *buf_0, int sdvig );//функция реализуящая запись
-
-
-void write(std::queue <Msg> & queue , char *buf_0 );
-
-
-void read( std::queue <Msg> & queue ,char *buf_0, std::string ptr );
 
 
 class Write_thread
@@ -49,11 +36,20 @@ public:
         std::thread thr(MyFunc, this);
         thr.detach();
     }
+    bool stop= true;//для остановки  потока записи
 
 private:
+    static void write(std::queue <Msg> & queue , char *buf_0 );
     static void MyFunc(Write_thread *p){
         write( p->queue ,  p->buf_0);
     }
+
+   static bool stops()
+    {
+        if( k==256 ) { stop=false; }
+        return stop;
+    };
+
     std::queue <Msg> & queue;
     char *&buf_0;
 };
@@ -68,12 +64,16 @@ public:
         std::thread thr(MyFunc, this);
         thr.join();
     }
-
+    bool var= true;//для остановки потока чтения
 private:
     static void MyFunc(Read_thread *p)
     {
         read( p->queue ,  p->buf_0, p->ptr);
     }
+    static void read( std::queue <Msg> & queue ,char *buf_0, std::string ptr );
+
+
+    bool ret() { return var;}
 
     std::queue <Msg> & queue;
     char *&buf_0;

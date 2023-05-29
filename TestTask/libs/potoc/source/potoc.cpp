@@ -13,8 +13,10 @@ int  write_buf( char *buf_0, int sdvig )//иммитация записи 1 мб
 }
 
 int q=0;
-void write(std::queue <Msg> & queue , char *buf_0 )
+
+void Write_thread:: write(std::queue <Msg> & queue , char *buf_0 )
 {
+
     while ( stops() )
     {
         int sdvig=1024*1024*k;//уже записано столько (к мегабайт)
@@ -52,7 +54,7 @@ void write(std::queue <Msg> & queue , char *buf_0 )
 }
 
 
-void read( std::queue <Msg> & queue ,char *buf_0, std::string ptr )
+void Read_thread::read( std::queue <Msg> & queue ,char *buf_0, std::string ptr )
 {
 
     std::ofstream fout(ptr, std::ios_base::app | std::ios_base::out);
