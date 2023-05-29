@@ -34,23 +34,14 @@ TEST(complex_test, abs) {
 
 
 }
-TEST(complex_test, Arg) {
-    complex<float >a(-2,0);
-
-   }
 
 TEST(complex_test, Arg1)
   {
-    complex<float >b(0,0);
-
+    complex<float >a(0,0);
+      ASSERT_TRUE(a.Arg()==0);
         }
 
-TEST(complex_test, ArgDeg)
- {
-    complex<float >a(-2,2);
 
-
-}
 
 TEST(complex_test, conj) {
 

@@ -69,7 +69,7 @@ TEST(signal_test,normir)
 
 
 
-TEST(signal_test,audio)//собирается в main
+/* //собирается в main
 {
 string ad = "/home/ilya/Загрузки/am_sound.dat";
 string ad1 = "/home/ilya/Загрузки/pere_am_sound.dat";
@@ -82,7 +82,6 @@ auto c1=DemodulatorAM::demodul(c);
 auto c2=normirovca(c1);
 
 FileManeger<float>::SaveSignal(ad1,c1);
-
 
 
 auto a=FileManeger<float>::SavedSignal(ud);
@@ -128,3 +127,4 @@ audioFile1.samples[0][i]=(a3[i]);
 }
 audioFile1.save(ad4,AudioFileFormat::Wave);
 }
+ */
