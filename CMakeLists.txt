@@ -35,6 +35,8 @@ add_subdirectory(TestTask/libs/potoc)
 
 add_subdirectory(TestTask/libs/list)
 
+add_subdirectory(TestTask/libs/GraficiProject)
+
 if(UNITTEST)
         message(" output lib dir " ${CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG})
         enable_testing()
@@ -53,6 +55,8 @@ target_link_libraries(${PROJECT_NAME} Signal)
 target_link_libraries(${PROJECT_NAME} Potoc)
 
 target_link_libraries(${PROJECT_NAME} List)
+
+target_link_libraries(${PROJECT_NAME} GraficiProject)
 
 
 if(UNIX)
