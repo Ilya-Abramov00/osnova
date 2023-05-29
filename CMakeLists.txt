@@ -54,6 +54,7 @@ target_link_libraries(${PROJECT_NAME} Signal)
 target_link_libraries(${PROJECT_NAME} Potoc)
 
 target_link_libraries(${PROJECT_NAME} List)
+
 if(UNIX)
         add_custom_target( distclean COMMAND find . -name *_automoc.cpp -type f -delete
                 COMMAND find . -name moc_*cpp -type f -delete
