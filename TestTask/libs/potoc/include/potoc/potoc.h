@@ -89,6 +89,7 @@ private:
     std::queue <Msg> & queue;
     char *&buf_0;
     std::string ptr;
+
 };
 
 

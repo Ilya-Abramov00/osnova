@@ -6,7 +6,7 @@ std::condition_variable cv;
 
 int  write_buf( char *buf_0, int sdvig )//иммитация записи 1 мб данных
 {
-    char a='s';
+    char a='q';
     int data_size=1024*1024;
     for (int j = 0; j != data_size ; j++)
     {
@@ -46,7 +46,7 @@ void Write_thread:: write(std::queue <Msg> & queue , char *buf_0 )
         if (queue.size()>=256 )
         {
             std::cout<<"\n Очередь переполнена, Ошибка \n";
-            std::cout<<"\n Сообщений отправлено="<<k;
+            std::cout<<"\n Сообщений отправлено="<<k+1;
             stop=false;
         }
         k++;
@@ -62,7 +62,7 @@ void Read_thread::read( std::queue <Msg> & queue ,char *buf_0, std::string ptr )
 {
 
     std::ofstream fout(ptr, std::ios_base::app | std::ios_base::out);
-    while ( ret() )
+    while ( ret() || queue.size() != 0 )
     {
         while ( queue.size() != 0)
         {
