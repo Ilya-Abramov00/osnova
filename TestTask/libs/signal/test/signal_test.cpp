@@ -66,7 +66,10 @@ TEST(signal_test,normir)
     ASSERT_TRUE(b.at(2)==0.75);
     ASSERT_TRUE(b.at(3)==0.75);
 }
-TEST(signal_test,audio)
+
+
+
+TEST(signal_test,audio)//собирается в main
 {
 string ad = "/home/ilya/Загрузки/am_sound.dat";
 string ad1 = "/home/ilya/Загрузки/pere_am_sound.dat";
