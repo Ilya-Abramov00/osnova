@@ -33,6 +33,7 @@ add_subdirectory(TestTask/libs/AudioFile-master)
 
 add_subdirectory(TestTask/libs/potoc)
 
+add_subdirectory(TestTask/libs/list)
 
 if(UNITTEST)
         message(" output lib dir " ${CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG})
@@ -52,6 +53,7 @@ target_link_libraries(${PROJECT_NAME} Signal)
 
 target_link_libraries(${PROJECT_NAME} Potoc)
 
+target_link_libraries(${PROJECT_NAME} List)
 if(UNIX)
         add_custom_target( distclean COMMAND find . -name *_automoc.cpp -type f -delete
                 COMMAND find . -name moc_*cpp -type f -delete
