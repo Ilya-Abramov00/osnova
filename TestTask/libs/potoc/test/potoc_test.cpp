@@ -2,8 +2,6 @@
 #include "include/potoc/potoc.h"
 #include <unistd.h>
 
-
-
 TEST(potoc_test, write_buf) {
 
     std::queue <Msg> queue ;
@@ -15,8 +13,6 @@ TEST(potoc_test, write_buf) {
     ASSERT_TRUE(buf_0[1024*1024-1]== 'q');
 delete [] buf_0;
 }
-
-
 
 TEST(potoc_test, write_th1 )
 {
@@ -30,7 +26,6 @@ TEST(potoc_test, write_th1 )
 
     ASSERT_TRUE(buf_0[1024*1024*256-1]== 'q');
     ASSERT_TRUE( queue.size() == 256);
-
 
     Read_thread q2( queue,buf_0,"/home/ilya/zad2.txt" );
     q2.CreateThr();
@@ -56,9 +51,6 @@ TEST(potoc_test, write_th2 )
 
     ASSERT_TRUE( queue.size() == 0);
 
-    std::cout<<buf_0[1024*1024-1];
-
-    std::cout<<buf_0[1024*1024*256-1];
     ASSERT_TRUE(buf_0[1024*1024*256-1]== 'q');
 
     delete [] buf_0;
