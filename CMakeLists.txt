@@ -41,7 +41,7 @@ if(UNITTEST)
 endif()
 
 
-add_executable(tddProject main.cpp TestTask/libs/potoc/include/potoc/potoc.h)
+add_executable(tddProject main.cpp TestTask/libs/potoc/include/potoc/potoc.h TestTask/libs/list/include/list/list.h)
 
 target_link_libraries(${PROJECT_NAME} Printer)
 
