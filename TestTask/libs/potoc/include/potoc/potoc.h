@@ -22,6 +22,8 @@ int GetRandomNumber(int min, int max)
     return num;
 }
 
+
+
 int k=0;//счетчик сообщений
 bool stop= true;//для остановки  потока записи
 bool var= true;//для остановки потока чтения
@@ -89,7 +91,6 @@ private:
     std::queue <Msg> & queue;
     char *&buf_0;
     std::string ptr;
-
 };
 
 

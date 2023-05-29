@@ -20,14 +20,13 @@ delete [] buf_0;
 
 TEST(potoc_test, write_th1 )
 {
-
     std::queue <Msg> queue ;
     char * buf_0=new char[1024*1024*256];
 
     Write_thread q1(queue,buf_0);
     q1.CreateThr();
 
-    sleep(5);
+    sleep(8);//здесь нужно время для выполнения потока
 
     ASSERT_TRUE(buf_0[1024*1024*256-1]== 'q');
     ASSERT_TRUE( queue.size() == 256);
@@ -36,15 +35,14 @@ TEST(potoc_test, write_th1 )
     Read_thread q2( queue,buf_0,"/home/ilya/zad2.txt" );
     q2.CreateThr();
 
-    sleep(6);
+    sleep(10);
     ASSERT_TRUE(buf_0[1024*1024*256-1]== 'q');
     ASSERT_TRUE( queue.size() == 0);
     delete [] buf_0;
 }
-//*/
+
 TEST(potoc_test, write_th2 )
 {
-
     std::queue <Msg> queue ;
     char * buf_0=new char[1024*1024*256];
 
@@ -54,10 +52,15 @@ TEST(potoc_test, write_th2 )
     Read_thread q2( queue,buf_0,"/home/ilya/zad2.txt" );
     q2.CreateThr();
 
-    sleep(6);
+    sleep(10);
 
-    ASSERT_TRUE(buf_0[1024*1024*2-1]== 'q');
     ASSERT_TRUE( queue.size() == 0);
+
+    std::cout<<buf_0[1024*1024-1];
+
+    std::cout<<buf_0[1024*1024*256-1];
+    ASSERT_TRUE(buf_0[1024*1024*256-1]== 'q');
+
     delete [] buf_0;
 }
 

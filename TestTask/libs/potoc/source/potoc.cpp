@@ -87,7 +87,11 @@ void Read_thread::read( std::queue <Msg> & queue ,char *buf_0, std::string ptr )
     }
     std::cout<<" \n\n\n сохранениe завершено\n ";
     std::cout<<"\n максимальный размер очереди= "<< q <<"\n ";
+
     fout.close();
+    stop= true;//обнуляем глобальные переменные
+    var= true;//
+    q=0;k=0;
 }
 
 
