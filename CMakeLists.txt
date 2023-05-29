@@ -31,13 +31,16 @@ add_subdirectory(TestTask/libs/signal)
 
 add_subdirectory(TestTask/libs/AudioFile-master)
 
+add_subdirectory(TestTask/libs/potoc)
+
+
 if(UNITTEST)
         message(" output lib dir " ${CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG})
         enable_testing()
 endif()
 
 
-add_executable(tddProject main.cpp)
+add_executable(tddProject main.cpp TestTask/libs/potoc/include/potoc/potoc.h)
 
 target_link_libraries(${PROJECT_NAME} Printer)
 
@@ -46,6 +49,8 @@ target_link_libraries(${PROJECT_NAME} Complex)
 target_link_libraries(${PROJECT_NAME} Signal)
 
 target_link_libraries(${PROJECT_NAME} AudioFile)
+
+target_link_libraries(${PROJECT_NAME} Potoc)
 
 if(UNIX)
         add_custom_target( distclean COMMAND find . -name *_automoc.cpp -type f -delete
