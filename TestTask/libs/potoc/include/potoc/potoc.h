@@ -8,7 +8,9 @@
 #include <chrono>
 #include <mutex>
 #include <condition_variable>
-
+#include <stdlib.h> // нужен для вызова функций rand(), srand()
+#include <time.h> // нужен для вызова функции time()
+int GetRandomNumber(int min, int max);
 
 std::mutex mtx;
 std::condition_variable cv;

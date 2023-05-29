@@ -1,7 +1,17 @@
 #include "potoc/potoc.h"
+int GetRandomNumber(int min, int max)
+{
+    // Установить генератор случайных чисел
+    srand(time(NULL));
+
+    // Получить случайное число - формула
+    int num = min + rand() % (max - min + 1);
+
+    return num;
+}
 
 
-int  write_buf( char *buf_0, int sdvig )//иммитация записи 1 мб данных( с рандомной скоростью)
+int  write_buf( char *buf_0, int sdvig )//иммитация записи 1 мб данных
 {
     char a='q';
     int data_size=1024*1024;
@@ -47,6 +57,8 @@ void Write_thread:: write(std::queue <Msg> & queue , char *buf_0 )
             stop=false;
         }
         k++;
+        std::this_thread::sleep_for(std::chrono::microseconds(GetRandomNumber(2000,20000)));
+        //искуственное рандомое замедление иммитирующей приход сообщений
     }
     var = false;
     std::cout<<"\n Запись закончена \n";
