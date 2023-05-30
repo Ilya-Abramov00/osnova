@@ -1,0 +1,75 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"TestTask/libs/GraficiProject/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 0,
+			"id" : "GraficiProject_tconf::@c2ba969f2218186112b8"
+		},
+		{
+			"id" : "GraficiProject_t_autogen_timestamp_deps::@c2ba969f2218186112b8"
+		}
+	],
+	"id" : "GraficiProject_t_autogen::@c2ba969f2218186112b8",
+	"isGeneratorProvided" : true,
+	"name" : "GraficiProject_t_autogen",
+	"paths" : 
+	{
+		"build" : "TestTask/libs/GraficiProject",
+		"source" : "TestTask/libs/GraficiProject"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1,
+				2
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "cmake-build-debug/TestTask/libs/GraficiProject/CMakeFiles/GraficiProject_t_autogen",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "cmake-build-debug/TestTask/libs/GraficiProject/CMakeFiles/GraficiProject_t_autogen.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "cmake-build-debug/TestTask/libs/GraficiProject/GraficiProject_t_autogen/timestamp.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}

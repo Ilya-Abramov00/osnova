@@ -1,0 +1,347 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "tddProject/binaries/tddProject"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"target_link_libraries"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt",
+			"TestTask/libs/GraficiProject/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 45,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 47,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 53,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 55,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 57,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 59,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 49,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 22,
+				"parent" : 8
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 51,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -fdiagnostics-color=always"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-fPIC"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 6,
+					"define" : "QT_CORE_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_GUI_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_PRINTSUPPORT_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_WIDGETS_LIB"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"path" : "/home/ilya/osnova/cmake-build-debug"
+				},
+				{
+					"path" : "/home/ilya/osnova"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/ilya/osnova/TestTask/libs/printer/include"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/ilya/osnova/TestTask/libs/complex/include"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/ilya/osnova/TestTask/libs/complex/lib"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "/home/ilya/osnova/TestTask/libs/complex/include/Complex"
+				},
+				{
+					"backtrace" : 10,
+					"path" : "/home/ilya/osnova/TestTask/libs/AudioFile-master"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/ilya/osnova/TestTask/libs/signal/include"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/ilya/osnova/TestTask/libs/signal/lib"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/ilya/osnova/TestTask/libs/signal/include/Signal"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/home/ilya/osnova/TestTask/libs/potoc/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/home/ilya/osnova/TestTask/libs/potoc/lib"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/home/ilya/osnova/TestTask/libs/potoc/include/Potoc"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/ilya/osnova/TestTask/libs/list/include"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "/home/ilya/osnova/TestTask/libs/GraficiProject/include"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "/home/ilya/osnova/TestTask/libs/GraficiProject/lib"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "/home/ilya/osnova/TestTask/libs/GraficiProject/include/GraficiProject"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "/usr/include/x86_64-linux-gnu/qt5"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "/usr/include/x86_64-linux-gnu/qt5/QtCore"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "/usr/include/x86_64-linux-gnu/qt5/QtGui"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "/usr/include/x86_64-linux-gnu/qt5/QtWidgets"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "Printer::@2943423362c741623ec0"
+		},
+		{
+			"backtrace" : 7,
+			"id" : "Complex::@b3b08f0fa2f69b691d60"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "Signal::@ce143932ad8051f4b40d"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "Potoc::@13842447b3fcc1832684"
+		},
+		{
+			"backtrace" : 5,
+			"id" : "List::@a670a7f9943614ac113d"
+		},
+		{
+			"backtrace" : 6,
+			"id" : "GraficiProject::@c2ba969f2218186112b8"
+		}
+	],
+	"id" : "tddProject::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/home/ilya/osnova/cmake-build-debug/tddProject/binaries/lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "tddProject/binaries/lib/libPrinter.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "tddProject/binaries/lib/libSignal.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "tddProject/binaries/lib/libPotoc.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 5,
+				"fragment" : "tddProject/binaries/lib/libList.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "tddProject/binaries/lib/libGraficiProject.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 7,
+				"fragment" : "tddProject/binaries/lib/libComplex.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 9,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libQt5PrintSupport.so.5.15.3",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 9,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.3",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 9,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.3",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 9,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.3",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "tddProject",
+	"nameOnDisk" : "tddProject",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "main.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

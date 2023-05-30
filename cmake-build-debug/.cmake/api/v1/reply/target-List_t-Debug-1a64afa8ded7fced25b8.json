@@ -1,0 +1,164 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "test/List_t"
+		}
+	],
+	"backtrace" : 3,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"include",
+			"target_link_libraries"
+		],
+		"files" : 
+		[
+			"TestTask/libs/list/unittest.cmake",
+			"TestTask/libs/list/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 17,
+				"parent" : 0
+			},
+			{
+				"file" : 0,
+				"parent" : 1
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 9,
+				"parent" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 12,
+				"parent" : 2
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -fdiagnostics-color=always"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"path" : "/home/ilya/osnova/cmake-build-debug/TestTask/libs/list"
+				},
+				{
+					"path" : "/home/ilya/osnova/TestTask/libs/list"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/home/ilya/osnova/TestTask/libs/list/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/home/ilya/osnova/googletests/gtest/gtest/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/home/ilya/osnova/googletests/gtest/gmock/include"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				0,
+				1
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 4,
+			"id" : "gtest::@9a0cee8afed2a44c6706"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "List::@a670a7f9943614ac113d"
+		}
+	],
+	"id" : "List_t::@a670a7f9943614ac113d",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-rdynamic",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/home/ilya/osnova/cmake-build-debug/tddProject/binaries/lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "tddProject/binaries/lib/libList.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "tddProject/binaries/lib/libgtest.so",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "List_t",
+	"nameOnDisk" : "List_t",
+	"paths" : 
+	{
+		"build" : "TestTask/libs/list",
+		"source" : "TestTask/libs/list"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "TestTask/libs/list/test/list_test.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "TestTask/libs/list/test/main.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}
