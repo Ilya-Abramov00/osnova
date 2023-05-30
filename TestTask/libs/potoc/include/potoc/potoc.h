@@ -28,6 +28,9 @@ private:
 Qw qw;
 struct Msg//сообщение
 {
+    friend class Write_thread;
+    friend class Read_thread;
+private:
     char * begin;
     char * end;
 };
@@ -46,6 +49,7 @@ public:
         std::thread thr(MyFunc, this);
         thr.detach();
     }
+
 private:
     static void write(std::queue <Msg> & queue , char * const&  buf_0, std::mutex& mtx ,  int time_ms);
 
