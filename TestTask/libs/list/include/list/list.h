@@ -11,7 +11,6 @@ class List;
 class Node{
     friend List;
 public:
-
     Node(int data, Node* next=NULL,Node* prev=NULL ): data(data), next(next), prev(prev){}
 
     int data;
