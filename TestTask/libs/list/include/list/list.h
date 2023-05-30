@@ -3,12 +3,8 @@
 
 #include <string>
 #include <iostream>
-
 #include <cstddef>
-#include <iostream>
 
-//здесь описан List
-using namespace std;
 
 class List;
 
