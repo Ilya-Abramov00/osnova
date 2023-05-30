@@ -52,6 +52,7 @@ private:
     char *&buf_0;
 };
 
+
 class Read_thread
 {
 public:
