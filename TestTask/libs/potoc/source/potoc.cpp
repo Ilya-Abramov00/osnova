@@ -22,7 +22,7 @@ void Write_thread:: write(std::queue <Msg> & queue , char *buf_0, std::mutex& mt
 
     while ( stops() )
     {
-        int sdvig=1024*1024*qw.k;sdvig%=sdvig;//уже записано столько (к мегабайт)
+        int sdvig=1024*1024*qw.k;sdvig%=1024*1024*256;//уже записано столько (к мегабайт)
 
         auto start=std::chrono::high_resolution_clock::now();
 
