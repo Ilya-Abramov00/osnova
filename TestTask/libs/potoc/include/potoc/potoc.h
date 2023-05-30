@@ -8,20 +8,6 @@
 #include <chrono>
 #include <mutex>
 #include <condition_variable>
-#include <stdlib.h> // нужен для вызова функций rand(), srand()
-#include <time.h> // нужен для вызова функции time()
-
-int GetRandomNumber(int min, int max)
-{
-    // Установить генератор случайных чисел
-    srand(time(NULL));
-
-    // Получить случайное число - формула
-    int num = min + rand() % (max - min + 1);
-
-    return num;
-}
-
 
 
 int k=0;//счетчик сообщений
@@ -41,28 +27,27 @@ class Write_thread
 {
 public:
 
-    Write_thread(std::queue <Msg> & queue , char *&buf_0):queue(queue), buf_0(buf_0) {}
+    Write_thread(std::queue <Msg> & queue , char *&buf_0, std::mutex &mtx, int time_ms=0):queue(queue), buf_0(buf_0), mtx(mtx), time_ms(time_ms) {}
 
     void CreateThr()
     {
         std::thread thr(MyFunc, this);
         thr.detach();
     }
-
-
 private:
-    static void write(std::queue <Msg> & queue , char *buf_0 );
+    static void write(std::queue <Msg> & queue , char *buf_0, std::mutex& mtx ,  int time_ms);
 
     static void MyFunc(Write_thread *p){
-        write( p->queue ,  p->buf_0);
+        write( p->queue , p->buf_0, p->mtx, p->time_ms);
     }
-
    static bool stops()
     {
-        if( k==256 ) { stop=false; }
+        if( k==512 ) { stop=false; }
         return stop;
     };
 
+    std::mutex& mtx;
+    int time_ms;
     std::queue <Msg> & queue;
     char *&buf_0;
 };
@@ -71,7 +56,7 @@ class Read_thread
 {
 public:
 
-    Read_thread(std::queue <Msg> & queue , char *&buf_0, std::string ptr) : queue(queue), buf_0(buf_0), ptr(ptr) {}
+    Read_thread(std::queue <Msg> & queue , char *&buf_0,std::mutex &mtx, std::string ptr, int time_ms=0) : queue(queue), buf_0(buf_0), mtx(mtx), ptr(ptr) ,time_ms(time_ms) {}
 
     void CreateThr(){
         std::thread thr(MyFunc, this);
@@ -81,13 +66,15 @@ public:
 private:
     static void MyFunc(Read_thread *p)
     {
-        read( p->queue ,  p->buf_0, p->ptr);
+        read( p->queue ,  p->buf_0, p->mtx, p->ptr,p->time_ms);
     }
-    static void read( std::queue <Msg> & queue ,char *buf_0, std::string ptr );
+    static void read( std::queue <Msg> & queue ,char *buf_0, std::mutex &mtx, std::string ptr, int time_ms );
 
 
    static bool ret() { return var;}
 
+    std::mutex& mtx;
+    int time_ms;
     std::queue <Msg> & queue;
     char *&buf_0;
     std::string ptr;

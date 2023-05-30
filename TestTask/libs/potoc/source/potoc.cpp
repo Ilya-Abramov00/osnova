@@ -1,6 +1,6 @@
 #include "potoc/potoc.h"
 
-std::mutex mtx;
+
 std::condition_variable cv;
 
 
@@ -17,20 +17,16 @@ int  write_buf( char *buf_0, int sdvig )//иммитация записи 1 мб
 
 int q=1;
 
-void Write_thread:: write(std::queue <Msg> & queue , char *buf_0 )
+void Write_thread:: write(std::queue <Msg> & queue , char *buf_0, std::mutex& mtx, int time_ms  )
 {
 
     while ( stops() )
     {
-        int sdvig=1024*1024*k;//уже записано столько (к мегабайт)
+        int sdvig=1024*1024*k;sdvig%=sdvig;//уже записано столько (к мегабайт)
 
         auto start=std::chrono::high_resolution_clock::now();
 
         int data_size= write_buf( buf_0, sdvig);
-
-        auto end=std::chrono::high_resolution_clock::now();
-        std::chrono::duration<float> duration=end-start;
-        std::cout<<"\n скорость записи мб/с= "<<int(1/duration.count())<<"\n";
 
         Msg msg;
         msg.begin =buf_0+sdvig;
@@ -50,15 +46,19 @@ void Write_thread:: write(std::queue <Msg> & queue , char *buf_0 )
             stop=false;
         }
         k++;
-        std::this_thread::sleep_for(std::chrono::microseconds(GetRandomNumber(2000,10000)));
-        //искуственное рандомое замедление иммитирующей приход сообщений
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(time_ms));
+        //искуственное  замедление иммитирующей приход сообщений
+        auto end=std::chrono::high_resolution_clock::now();
+        std::chrono::duration<float> duration=end-start;
+        std::cout<<"\n скорость записи мб/с= "<<int(1/duration.count())<<"\n";
     }
     var = false;
     std::cout<<"\n Запись закончена \n";
 }
 
 
-void Read_thread::read( std::queue <Msg> & queue ,char *buf_0, std::string ptr )
+void Read_thread::read( std::queue <Msg> & queue ,char *buf_0,std::mutex& mtx, std::string ptr, int time_ms )
 {
 
     std::ofstream fout(ptr, std::ios_base::app | std::ios_base::out);
@@ -77,17 +77,16 @@ void Read_thread::read( std::queue <Msg> & queue ,char *buf_0, std::string ptr )
                 char data=*( msg.begin );
                 fout.write((char *) &data, 1);
             }
-
+            std::this_thread::sleep_for(std::chrono::milliseconds(time_ms));
             auto end=std::chrono::high_resolution_clock::now();
             std::chrono::duration<float> duration=end-start;
-
             std::cout<<"\n скорость сохранения мб/с= "<<int(1/duration.count())<<"\n";
             std::cout<<"\n размер очереди= "<< queue.size()<<std::endl;
         }
     }
     std::cout<<" \n\n\n сохранениe завершено\n ";
     std::cout<<"\n максимальный размер очереди= "<< q <<"\n ";
-
+    std::cout<<"\n Сообщений отправлено="<<k<<"\n ";;
     fout.close();
     stop= true;//обнуляем глобальные переменные
     var= true;//
