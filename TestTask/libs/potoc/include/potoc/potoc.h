@@ -32,14 +32,14 @@ struct Msg//сообщение
     char * end;
 };
 
-int  write_buf( char *buf_0, int sdvig );//функция реализуящая запись
+int  write_buf( char* const& buf_0, int sdvig );//функция реализуящая запись
 
 
 class Write_thread
 {
 public:
 
-    Write_thread(std::queue <Msg> & queue , char *&buf_0, std::mutex &mtx, int time_ms=0):queue(queue), buf_0(buf_0), mtx(mtx), time_ms(time_ms) {}
+    Write_thread(std::queue <Msg> & queue , char * const&  buf_0, std::mutex &mtx, int time_ms=0):queue(queue), buf_0(buf_0), mtx(mtx), time_ms(time_ms) {}
 
     void CreateThr()
     {
@@ -47,7 +47,7 @@ public:
         thr.detach();
     }
 private:
-    static void write(std::queue <Msg> & queue , char *buf_0, std::mutex& mtx ,  int time_ms);
+    static void write(std::queue <Msg> & queue , char * const&  buf_0, std::mutex& mtx ,  int time_ms);
 
     static void MyFunc(Write_thread *p){
         write( p->queue , p->buf_0, p->mtx, p->time_ms);
@@ -61,7 +61,7 @@ private:
     std::mutex& mtx;
     int time_ms;
     std::queue <Msg> & queue;
-    char *&buf_0;
+    char * const&  buf_0;
 };
 
 

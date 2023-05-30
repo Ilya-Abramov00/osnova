@@ -4,7 +4,7 @@
 std::condition_variable cv;
 
 
-int  write_buf( char *buf_0, int sdvig )//иммитация записи 1 мб данных
+int  write_buf( char* const& buf_0, int sdvig )//иммитация записи 1 мб данных
 {
     char a='q';
     int data_size=1024*1024;
@@ -17,7 +17,7 @@ int  write_buf( char *buf_0, int sdvig )//иммитация записи 1 мб
 
 
 
-void Write_thread:: write(std::queue <Msg> & queue , char *buf_0, std::mutex& mtx, int time_ms  )
+void Write_thread:: write(std::queue <Msg> & queue , char * const&  buf_0, std::mutex& mtx, int time_ms  )
 {
 
     while ( stops() )
