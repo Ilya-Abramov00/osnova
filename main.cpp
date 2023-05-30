@@ -14,7 +14,7 @@ int main()
     q2.CreateThr();
 
     delete [] buf_0;
-
+    std::this_thread::sleep_for(std::chrono::seconds(8));
 
     return 0;
 

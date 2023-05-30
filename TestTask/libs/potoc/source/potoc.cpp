@@ -15,14 +15,14 @@ int  write_buf( char *buf_0, int sdvig )//иммитация записи 1 мб
     return data_size;
 }
 
-int q=1;
+
 
 void Write_thread:: write(std::queue <Msg> & queue , char *buf_0, std::mutex& mtx, int time_ms  )
 {
 
     while ( stops() )
     {
-        int sdvig=1024*1024*k;sdvig%=sdvig;//уже записано столько (к мегабайт)
+        int sdvig=1024*1024*qw.k;sdvig%=sdvig;//уже записано столько (к мегабайт)
 
         auto start=std::chrono::high_resolution_clock::now();
 
@@ -32,20 +32,20 @@ void Write_thread:: write(std::queue <Msg> & queue , char *buf_0, std::mutex& mt
         msg.begin =buf_0+sdvig;
         msg.end =msg.begin+data_size;
 
-        std::unique_lock <std::mutex> mtx_0 (mtx);
+        //std::unique_lock <std::mutex> mtx_0 (mtx);
         queue.push( msg) ;
         std::cout<<"\n размер очереди= "<< queue.size()<<std::endl;
-        mtx_0.unlock();
+       // mtx_0.unlock();
 
-        if (queue.size()>=q ) q=queue.size();
+        if (queue.size()>=qw.q ) qw.q=queue.size();
 
         if (queue.size()>=256 )
         {
             std::cout<<"\n Очередь переполнена, Ошибка \n";
-            std::cout<<"\n Сообщений отправлено="<<k+1;
-            stop=false;
+            std::cout<<"\n Сообщений отправлено="<<qw.k+1;
+            qw.stop=false;
         }
-        k++;
+        qw.k++;
 
         std::this_thread::sleep_for(std::chrono::milliseconds(time_ms));
         //искуственное  замедление иммитирующей приход сообщений
@@ -53,7 +53,7 @@ void Write_thread:: write(std::queue <Msg> & queue , char *buf_0, std::mutex& mt
         std::chrono::duration<float> duration=end-start;
         std::cout<<"\n скорость записи мб/с= "<<int(1/duration.count())<<"\n";
     }
-    var = false;
+    qw.var = false;
     std::cout<<"\n Запись закончена \n";
 }
 
@@ -85,12 +85,10 @@ void Read_thread::read( std::queue <Msg> & queue ,char *buf_0,std::mutex& mtx, s
         }
     }
     std::cout<<" \n\n\n сохранениe завершено\n ";
-    std::cout<<"\n максимальный размер очереди= "<< q <<"\n ";
-    std::cout<<"\n Сообщений отправлено="<<k<<"\n ";;
+    std::cout<<"\n максимальный размер очереди= "<< qw.q <<"\n ";
+    std::cout<<"\n Сообщений отправлено="<<qw.k<<"\n ";;
     fout.close();
-    stop= true;//обнуляем глобальные переменные
-    var= true;//
-    q=0;k=0;
+    qw.clear();
 }
 
 

@@ -9,11 +9,23 @@
 #include <mutex>
 #include <condition_variable>
 
+class Qw {
+    friend class Write_thread;
+    friend class Read_thread;
+private:
+   void clear()
+   {
+       stop= true; var= true;  q=0; k=0; //обнуляем глобальные переменные
+   }
+    int k = 0;//счетчик сообщений
+    bool stop = true;//для остановки  потока записи
+    bool var = true;//для остановки потока чтения
+    int q = 1;//cчетчик max_bufer
+};
 
-int k=0;//счетчик сообщений
-bool stop= true;//для остановки  потока записи
-bool var= true;//для остановки потока чтения
 
+
+Qw qw;
 struct Msg//сообщение
 {
     char * begin;
@@ -42,8 +54,8 @@ private:
     }
    static bool stops()
     {
-        if( k==512 ) { stop=false; }
-        return stop;
+        if( qw.k==512 ) { qw.stop=false; }
+        return qw.stop;
     };
 
     std::mutex& mtx;
@@ -73,7 +85,7 @@ private:
     static void read( std::queue <Msg> & queue ,char *buf_0, std::mutex &mtx, std::string ptr, int time_ms );
 
 
-   static bool ret() { return var;}
+   static bool ret() { return qw.var;}
 
     std::mutex& mtx;
     int time_ms;
