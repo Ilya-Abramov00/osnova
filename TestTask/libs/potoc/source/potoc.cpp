@@ -32,10 +32,10 @@ void Write_thread:: write(std::queue <Msg> & queue , char *buf_0, std::mutex& mt
         msg.begin =buf_0+sdvig;
         msg.end =msg.begin+data_size;
 
-        //std::unique_lock <std::mutex> mtx_0 (mtx);
+        std::unique_lock <std::mutex> mtx_0 (mtx);
         queue.push( msg) ;
         std::cout<<"\n размер очереди= "<< queue.size()<<std::endl;
-       // mtx_0.unlock();
+        mtx_0.unlock();
 
         if (queue.size()>=qw.q ) qw.q=queue.size();
 
