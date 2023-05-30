@@ -2,7 +2,8 @@
 #include "list/list.h"
 
 TEST(list_test, 1) {
-    List a;
+    List<int> a;
+
     a.push_back(1);
     a.push_back(2);
     a.push_back(2);
@@ -13,7 +14,7 @@ TEST(list_test, 1) {
 }
 
 TEST(list_test, 2) {
-    List a;
+    List<int> a;
     a.push_back(1);
     a.push_front(2);
     a.push_back(2);
@@ -24,7 +25,7 @@ TEST(list_test, 2) {
 }
 
 TEST(list_test, 3) {
-    List a;
+    List<int> a;
     a.push_back(1);
     a.push_back(2);
     a.pop_back();
@@ -35,7 +36,7 @@ TEST(list_test, 3) {
 
 }
 TEST(list_test, 4) {
-    List a;
+    List<int> a;
     a.push_back(1);
     a.push_back(2);
     a.push_back(3);
@@ -47,7 +48,7 @@ TEST(list_test, 4) {
 }
 
 TEST(list_test, 5) {
-    List a;
+    List<int> a;
     a.push_back(1);
     a.insert(0,0);
     a.insert(2,4);

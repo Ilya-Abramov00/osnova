@@ -5,22 +5,25 @@
 #include <iostream>
 #include <cstddef>
 
-
+template <class Type>
 class List;
 
-class Node{
-    friend List;
+template <class Type>
+class Node
+{
+    template <class T>
+    friend class List;
 public:
-    Node(int data, Node* next=NULL,Node* prev=NULL ): data(data), next(next), prev(prev){}
+    Node<Type> (Type data, Node<Type>* next=NULL, Node<Type>* prev=NULL ): data(data), next(next), prev(prev){}
 
-    int data;
+    Type data;
 private:
-    Node *next;
-    Node *prev;
+    Node<Type> *next;
+    Node<Type> *prev;
 };
 
+template <class Type>
 class List{
-    friend Node;
 
 public:
 
@@ -30,9 +33,9 @@ public:
         this->count=0;
     }
 
-    Node* push_back(int data)
+    void  push_back(Type data)
     {
-        Node *ptr= new Node(data);
+        Node<Type>  *ptr= new Node(data);
         if ( begin==NULL ) { this->begin=ptr; this->end=ptr; }
         else
         {
@@ -41,22 +44,22 @@ public:
             this->end=ptr;
         }
         count++;
-        return ptr;
+        return;
     }
 
-    Node* push_front(int data)
+    void push_front(Type data)
     {
-        Node *ptr= new Node( data);
+        Node<Type>  *ptr= new Node( data);
         begin->prev=ptr;
         ptr->next=begin;
         this->begin=ptr;
         count++;
-        return ptr;
+        return;
     }
 
-    Node* getAt(int index)
+    Node<Type> * getAt(int index)
     {
-        Node* ptr = begin;
+        Node<Type> * ptr = begin;
         int n = 0;
         while (n != index) {
             if (ptr == NULL) return ptr;
@@ -67,35 +70,35 @@ public:
     }
 
 
-    Node* operator [] (int index) {
+    Node<Type> * operator [] (int index) {
         return getAt(index);
     }
 
-    Node* insert(int index, int data)
+    void insert(int index, Type data)
     {
-        Node *ptr;
-        if (index==0) ptr=push_front(data);
-        else if (index==count) ptr=push_back(data);
+
+        if (index==0) push_front(data);
+        else if (index==count) push_back(data);
         else
         {
-            ptr= new Node( data );
-            Node *rite=getAt( index );
-            Node *left=rite->prev;
+            Node<Type>  *ptr= new Node( data);
+            Node<Type>  *rite=getAt( index );
+            Node<Type>  *left=rite->prev;
             left->next=ptr;
             ptr->prev=left;
             ptr->next=rite;
             rite->prev=ptr;
             count++;
         }
-        return ptr;
+        return ;
     }
 
     void pop_back()
     {
         if( begin!=NULL  )
         {
-            Node *left = end->prev;
-            Node* ptr=end;
+            Node<Type>  *left = end->prev;
+            Node<Type> * ptr=end;
 
             delete  ptr;
             end = left;
@@ -109,9 +112,9 @@ public:
         if(index==count) pop_back();
         else if(0<index<count)
         {
-            Node *del = getAt(index);
-            Node *rite = del->next;
-            Node *left = del->prev;
+            Node<Type>  *del = getAt(index);
+            Node<Type>  *rite = del->next;
+            Node<Type>  *left = del->prev;
 
             left->next=rite;
             rite->prev=left;
@@ -123,7 +126,15 @@ public:
         else  return false;
     };
 
+    Node<Type> * begin_(){
 
+        return begin;
+    }
+
+    Node<Type> * end_(){
+
+        return end;
+    }
     ~List()
     {
         while ( count!=1 )
@@ -134,8 +145,8 @@ public:
     }
 
 private:
-    Node * begin ;
-    Node * end  ;
+    Node<Type>  * begin ;
+    Node<Type>  * end  ;
     int count;
 };
 
