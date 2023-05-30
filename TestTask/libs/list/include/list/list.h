@@ -19,7 +19,6 @@ private:
 
     Node<Type> *next;
     Node<Type> *prev;
-public:
     Type data;
 };
 
@@ -58,7 +57,7 @@ public:
         return;
     }
 
-    Node<Type> * getAt(int index)
+    Node <Type>*  getAt(int index)
     {
         Node<Type> * ptr = begin;
         int n = 0;
@@ -70,9 +69,13 @@ public:
         return ptr;
     }
 
+    Type  getdata(int index)
+    {
+        return getAt(index)->data;
+    }
+    Type  operator [] (int index) {
 
-    Node<Type> * operator [] (int index) {
-        return getAt(index);
+        return getdata(index);
     }
 
     void insert(int index, Type data)
