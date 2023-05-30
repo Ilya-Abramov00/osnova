@@ -70,7 +70,7 @@ class Read_thread
 {
 public:
 
-    Read_thread(std::queue <Msg> & queue , char *&buf_0,std::mutex &mtx, std::string ptr, int time_ms=0) : queue(queue), buf_0(buf_0), mtx(mtx), ptr(ptr) ,time_ms(time_ms) {}
+    Read_thread(std::queue <Msg> & queue , char const * const&  buf_0,std::mutex &mtx, std::string ptr, int time_ms=0) : queue(queue), buf_0(buf_0), mtx(mtx), ptr(ptr) ,time_ms(time_ms) {}
 
     void CreateThr(){
         std::thread thr(MyFunc, this);
@@ -82,7 +82,7 @@ private:
     {
         read( p->queue ,  p->buf_0, p->mtx, p->ptr,p->time_ms);
     }
-    static void read( std::queue <Msg> & queue ,char *buf_0, std::mutex &mtx, std::string ptr, int time_ms );
+    static void read( std::queue <Msg> & queue ,char const * const&  buf_0, std::mutex &mtx, std::string ptr, int time_ms );
 
 
    static bool ret() { return qw.var;}
@@ -90,7 +90,7 @@ private:
     std::mutex& mtx;
     int time_ms;
     std::queue <Msg> & queue;
-    char *&buf_0;
+    char const * const&  buf_0;
     std::string ptr;
 };
 

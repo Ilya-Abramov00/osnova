@@ -58,7 +58,7 @@ void Write_thread:: write(std::queue <Msg> & queue , char *buf_0, std::mutex& mt
 }
 
 
-void Read_thread::read( std::queue <Msg> & queue ,char *buf_0,std::mutex& mtx, std::string ptr, int time_ms )
+void Read_thread::read( std::queue <Msg> & queue ,char const * const&  buf_0,std::mutex& mtx, std::string ptr, int time_ms )
 {
 
     std::ofstream fout(ptr, std::ios_base::app | std::ios_base::out);
