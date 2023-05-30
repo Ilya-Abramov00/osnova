@@ -13,13 +13,14 @@ class Node
 {
     template <class T>
     friend class List;
-public:
+
+private:
     Node<Type> (Type data, Node<Type>* next=NULL, Node<Type>* prev=NULL ): data(data), next(next), prev(prev){}
 
-    Type data;
-private:
     Node<Type> *next;
     Node<Type> *prev;
+public:
+    Type data;
 };
 
 template <class Type>
