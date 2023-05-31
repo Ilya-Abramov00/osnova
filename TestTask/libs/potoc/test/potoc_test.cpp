@@ -11,7 +11,7 @@ TEST(potoc_test, write_buf) {
 
     ASSERT_TRUE(a == 1024*1024);
     ASSERT_TRUE(buf_0[1024*1024-1]== 'q');
-delete [] buf_0;
+    delete [] buf_0;
 }
 
 TEST(potoc_test, write_th1 )
