@@ -25,18 +25,18 @@ void Write_thread:: write(std::queue <Msg> & queue , char * const&  buf_0, std::
         int sdvig=1024*1024*qw.k;sdvig%=1024*1024*256;//уже записано столько (к мегабайт)
 
         auto start=std::chrono::high_resolution_clock::now();
+        {
+            std::unique_lock<std::mutex> mtx_0(mtx);
+            int data_size = write_buf(buf_0, sdvig);
+            std::this_thread::sleep_for(std::chrono::milliseconds(time_ms));
+            Msg msg;
+            msg.begin = buf_0 + sdvig;
+            msg.end = msg.begin + data_size;
+            queue.push(msg);
+            std::cout << "\n размер очереди= " << queue.size() << std::endl;
 
-        int data_size= write_buf( buf_0, sdvig);
-
-        Msg msg;
-        msg.begin =buf_0+sdvig;
-        msg.end =msg.begin+data_size;
-
-        std::unique_lock <std::mutex> mtx_0 (mtx);
-        queue.push( msg) ;
-        std::cout<<"\n размер очереди= "<< queue.size()<<std::endl;
-        mtx_0.unlock();
-
+            mtx_0.unlock();
+        }
         if (queue.size()>=qw.q ) qw.q=queue.size();
 
         if (queue.size()>=256 )
@@ -47,7 +47,7 @@ void Write_thread:: write(std::queue <Msg> & queue , char * const&  buf_0, std::
         }
         qw.k++;
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(time_ms));
+
         //искуственное  замедление иммитирующей приход сообщений
         auto end=std::chrono::high_resolution_clock::now();
         std::chrono::duration<float> duration=end-start;
@@ -66,18 +66,22 @@ void Read_thread::read( std::queue <Msg> & queue ,char const * const&  buf_0,std
     {
         while ( queue.size() != 0)
         {
+            auto start = std::chrono::high_resolution_clock::now();
             Msg msg;
-            msg= queue.front();
-            queue.pop();
-
-            auto start=std::chrono::high_resolution_clock::now();
-
-            for( ;  msg.begin !=msg.end ;  msg.begin ++ )
             {
-                char data=*( msg.begin );
-                fout.write((char *) &data, 1);
+            std::unique_lock <std::mutex> mtx_0 (mtx);
+                msg = queue.front();
+                queue.pop();
+
+                for (; msg.begin != msg.end; msg.begin++)
+                {
+                    char data = *(msg.begin);
+                    fout.write((char *) &data, 1);
+                }
+                std::this_thread::sleep_for(std::chrono::milliseconds(time_ms));
+                mtx_0.unlock();
             }
-            std::this_thread::sleep_for(std::chrono::milliseconds(time_ms));
+
             auto end=std::chrono::high_resolution_clock::now();
             std::chrono::duration<float> duration=end-start;
             std::cout<<"\n скорость сохранения мб/с= "<<int(1/duration.count())<<"\n";
