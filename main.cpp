@@ -4,6 +4,7 @@
 #include "mainwindow.h"
 int main()
 {
+
     std::queue <Msg> queue ;
     char * buf_0=new char[1024*1024*256];
      std::mutex mtx;
