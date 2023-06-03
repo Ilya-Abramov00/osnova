@@ -8,7 +8,7 @@ int main()
     std::queue <Msg> queue ;
     char * buf_0=new char[1024*1024*256];
      std::mutex mtx;
-    Write_thread q1(queue,buf_0, mtx ,10);
+    Write_thread q1(queue,buf_0, mtx ,5);
     q1.CreateThr();
 
     Read_thread q2( queue, buf_0, mtx , "/home/ilya/zad2.txt" );
