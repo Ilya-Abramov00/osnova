@@ -25,14 +25,15 @@ TEST(potoc_test, write_th1 )
     sleep(8);//здесь нужно время для выполнения потока
 
     ASSERT_TRUE(buf_0[1024*1024*256-1]== 'q');
+    ASSERT_TRUE(buf_0[1024*256-1]== 'q');
+    ASSERT_TRUE(buf_0[0]== 'q');
     ASSERT_TRUE( queue.size() == 256);
 
     Read_thread q2( queue, buf_0, mtx , "/home/ilya/zad2.txt" );
     q2.CreateThr();
 
     sleep(10);
-    ASSERT_TRUE(buf_0[1024*1024*2-1]== 'q');
-    ASSERT_TRUE(buf_0[1024*1024*256-1]== 'q');
+
     ASSERT_TRUE( queue.size() == 0);
     delete [] buf_0;
 }
@@ -53,7 +54,8 @@ TEST(potoc_test, write_th2 )
     ASSERT_TRUE( queue.size() == 0);
 
     ASSERT_TRUE(buf_0[1024*1024*256-1]== 'q');
-
+    ASSERT_TRUE(buf_0[1024*256-1]== 'q');
+    ASSERT_TRUE(buf_0[0]== 'q');
     delete [] buf_0;
 }
 
