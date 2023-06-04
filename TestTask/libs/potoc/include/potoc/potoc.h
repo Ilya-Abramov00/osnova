@@ -80,7 +80,6 @@ private:
     Read_thread(std::queue <Msg> & queue , std::vector <char> :: iterator const it,std::mutex &mtx, std::string ptr, Qw &qw,int time_ms=0) : queue(queue), it(it), mtx(mtx), ptr(ptr) ,qw(qw),time_ms(time_ms) {}
 
 
-
     static void MyFunc(Read_thread *p)
     {
         read( p->queue ,  p->it, p->mtx,p->qw, p->ptr, p->time_ms );
@@ -119,7 +118,7 @@ public:
        t1.join();
        t2.join();
     }
-
+private:
     Qw qw;
     std::queue <Msg> & queue;
     std::vector <char> :: iterator it;
