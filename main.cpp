@@ -2,21 +2,16 @@
 
 #include <QApplication>
 #include "mainwindow.h"
+
+
+
+template <typename T>
+void q(T && d){};
 int main()
 {
-
-    std::queue <Msg> queue ;
-    char * buf_0=new char[1024*1024*256];
-     std::mutex mtx;
-    Write_thread q1(queue,buf_0, mtx ,5);
-    q1.CreateThr();
-
-    Read_thread q2( queue, buf_0, mtx , "/home/ilya/zad2.txt" );
-    q2.CreateThr();
-
-    delete [] buf_0;
-    std::this_thread::sleep_for(std::chrono::seconds(8));
-
+    int a=3;
+    q(a);
+    q(2);
     return 0;
 
 }
