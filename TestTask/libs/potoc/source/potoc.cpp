@@ -37,7 +37,7 @@ void Write_thread::  write(std::queue <Msg> & queue , std::vector <char> :: iter
         if (queue.size()>=256 )
         {
             std::cout<<"\n Очередь переполнена, Ошибка \n";
-            std::cout<<"\n Сообщений отправлено="<<qw.k+1;
+            std::cout<<"\n Сообщений отправлено="<<qw.k+1<<std::endl;
             qw.stop=false;
         }
         qw.k++;
