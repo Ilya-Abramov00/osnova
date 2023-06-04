@@ -8,8 +8,6 @@
 
 int main()
 {
-
-
     std::queue <Msg> queue ;
     std::vector<char> a;
     a.reserve(1024*1024*256);
@@ -18,6 +16,6 @@ int main()
 
     Protocol q(queue, it, mtx, "/home/ilya/zad2.txt");
     q.start();
-    return 0;
 
+    return 0;
 }
