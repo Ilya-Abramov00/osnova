@@ -74,14 +74,14 @@ class Read_thread
     friend class Protocol;
 private:
 
-    Read_thread(std::queue <Msg> & queue , std::vector <char> :: iterator const it,std::mutex &mtx, std::string ptr, Qw &qw,int time_ms=0) : queue(queue), it(it), mtx(mtx), ptr(ptr) ,qw(qw),time_ms(time_ms) {}
+    Read_thread(std::queue <Msg> & queue , std::vector <char> :: iterator const it,std::mutex &mtx, const std::string& ptr, Qw &qw,int time_ms=0) : queue(queue), it(it), mtx(mtx), ptr(ptr) ,qw(qw),time_ms(time_ms) {}
 
     static void MyFunc(Read_thread *p)
     {
         read( p->queue ,  p->it, p->mtx,p->qw, p->ptr, p->time_ms );
     }
 
-    static void read( std::queue <Msg> & queue ,std::vector <char> :: iterator const it, std::mutex &mtx, Qw& qw, std::string ptr, int time_ms );
+    static void read( std::queue <Msg> & queue ,std::vector <char> :: iterator const it, std::mutex &mtx, Qw& qw, const std::string& ptr, int time_ms );
 
     static  bool ret( Qw &qw) { return qw.var;}
 
@@ -93,13 +93,13 @@ private:
     int time_ms;
     std::queue <Msg> & queue;
     std::vector <char> :: iterator const it;
-    std::string ptr;
+    const std::string& ptr;
 };
 
 
-class Protocol{//думаю, можно еще попробовать сделать Protocol наследником от двух классов
+class Protocol{
 public:
-    Protocol(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex &mtx, std::string ptr, int time_ms_write=0, int time_ms_read=0 ):queue(queue), it(it), mtx(mtx),ptr(ptr), time_ms_write(time_ms_write),time_ms_read(time_ms_read) {};
+    Protocol(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex &mtx, const std::string& ptr, int time_ms_write=0, int time_ms_read=0 ):queue(queue), it(it), mtx(mtx),ptr(ptr), time_ms_write(time_ms_write),time_ms_read(time_ms_read) {};
 
        void start()
        {
@@ -120,7 +120,7 @@ private:
     std::queue <Msg> & queue;
     std::vector <char> :: iterator it;
     std::mutex& mtx;
-    std::string ptr;
+    const std::string& ptr;
     int time_ms_write;
     int time_ms_read;
 };

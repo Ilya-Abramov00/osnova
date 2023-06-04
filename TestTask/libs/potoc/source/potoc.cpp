@@ -51,7 +51,7 @@ void Write_thread::  write(std::queue <Msg> & queue , std::vector <char> :: iter
 }
 
 
-void Read_thread::read( std::queue <Msg> & queue ,std::vector <char> :: iterator it,std::mutex& mtx,Qw &qw, std::string ptr, int time_ms )
+void Read_thread::read( std::queue <Msg> & queue ,std::vector <char> :: iterator it,std::mutex& mtx,Qw &qw, const std::string& ptr, int time_ms )
 {
     std::ofstream fout(ptr, std::ios_base::app | std::ios_base::out);
     if (!fout.is_open()) { std::cout << "Файл не может быть создан\n";  qw.clear(); }
