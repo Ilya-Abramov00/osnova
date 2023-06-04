@@ -14,7 +14,7 @@ int  write_buf( std::vector <char> :: iterator it, int sdvig )//иммитаци
 
 
 
-void Write_thread::  write(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex& mtx ,Qw &qw,  int time_ms)
+void Write_thread::  write(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex& mtx ,Qw &qw,  int const  time_ms)
 {
     while ( stops(qw) )
     {
@@ -51,7 +51,7 @@ void Write_thread::  write(std::queue <Msg> & queue , std::vector <char> :: iter
 }
 
 
-void Read_thread::read( std::queue <Msg> & queue ,std::vector <char> :: iterator it,std::mutex& mtx,Qw &qw, const std::string& ptr, int time_ms )
+void Read_thread::read( std::queue <Msg> & queue ,std::vector <char> :: iterator it,std::mutex& mtx,Qw &qw, const std::string& ptr, int const  time_ms )
 {
     std::ofstream fout(ptr, std::ios_base::app | std::ios_base::out);
     if (!fout.is_open()) { std::cout << "Файл не может быть создан\n";  qw.clear(); }

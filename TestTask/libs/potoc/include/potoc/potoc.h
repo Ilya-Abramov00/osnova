@@ -42,9 +42,9 @@ class Write_thread
     friend class Protocol;
 private:
 
-    Write_thread(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex &mtx, Qw &qw,int time_ms=0 ):queue(queue), it(it), mtx(mtx),  qw(qw),time_ms(time_ms) {}
+    Write_thread(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex &mtx, Qw &qw,int const  time_ms=0 ):queue(queue), it(it), mtx(mtx),  qw(qw),time_ms(time_ms) {}
 
-    static void write(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex& mtx ,Qw &qw,  int time_ms);
+    static void write(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex& mtx ,Qw &qw,  int const time_ms);
 
     static void MyFunc(Write_thread *p)
     {
@@ -61,7 +61,7 @@ private:
     Write_thread& operator= (Write_thread const& a );
 
     std::mutex& mtx;
-    int time_ms;
+    int const time_ms;
     std::queue <Msg> & queue;
     std::vector <char> :: iterator it;
     Qw &qw;
@@ -74,14 +74,14 @@ class Read_thread
     friend class Protocol;
 private:
 
-    Read_thread(std::queue <Msg> & queue , std::vector <char> :: iterator const it,std::mutex &mtx, const std::string& ptr, Qw &qw,int time_ms=0) : queue(queue), it(it), mtx(mtx), ptr(ptr) ,qw(qw),time_ms(time_ms) {}
+    Read_thread(std::queue <Msg> & queue , std::vector <char> :: iterator const it, std::mutex &mtx, const std::string& ptr, Qw &qw, int const time_ms=0) : queue(queue), it(it), mtx(mtx), ptr(ptr) ,qw(qw),time_ms(time_ms) {}
 
     static void MyFunc(Read_thread *p)
     {
         read( p->queue ,  p->it, p->mtx,p->qw, p->ptr, p->time_ms );
     }
 
-    static void read( std::queue <Msg> & queue ,std::vector <char> :: iterator const it, std::mutex &mtx, Qw& qw, const std::string& ptr, int time_ms );
+    static void read( std::queue <Msg> & queue ,std::vector <char> :: iterator const it, std::mutex &mtx, Qw& qw, const std::string& ptr, int const time_ms );
 
     static  bool ret( Qw &qw) { return qw.var;}
 
