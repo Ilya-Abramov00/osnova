@@ -15,12 +15,12 @@ int  write_buf( std::vector <char> :: iterator it, int sdvig );//функция 
 class Qw {
     friend class Write_thread;
     friend class Read_thread;
-public:
+private:
     void clear()
     {
         stop= true; var= true;  q=0; k=0; //обнуляем глобальные переменные
     }
-private:
+
     int k = 0;//счетчик сообщений
     bool stop = true;//для остановки  потока записи
     bool var = true;//для остановки потока чтения
