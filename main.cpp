@@ -20,7 +20,7 @@ int main()
 
     Read_thread q2( queue, it, mtx , "/home/ilya/zad2.txt" );
     q2.CreateThr();
-
+    std::this_thread::sleep_for(std::chrono::seconds(20));
     return 0;
 
 }

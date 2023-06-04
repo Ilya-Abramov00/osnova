@@ -11,6 +11,8 @@
 #include <iterator>
 #include <vector>
 
+
+
 class Qw {
     friend class Write_thread;
     friend class Read_thread;
@@ -77,8 +79,8 @@ public:
     Read_thread(std::queue <Msg> & queue , std::vector <char> :: iterator const it,std::mutex &mtx, std::string ptr, int time_ms=0) : queue(queue), it(it), mtx(mtx), ptr(ptr) ,time_ms(time_ms) {}
 
     void CreateThr(){
-        std::thread thr(MyFunc, this);
-        thr.join();
+        (MyFunc, this);
+
     }
 
 private:
@@ -99,6 +101,7 @@ private:
     std::vector <char> :: iterator const it;
     std::string ptr;
 };
+
 
 
 #endif
