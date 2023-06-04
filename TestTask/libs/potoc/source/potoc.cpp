@@ -17,9 +17,9 @@ int  write_buf( std::vector <char> :: iterator it, int sdvig )//иммитаци
 
 
 
-void Write_thread:: write(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex& mtx, int time_ms  )
+void Write_thread::  write(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex& mtx ,Qw &qw,  int time_ms)
 {
-    while ( stops() )
+    while ( stops(qw) )
     {
         int sdvig=1024*1024*qw.k;sdvig%=1024*1024*256;//уже записано столько (к мегабайт)
 
@@ -56,11 +56,11 @@ void Write_thread:: write(std::queue <Msg> & queue , std::vector <char> :: itera
 }
 
 
-void Read_thread::read( std::queue <Msg> & queue ,std::vector <char> :: iterator it,std::mutex& mtx, std::string ptr, int time_ms )
+void Read_thread::read( std::queue <Msg> & queue ,std::vector <char> :: iterator it,std::mutex& mtx,Qw &qw, std::string ptr, int time_ms )
 {
 
     std::ofstream fout(ptr, std::ios_base::app | std::ios_base::out);
-    while ( ret() || queue.size() != 0 )
+    while ( ret(qw) || queue.size() != 0 )
     {
         while ( queue.size() != 0)
         {
