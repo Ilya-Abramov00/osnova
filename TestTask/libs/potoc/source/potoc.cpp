@@ -30,7 +30,6 @@ void Write_thread::  write(std::queue <Msg> & queue , std::vector <char> :: iter
             msg.end = msg.begin + data_size;
             std::unique_lock<std::mutex> mtx_0(mtx);
             queue.push(msg);
-            std::cout << "\n размер очереди= " << queue.size() << std::endl;
             mtx_0.unlock();
         }
         if (queue.size()>=qw.q ) qw.q=queue.size();
