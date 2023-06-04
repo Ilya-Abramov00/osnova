@@ -18,7 +18,7 @@ void Write_thread::  write(std::queue <Msg> & queue , std::vector <char> :: iter
 {
     while ( stops(qw) )
     {
-        int sdvig=1024*1024*qw.k;sdvig%=1024*1024*256;//уже записано столько (к мегабайт)
+        int sdvig=1024*1024*qw.k; sdvig%=1024*1024*256;//уже записано столько (к мегабайт) циклический буффер
 
         auto start=std::chrono::high_resolution_clock::now();
         {
