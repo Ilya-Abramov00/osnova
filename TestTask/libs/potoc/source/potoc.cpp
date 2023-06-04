@@ -23,6 +23,7 @@ void Write_thread::  write(std::queue <Msg> & queue , std::vector <char> :: iter
         auto start=std::chrono::high_resolution_clock::now();
         {
             int data_size = write_buf(it, sdvig);
+            std::this_thread::sleep_for(std::chrono::milliseconds(time_ms));//замедление
 
             Msg msg;
             msg.begin = it + sdvig;
@@ -41,8 +42,7 @@ void Write_thread::  write(std::queue <Msg> & queue , std::vector <char> :: iter
             qw.stop=false;
         }
         qw.k++;
-        std::this_thread::sleep_for(std::chrono::milliseconds(time_ms));
-        //искуственное  замедление иммитирующей приход сообщений
+
         auto end=std::chrono::high_resolution_clock::now();
         std::chrono::duration<float> duration=end-start;
         std::cout<<"\n скорость записи мб/с= "<<int(1/duration.count())<<"\n";
@@ -68,14 +68,14 @@ void Read_thread::read( std::queue <Msg> & queue ,std::vector <char> :: iterator
                 queue.pop();
                 std::cout<<"\n размер очереди= "<< queue.size()<<std::endl;
                 mtx_0.unlock();
+            }
                 for (; msg.begin != msg.end; msg.begin++)
                 {
                     char data = *(msg.begin);
                     fout.write((char *) &data, 1);
                 }
-                std::this_thread::sleep_for(std::chrono::milliseconds(time_ms));
+                std::this_thread::sleep_for(std::chrono::milliseconds(time_ms));//замедление
 
-            }
             auto end=std::chrono::high_resolution_clock::now();
             std::chrono::duration<float> duration=end-start;
             std::cout<<"\n скорость сохранения мб/с= "<<int(1/duration.count())<<"\n";
