@@ -59,7 +59,7 @@ private:
         return qw.stop;
     };
     Write_thread (Write_thread const& a );
-    void operator= (Write_thread const& a );
+    Write_thread& operator= (Write_thread const& a );
     std::mutex& mtx;
     int time_ms;
     std::queue <Msg> & queue;
@@ -89,7 +89,7 @@ private:
    static bool ret() { return qw.var;}
 
     Read_thread (Read_thread const& a );
-    void operator= (Read_thread const& a );
+    Read_thread& operator= (Read_thread const& a );
 
     std::mutex& mtx;
     int time_ms;
