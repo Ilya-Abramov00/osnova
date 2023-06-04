@@ -97,7 +97,7 @@ private:
 };
 
 
-class Protocol{
+class Protocol{//думаю, можно еще попробовать сделать Protocol наследником от двух классов
 public:
     Protocol(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex &mtx, std::string ptr, int time_ms_write=0, int time_ms_read=0 ):queue(queue), it(it), mtx(mtx),ptr(ptr), time_ms_write(time_ms_write),time_ms_read(time_ms_read) {};
 
@@ -110,7 +110,7 @@ public:
        std::thread t2(& Read_thread::MyFunc, b );
 
        t1.join(); t2.join();
-       delete a; delete b;//думаю, можно еще попробовать сделать Protocol наследником от двух классов
+       delete a; delete b;
     }
 private:
     Protocol( Protocol const& a );
