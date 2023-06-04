@@ -116,6 +116,9 @@ public:
        delete b;
     }
 private:
+    Protocol( Protocol const& a );
+    Protocol& operator= ( Protocol const& a );
+
     Qw qw;
     std::queue <Msg> & queue;
     std::vector <char> :: iterator it;
