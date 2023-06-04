@@ -109,10 +109,8 @@ public:
        std::thread t1(&Write_thread::MyFunc ,a );
        std::thread t2(& Read_thread::MyFunc, b );
 
-       t1.join();
-       t2.join();
-       delete a;
-       delete b;
+       t1.join(); t2.join();
+       delete a; delete b;
     }
 private:
     Protocol( Protocol const& a );
