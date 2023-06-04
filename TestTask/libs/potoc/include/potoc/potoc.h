@@ -99,7 +99,7 @@ private:
 
 class Protocol{
 public:
-    Protocol(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex &mtx, std::string ptr, int time_ms_write=0, int time_ms_read=0 ):queue(queue), it(it), mtx(mtx), time_ms_write(time_ms_write),time_ms_read(time_ms_read) {};
+    Protocol(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex &mtx, std::string ptr, int time_ms_write=0, int time_ms_read=0 ):queue(queue), it(it), mtx(mtx),ptr(ptr), time_ms_write(time_ms_write),time_ms_read(time_ms_read) {};
 
        void start()
        {

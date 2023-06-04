@@ -53,38 +53,37 @@ void Write_thread::  write(std::queue <Msg> & queue , std::vector <char> :: iter
 
 void Read_thread::read( std::queue <Msg> & queue ,std::vector <char> :: iterator it,std::mutex& mtx,Qw &qw, std::string ptr, int time_ms )
 {
-
     std::ofstream fout(ptr, std::ios_base::app | std::ios_base::out);
-    while ( ret(qw) || queue.size() != 0 )
+    if (!fout.is_open()) { std::cout << "Файл не может быть создан\n";  qw.clear(); }
     {
-        while ( queue.size() != 0)
-        {
-            auto start = std::chrono::high_resolution_clock::now();
-            Msg msg;
-            {
-            std::unique_lock <std::mutex> mtx_0 (mtx);
-                msg = queue.front();
-                queue.pop();
-                std::cout<<"\n размер очереди= "<< queue.size()<<std::endl;
-                mtx_0.unlock();
-            }
-                for (; msg.begin != msg.end; msg.begin++)
+        while (ret(qw) ) {
+            while (queue.size() != 0) {
+                auto start = std::chrono::high_resolution_clock::now();
+                Msg msg;
                 {
+                    std::unique_lock<std::mutex> mtx_0(mtx);
+                    msg = queue.front();
+                    queue.pop();
+                    std::cout << "\n размер очереди= " << queue.size() << std::endl;
+                    mtx_0.unlock();
+                }
+                for (; msg.begin != msg.end; msg.begin++) {
                     char data = *(msg.begin);
                     fout.write((char *) &data, 1);
                 }
                 std::this_thread::sleep_for(std::chrono::milliseconds(time_ms));//замедление
 
-            auto end=std::chrono::high_resolution_clock::now();
-            std::chrono::duration<float> duration=end-start;
-            std::cout<<"\n скорость сохранения мб/с= "<<int(1/duration.count())<<"\n";
+                auto end = std::chrono::high_resolution_clock::now();
+                std::chrono::duration<float> duration = end - start;
+                std::cout << "\n скорость сохранения мб/с= " << int(1 / duration.count()) << "\n";
 
+            }
         }
-    }
-    std::cout<<" \n\n\n сохранениe завершено\n ";
-    std::cout<<"\n максимальный размер очереди= "<< qw.q <<"\n ";
-    std::cout<<"\n Сообщений отправлено="<<qw.k<<"\n ";;
-    fout.close();
+        std::cout << " \n\n\n сохранениe завершено\n ";
+        std::cout << "\n максимальный размер очереди= " << qw.q << "\n ";
+        std::cout << "\n Сообщений отправлено=" << qw.k << "\n ";;
+        fout.close();
+    };
     qw.clear();
 }
 

@@ -14,7 +14,7 @@ int main()
     std::vector <char> :: iterator it=a.begin();
     std::mutex mtx;
 
-    Protocol q(queue, it, mtx, "/home/ilya/zad2.txt",0.2,0);
+    Protocol q(queue, it, mtx, "/home/ilya/potoc.txt",0.2,0);
     q.start();
 
     return 0;
