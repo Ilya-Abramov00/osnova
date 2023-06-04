@@ -8,6 +8,8 @@
 #include <chrono>
 #include <mutex>
 #include <condition_variable>
+#include <iterator>
+#include <vector>
 
 class Qw {
     friend class Write_thread;
@@ -28,18 +30,18 @@ struct Msg//сообщение
     friend class Write_thread;
     friend class Read_thread;
 private:
-    char * begin;
-    char * end;
+    std::vector <char> :: iterator begin;
+    std::vector <char> :: iterator  end;
 
 };
 
-int  write_buf( char* const& buf_0, int sdvig );//функция реализуящая запись
+int  write_buf( std::vector <char> :: iterator it, int sdvig );//функция реализуящая запись
 
 class Write_thread
 {
 public:
 
-    Write_thread(std::queue <Msg> & queue , char * const&  buf_0, std::mutex &mtx, int time_ms=0):queue(queue), buf_0(buf_0), mtx(mtx), time_ms(time_ms) {}
+    Write_thread(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex &mtx, int time_ms=0):queue(queue), it(it), mtx(mtx), time_ms(time_ms) {}
 
     void CreateThr()
     {
@@ -48,10 +50,10 @@ public:
     }
 
 private:
-    static void write(std::queue <Msg> & queue , char * const&  buf_0, std::mutex& mtx ,  int time_ms);
+    static void write(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex& mtx ,  int time_ms);
 
     static void MyFunc(Write_thread *p){
-        write( p->queue , p->buf_0, p->mtx, p->time_ms);
+        write( p->queue , p-> it, p->mtx, p->time_ms);
     }
    static bool stops()
     {
@@ -63,7 +65,7 @@ private:
     std::mutex& mtx;
     int time_ms;
     std::queue <Msg> & queue;
-    char * const&  buf_0;
+    std::vector <char> :: iterator it;
 };
 
 
@@ -72,7 +74,7 @@ class Read_thread
 {
 public:
 
-    Read_thread(std::queue <Msg> & queue , char const * const&  buf_0,std::mutex &mtx, std::string ptr, int time_ms=0) : queue(queue), buf_0(buf_0), mtx(mtx), ptr(ptr) ,time_ms(time_ms) {}
+    Read_thread(std::queue <Msg> & queue , std::vector <char> :: iterator const it,std::mutex &mtx, std::string ptr, int time_ms=0) : queue(queue), it(it), mtx(mtx), ptr(ptr) ,time_ms(time_ms) {}
 
     void CreateThr(){
         std::thread thr(MyFunc, this);
@@ -82,9 +84,9 @@ public:
 private:
     static void MyFunc(Read_thread *p)
     {
-        read( p->queue ,  p->buf_0, p->mtx, p->ptr,p->time_ms);
+        read( p->queue ,  p->it, p->mtx, p->ptr,p->time_ms);
     }
-    static void read( std::queue <Msg> & queue ,char const * const&  buf_0, std::mutex &mtx, std::string ptr, int time_ms );
+    static void read( std::queue <Msg> & queue ,std::vector <char> :: iterator const it, std::mutex &mtx, std::string ptr, int time_ms );
 
    static bool ret() { return qw.var;}
 
@@ -94,7 +96,7 @@ private:
     std::mutex& mtx;
     int time_ms;
     std::queue <Msg> & queue;
-    char const * const&  buf_0;
+    std::vector <char> :: iterator const it;
     std::string ptr;
 };
 

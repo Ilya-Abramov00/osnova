@@ -4,20 +4,20 @@
 std::condition_variable cv;
 
 
-int  write_buf( char* const& buf_0, int sdvig )//иммитация записи 1 мб данных
+int  write_buf( std::vector <char> :: iterator it, int sdvig )//иммитация записи 1 мб данных
 {
     char a='q';
     int data_size=1024*1024;
     for (int j = 0; j != data_size ; j++)
     {
-        *(buf_0+sdvig +j)=a ;
+        *(it+sdvig +j)=a ;
     }
     return data_size;
 }
 
 
 
-void Write_thread:: write(std::queue <Msg> & queue , char * const&  buf_0, std::mutex& mtx, int time_ms  )
+void Write_thread:: write(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex& mtx, int time_ms  )
 {
     while ( stops() )
     {
@@ -25,10 +25,10 @@ void Write_thread:: write(std::queue <Msg> & queue , char * const&  buf_0, std::
 
         auto start=std::chrono::high_resolution_clock::now();
         {
-            int data_size = write_buf(buf_0, sdvig);
+            int data_size = write_buf(it, sdvig);
             std::this_thread::sleep_for(std::chrono::milliseconds(time_ms));
             Msg msg;
-            msg.begin = buf_0 + sdvig;
+            msg.begin = it + sdvig;
             msg.end = msg.begin + data_size;
             std::unique_lock<std::mutex> mtx_0(mtx);
             queue.push(msg);
@@ -56,7 +56,7 @@ void Write_thread:: write(std::queue <Msg> & queue , char * const&  buf_0, std::
 }
 
 
-void Read_thread::read( std::queue <Msg> & queue ,char const * const&  buf_0,std::mutex& mtx, std::string ptr, int time_ms )
+void Read_thread::read( std::queue <Msg> & queue ,std::vector <char> :: iterator it,std::mutex& mtx, std::string ptr, int time_ms )
 {
 
     std::ofstream fout(ptr, std::ios_base::app | std::ios_base::out);
@@ -80,7 +80,6 @@ void Read_thread::read( std::queue <Msg> & queue ,char const * const&  buf_0,std
                 std::this_thread::sleep_for(std::chrono::milliseconds(time_ms));
 
             }
-
             auto end=std::chrono::high_resolution_clock::now();
             std::chrono::duration<float> duration=end-start;
             std::cout<<"\n скорость сохранения мб/с= "<<int(1/duration.count())<<"\n";
