@@ -21,11 +21,8 @@ private:
     bool stop = true;//для остановки  потока записи
     bool var = true;//для остановки потока чтения
     int q = 1;//cчетчик max_bufer
-};
+};Qw qw;
 
-
-
-Qw qw;
 struct Msg//сообщение
 {
     friend class Write_thread;
@@ -36,7 +33,6 @@ private:
 };
 
 int  write_buf( char* const& buf_0, int sdvig );//функция реализуящая запись
-
 
 class Write_thread
 {
@@ -87,7 +83,6 @@ private:
         read( p->queue ,  p->buf_0, p->mtx, p->ptr,p->time_ms);
     }
     static void read( std::queue <Msg> & queue ,char const * const&  buf_0, std::mutex &mtx, std::string ptr, int time_ms );
-
 
    static bool ret() { return qw.var;}
 
