@@ -81,7 +81,7 @@ void Read_thread::read( std::queue <Msg> & queue ,std::vector <char> :: iterator
         }
         std::cout << " \n\n\n сохранениe завершено\n ";
         std::cout << "\n максимальный размер очереди= " << qw.q << "\n ";
-        std::cout << "\n Сообщений отправлено=" << qw.k << "\n ";;
+        std::cout << "\n Сообщений отправлено=" << qw.k << "\n \n ";;
         fout.close();
     };
     qw.clear();
