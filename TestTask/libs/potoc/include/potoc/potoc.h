@@ -110,7 +110,7 @@ public:
        std::thread t2(& Read_thread::MyFunc, b );
 
        t1.join(); t2.join();
-       delete a; delete b;
+       delete a; delete b;//думаю, можно еще попробовать сделать Protocol наследником от двух классов
     }
 private:
     Protocol( Protocol const& a );
