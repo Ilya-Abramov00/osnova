@@ -12,8 +12,7 @@
 class Qw {
     friend class Write_thread;
     friend class Read_thread;
-private:
-   void clear()
+    void clear()
    {
        stop= true; var= true;  q=0; k=0; //обнуляем глобальные переменные
    }
@@ -21,6 +20,7 @@ private:
     bool stop = true;//для остановки  потока записи
     bool var = true;//для остановки потока чтения
     int q = 1;//cчетчик max_bufer
+
 };Qw qw;
 
 struct Msg//сообщение
@@ -30,6 +30,7 @@ struct Msg//сообщение
 private:
     char * begin;
     char * end;
+
 };
 
 int  write_buf( char* const& buf_0, int sdvig );//функция реализуящая запись
@@ -57,7 +58,8 @@ private:
         if( qw.k==512 ) { qw.stop=false; }
         return qw.stop;
     };
-
+    Write_thread (Write_thread const& a );
+    void operator= (Write_thread const& a );
     std::mutex& mtx;
     int time_ms;
     std::queue <Msg> & queue;
@@ -85,6 +87,9 @@ private:
     static void read( std::queue <Msg> & queue ,char const * const&  buf_0, std::mutex &mtx, std::string ptr, int time_ms );
 
    static bool ret() { return qw.var;}
+
+    Read_thread (Read_thread const& a );
+    void operator= (Read_thread const& a );
 
     std::mutex& mtx;
     int time_ms;
