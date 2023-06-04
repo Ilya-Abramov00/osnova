@@ -7,7 +7,6 @@
 #include <thread>
 #include <chrono>
 #include <mutex>
-#include <condition_variable>
 #include <iterator>
 #include <vector>
 
@@ -23,7 +22,7 @@ private:
     int k = 0;//счетчик сообщений
     bool stop = true;//для остановки  потока записи
     bool var = true;//для остановки потока чтения
-    int q = 1;//cчетчик max_bufer
+    int q = 0;//cчетчик max_bufer
 };
 
 class Msg//сообщение
@@ -45,7 +44,6 @@ class Write_thread
 private:
 
     Write_thread(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex &mtx, Qw &qw,int time_ms=0 ):queue(queue), it(it), mtx(mtx),  qw(qw),time_ms(time_ms) {}
-
 
     static void write(std::queue <Msg> & queue , std::vector <char> :: iterator it, std::mutex& mtx ,Qw &qw,  int time_ms);
 
@@ -79,12 +77,10 @@ private:
 
     Read_thread(std::queue <Msg> & queue , std::vector <char> :: iterator const it,std::mutex &mtx, std::string ptr, Qw &qw,int time_ms=0) : queue(queue), it(it), mtx(mtx), ptr(ptr) ,qw(qw),time_ms(time_ms) {}
 
-
     static void MyFunc(Read_thread *p)
     {
         read( p->queue ,  p->it, p->mtx,p->qw, p->ptr, p->time_ms );
     }
-
 
     static void read( std::queue <Msg> & queue ,std::vector <char> :: iterator const it, std::mutex &mtx, Qw& qw, std::string ptr, int time_ms );
 
@@ -110,6 +106,7 @@ public:
        {
        auto* a=new Write_thread (this->queue,this->it,this-> mtx ,this->qw,this->time_ms_write);
        auto* b=new  Read_thread( this->queue, this->it,this-> mtx , this->ptr,this->qw,this->time_ms_read );
+
        std::thread t1(&Write_thread::MyFunc ,a );
        std::thread t2(& Read_thread::MyFunc, b );
 

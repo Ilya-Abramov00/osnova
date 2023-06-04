@@ -1,9 +1,6 @@
 #include "potoc/potoc.h"
 
 
-std::condition_variable cv;
-
-
 int  write_buf( std::vector <char> :: iterator it, int sdvig )//иммитация записи 1 мб данных
 {
     char a='q';
@@ -26,7 +23,7 @@ void Write_thread::  write(std::queue <Msg> & queue , std::vector <char> :: iter
         auto start=std::chrono::high_resolution_clock::now();
         {
             int data_size = write_buf(it, sdvig);
-            std::this_thread::sleep_for(std::chrono::milliseconds(time_ms));
+
             Msg msg;
             msg.begin = it + sdvig;
             msg.end = msg.begin + data_size;
@@ -44,8 +41,7 @@ void Write_thread::  write(std::queue <Msg> & queue , std::vector <char> :: iter
             qw.stop=false;
         }
         qw.k++;
-
-
+        std::this_thread::sleep_for(std::chrono::milliseconds(time_ms));
         //искуственное  замедление иммитирующей приход сообщений
         auto end=std::chrono::high_resolution_clock::now();
         std::chrono::duration<float> duration=end-start;
