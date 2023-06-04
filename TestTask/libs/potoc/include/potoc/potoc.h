@@ -10,6 +10,8 @@
 #include <iterator>
 #include <vector>
 
+int  write_buf( std::vector <char> :: iterator it, int sdvig );//функция реализуящая запись
+
 class Qw {
     friend class Write_thread;
     friend class Read_thread;
@@ -34,9 +36,6 @@ private:
     std::vector <char> :: iterator  end;
 };
 
-
-
-int  write_buf( std::vector <char> :: iterator it, int sdvig );//функция реализуящая запись
 
 class Write_thread
 {
