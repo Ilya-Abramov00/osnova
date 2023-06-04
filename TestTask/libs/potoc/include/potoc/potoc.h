@@ -12,26 +12,27 @@
 #include <vector>
 
 class Qw {
+    friend class Write_thread;
+    friend class Read_thread;
 public:
     void clear()
     {
         stop= true; var= true;  q=0; k=0; //обнуляем глобальные переменные
     }
+private:
     int k = 0;//счетчик сообщений
     bool stop = true;//для остановки  потока записи
     bool var = true;//для остановки потока чтения
     int q = 1;//cчетчик max_bufer
 };
 
-struct Msg//сообщение
+class Msg//сообщение
 {
     friend class Write_thread;
     friend class Read_thread;
-
 private:
     std::vector <char> :: iterator begin;
     std::vector <char> :: iterator  end;
-
 };
 
 
