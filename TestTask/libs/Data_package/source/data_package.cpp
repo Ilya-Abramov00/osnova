@@ -11,7 +11,7 @@ int random_l(int N)
 
 int random_n()
 {
-    std::uniform_int_distribution<> dist(100, 150);
+    std::uniform_int_distribution<> dist(10, 20);
     return dist(gen);
 }
 
@@ -27,13 +27,16 @@ return std::move(big_data);
 
 void write_do_otpavki(std::vector<atom_string>& big_data){
     std::ofstream fout;
-    fout.open("/home/MYFile.txt",std::ofstream::app);
+    fout.open("/home/ilya/Загрузки/file.txt",std::ios::trunc);
     if (!fout.is_open() ) { std::cout << "Файл не может быть создан\n";  }
     else {
         std::cout << "Файл создан\n";
 
         for (int i = 0; i != big_data.size(); i++){
-            fout.write((char *) &big_data.at(i), sizeof(atom_string) );
+            std::string ::size_type lenght=big_data.at(i).data.size();
+            fout.write(big_data.at(i).data.data(), big_data.at(i).data.size());
+            fout.write("\n", 1);
+
     }
     }
     fout.close();

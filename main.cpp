@@ -10,14 +10,14 @@ using namespace std;
 
 int main()
 {
-int N=10;
+int N=1;
 
     std::vector<atom_string> big_data=genitation(N);
 
     for(int i=0; i!=big_data.size(); i++)
     {
-        cout<<big_data[i].data<<endl;
         cout<<big_data[i].nomer<<endl;
+        cout<<big_data[i].data<<endl;
     }
     return 0;
 }
