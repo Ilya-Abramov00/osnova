@@ -24,5 +24,26 @@ public:
    static int id;
 };
 
+class Logoc_Socet{
+public:
+    Logoc_Socet(){
+
+        std::ifstream file;
+        file.open("/home/ilya/Загрузки/file.txt");
+        if (!file.is_open() ) { std::cout << "Файл не может быть создан\n";  }
+        else
+        {
+            std::cout << "Файл открыт\n";
+            while(file) {
+                std::string str;
+                std::getline(file, str);
+
+                //std::cout<<str<<std::endl;
+            }
+
+        }
+        file.close();
+    }
+};
 
 #endif

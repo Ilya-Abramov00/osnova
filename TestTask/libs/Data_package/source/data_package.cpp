@@ -14,7 +14,7 @@ int random_l(int N)
 
 int random_n()
 {
-    std::uniform_int_distribution<> dist(100, 180);
+    std::uniform_int_distribution<> dist(100, 150);
     return dist(gen);
 }
 
@@ -31,6 +31,7 @@ void geniration(int N)
 
     }
     fout.close();
+    Logoc_Socet();
 }
 
 

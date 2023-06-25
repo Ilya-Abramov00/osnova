@@ -10,7 +10,7 @@ using namespace std;
 
 int main()
 {
-int N=20;
+int N=50;
 
     geniration(N);
 
