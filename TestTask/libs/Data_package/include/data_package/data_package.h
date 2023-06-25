@@ -22,7 +22,7 @@ public:
    std::string data;
 
 };
-int N=50;
+int N=1;
 class Logic_Socet{
 public:
     Logic_Socet(){
@@ -34,20 +34,28 @@ public:
         {
             std::cout << "Файл открыт\n";
             std::vector<Socet> q;q.reserve(10*N);
-            int k=0;
+
             while(file) {
+                int k=0;
                 std::string str;
                 std::getline(file, str);
-                k++;
-                for(int a=str.size() ;a>N; a-=N)
-                {
-                    q.push_back( Socet(str.substr(0,N)) );//неправильный порядок действия
-                };
-                for(int i=0;i!=q.size();i++){
-                    std::cout<<q.at(i).data<<std::endl;std::cout<<q.at(i).nomer_Socet<<std::endl;
+                std::cout <<str<< std::endl;
+                if (str != "\n") {
+
+                    int a = str.size();
+                    while (a > N) {
+
+                        q.push_back(Socet(str.substr(k*N, N)));
+                        a -= N;
+                        k++;
+                    };
+
+                    for (int i = 0; i != q.size(); i++) {
+                        std::cout << q.at(i).data << std::endl;
+                        std::cout << q.at(i).nomer_Socet << std::endl;
+                    }
                 }
             }
-
         }
         file.close();
     }
