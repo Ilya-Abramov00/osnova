@@ -1,21 +1,32 @@
-//#ifndef DATA_PACKAGE_H
-//#define DATA_PACKAGE_H
+#ifndef DATA_PACKAGE_H
+#define DATA_PACKAGE_H
 
-int a=2;
+#include<random>
+#include<vector>
 
-class Qw {
+int random_l(int N);
+int random_n();
 
-private:
-    void clear()
+
+class atom_string{
+public:
+    atom_string( std::string& determinir ):data (determinir ){ id++; };//если данные, которые мы передаем являются не случайными
+
+    atom_string(int N)
     {
-        stop= true; var= true;  q=0; k=0; //обнуляем глобальные переменные
+        this->data.append( random_l(N) , '*');
+         id++; this->nomer=id;
     }
 
-    int k = 0;//счетчик сообщений
-    bool stop = true;//для остановки  потока записи
-    bool var = true;//для остановки потока чтения
-    int q = 0;//cчетчик max_bufer
+    std::string data;
+    int  nomer;
+private:
+    static int id;
 };
+int atom_string::id=0;
 
 
-//#endif
+std::vector<atom_string> genitation(int N);
+
+
+#endif
