@@ -11,39 +11,48 @@ int random_n();
 
 void geniration(int N);
 
-
+static int id=0;
 class Socet{
 public:
-   Socet()
-   {
-       id++; nomer_Socet=id;
-   }
+   Socet(std::string str):data(str) { id++; this->nomer_Socet=id;}
+
+
 
    int nomer_Socet;
-   int n_Atom_string;
-   static int id;
+   std::string data;
+
 };
-
-class Logoc_Socet{
+int N=50;
+class Logic_Socet{
 public:
-    Logoc_Socet(){
-
+    Logic_Socet(){
         std::ifstream file;
+
         file.open("/home/ilya/Загрузки/file.txt");
-        if (!file.is_open() ) { std::cout << "Файл не может быть создан\n";  }
+        if (!file.is_open() ) { std::cout << "Файл не может быть открыт\n";  }
         else
         {
             std::cout << "Файл открыт\n";
+            std::vector<Socet> q;q.reserve(10*N);
+            int k=0;
             while(file) {
                 std::string str;
                 std::getline(file, str);
-
-                //std::cout<<str<<std::endl;
+                k++;
+                for(int a=str.size() ;a>N; a-=N)
+                {
+                    q.push_back( Socet(str.substr(0,N)) );//неправильный порядок действия
+                };
+                for(int i=0;i!=q.size();i++){
+                    std::cout<<q.at(i).data<<std::endl;std::cout<<q.at(i).nomer_Socet<<std::endl;
+                }
             }
 
         }
         file.close();
     }
+
+
 };
 
 #endif
