@@ -3,6 +3,8 @@
 
 #include<random>
 #include<vector>
+#include<fstream>
+#include <iostream>
 
 int random_l(int N);
 int random_n();
@@ -23,10 +25,11 @@ public:
 private:
     static int id;
 };
+
 int atom_string::id=0;
 
 
 std::vector<atom_string> genitation(int N);
-
+void write_do_otpavki(std::vector<atom_string>& big_data);
 
 #endif

@@ -1,4 +1,4 @@
-#include "potoc/potoc.h"
+
 
 #include <QApplication>
 #include "mainwindow.h"
