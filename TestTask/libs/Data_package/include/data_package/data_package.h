@@ -31,7 +31,7 @@ class Packaging_Socket{
 public:
 
     Packaging_Socket( int N , std::string& str_1 );
-    void Random_Socket(int N , std::string& str_3 );
+    void Random_Socket(int& N , std::string& str_3 );
 private:
     std::vector<Socket> q;
     static int ide;

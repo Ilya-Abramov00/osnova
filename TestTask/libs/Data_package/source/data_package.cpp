@@ -57,7 +57,7 @@ Packaging_Socket::Packaging_Socket( int N , std::string& str_1 ){
             if (N - 1 != n_N) { bufer.push_back(c); }
             else if (N != n_N) {
                 bufer.push_back(c);
-                q.push_back(Socket(Msg(bufer, n_string), (n_string - n0_string + 1)));
+                q.emplace_back( Socket(Msg(bufer, n_string), (n_string - n0_string + 1)) );
                 bufer.clear();
                 n_N = -1;
                 n0_string = n_string;
@@ -65,7 +65,7 @@ Packaging_Socket::Packaging_Socket( int N , std::string& str_1 ){
             n_N++;
         }
 
-        q.push_back(Socket(Msg(bufer, n_string), (n_string - n0_string + 1)));
+        q.emplace_back(Socket(Msg(bufer, n_string), (n_string - n0_string + 1)));
         bufer.clear();
 
         for (int i = 0; i != q.size(); i++)
@@ -78,7 +78,7 @@ Packaging_Socket::Packaging_Socket( int N , std::string& str_1 ){
     }
 }
 
-void Packaging_Socket::Random_Socket(int N, std::string& str_3){
+void Packaging_Socket::Random_Socket(int& N, std::string& str_3){
 
     std::shuffle(q.begin(), q.end(), gen);//поменяли рандомно местами
 
@@ -94,7 +94,7 @@ void Packaging_Socket::Random_Socket(int N, std::string& str_3){
             file.write((char *) &q.at(i).nomer_Socket, sizeof(int));
             file.write((char *) &q.at(i).data.nomer_string, sizeof(int));
             file.write((char *) &q.at(i).n_string, sizeof(int));
-            file.write((char *) &q.at(i).data.data,sizeof(std::string( std::move(N),'*')));
+            file.write((char *) &q.at(i).data.data,N);
         }
     }
     file.close();
@@ -107,46 +107,44 @@ Sent_Socket::Sent_Socket(int N, std::string& str_3, std::string& str_4) {
     std::vector<Socket> q;
 
     if (!file.is_open()) { std::cout << "Файл не может быть открыт\n"; }
-    else
-    {
+    else {
         std::cout << "Файл_3 открыт\n";
-
 
         int nomer_Socket;
         int n_string;
         int nomer_string;
-           std::string data;
+        std::string data;
 
-              while(file)
-               {
-                  file.read((char *) &nomer_Socket, sizeof(int));
-                  file.read((char *) &nomer_string, sizeof(int));
-                  file.read((char *) &n_string, sizeof(int));
-                  file.read((char *) &data,sizeof(std::string(std::move(N),'*')));
-                  q.push_back( Socket( Msg(data, nomer_string),nomer_Socket,n_string ) );
-               }
 
-              q.pop_back();//почему-то дублирует последний файл
+        while (file) {
+            file.read((char *) &nomer_Socket, sizeof(int));
+            file.read((char *) &nomer_string, sizeof(int));
+            file.read((char *) &n_string, sizeof(int));
+            file.read((char *) &data, N);
+            q.push_back(Socket(Msg(data, nomer_string), nomer_Socket, n_string));
+        }
+
+        q.pop_back();//почему-то дублирует последний файл
         file.close();
-        data.clear();
+}
+    {
         std::cout << "Файлwfqf\n";
-    }
-    std::cout << "Файefwан_4\n";
 
-                         sort(q.begin(), q.end() );//сортировка
-                         std::ofstream fout;
-                         fout.open("/home/ilya/Загрузки/file_4.txt",std::ios::trunc);
-                         if (!fout.is_open() ) { std::cout << "Файл не может быть создан\n";  }
-                         else
-                         {
-                             std::cout << "Файл создан_4\n";
-                             for(int i=0; i!=q.size(); i++)
-                             {
-                                 fout<<q.at(i).data.data;
-                             }
-                         }
-                         fout.close();
+        std::cout << "Файefwан_4\n";
+
+        sort(q.begin(), q.end());//сортировка
+        std::ofstream fout;
+        fout.open("/home/ilya/Загрузки/file_4.txt", std::ios::trunc);
+        if (!fout.is_open()) { std::cout << "Файл не может быть создан\n"; }
+        else {
+            std::cout << "Файл создан_4\n";
+            for (int i = 0; i != q.size(); i++) {
+                fout << q.at(i).data.data;
+            }
+        }
+        fout.close();
 
         q.clear();
     }
 
+}

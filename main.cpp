@@ -1,7 +1,5 @@
 
 
-#include <QApplication>
-#include "mainwindow.h"
 
 using namespace std;
 #include "data_package/data_package.h"
