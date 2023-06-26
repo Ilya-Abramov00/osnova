@@ -7,28 +7,28 @@
 
 int random_l(int N)
 {
-     std::uniform_int_distribution<> dist(1, 10 * N);
+     std::uniform_int_distribution<> dist(1, 10*N );
      return dist(gen);
  }
 
 int random_n()
 {
-    std::uniform_int_distribution<> dist(10, 10);
+    std::uniform_int_distribution<> dist(3, 3);
     return dist(gen);
 }
 
 void geniration(int N)
 {
-    std::ofstream fout;
-    fout.open("/home/ilya/Загрузки/file.txt",std::ios::trunc);
-    if (!fout.is_open() ) { std::cout << "Файл не может быть создан\n";  }
+    std::ofstream fout1;
+    fout1.open("/home/ilya/Загрузки/file_1.txt",std::ios::trunc);
+    if (!fout1.is_open() ) { std::cout << "Файл не может быть создан\n";  }
     else
     {
         std::cout << "Файл создан\n";
     int n=random_n();
-    for(int i=0; i!=n; i++) fout<<std::string ( random_l(N) ,'*')<<"\n";
+    for(int i=0; i!=n; i++) fout1<<std::string ( random_l(N) ,'*')<<"\n";
     }
-    fout.close();
+    fout1.close();
 }
 
 

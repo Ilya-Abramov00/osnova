@@ -11,7 +11,7 @@ using namespace std;
 int main()
 {
 
-int N=2;
+int N=20;
     geniration(N);
     Logic_Socet (std::move(N) );
 
