@@ -1,125 +1,101 @@
 #ifndef DATA_PACKAGE_H
 #define DATA_PACKAGE_H
 
-#include<random>
-#include<vector>
-#include<fstream>
 #include <iostream>
-#include <algorithm>
-#include <iterator>
+#include<vector>
 
 int random_l(int N);
 int random_n();
 
-void geniration(int N);
+void geniration(int N, std::string& str_1);
+
+class Packaging_Socket;
+class Socket;
 
 
 class Msg{
+    friend  Packaging_Socket;
 public:
    Msg(std::string str, int nomer):data(str), nomer_string(nomer) { }
-
+private:
     int nomer_string;
     std::string data;
 };
-static int ide;
-class Socet{
+
+
+
+class Packaging_Socket{
+    friend class Socket;
 public:
 
-   Socet(Msg str , int n_string):data(str) ,n_string(n_string) { ide++; this->nomer_Socet=ide;}
+    Packaging_Socket( int N , std::string& str_1 );
+    void Random_Socket( std::string& str_3 );
+private:
+    std::vector<Socket> q;
+    static int ide;
+};
+int Packaging_Socket::ide=0;
 
 
 
-   int nomer_Socet;
-   Msg data;
-   int n_string;
+class Socket{
+    friend  Packaging_Socket;
+    friend  bool operator<(const Socket& x, const Socket& y);
+public:
+
+    Socket(Msg str , int n_string):data(str) ,n_string(n_string) { Packaging_Socket::ide++; this->nomer_Socket=Packaging_Socket::ide;}
+private:
+    int nomer_Socket;
+    Msg data;
+    int n_string;
 };
 
-bool operator<(const Socet& x, const Socet& y)
+
+bool operator<(const Socket& x, const Socket& y)
 {
-    return x.nomer_Socet < y.nomer_Socet;
+    return x.nomer_Socket < y.nomer_Socket;
 }
 
-std::random_device rd;
-std::mt19937 gen(rd());
 
 
-class Logic_Socet{
-public:
-    Logic_Socet( int N )
+
+
+
+
+/*
+    std::shuffle(q.begin(), q.end(), gen);//поменяли рандомно местами
+
+
+    sort(q.begin(), q.end() );//сортировка
+
+    for (int i = 0; i != q.size(); i++)
     {
-        std::ifstream file;
-        std::vector<Socet> q;
-        q.reserve(10*N);
-        file.open("/home/ilya/Загрузки/file_1.txt");
-        if (!file.is_open() ) { std::cout << "Файл не может быть открыт\n";  }
-        else
-        {
-            std::cout << "Файл открыт\n";
-
-            std::string bufer;
-            char c;  int n_N=0;
-            int n_string=1; int n0_string=1;
-            while (file.get(c))
-            {
-               if (c=='\n') { n_string++; } //новая строка
-
-              if ( N-1 != n_N  ) { bufer.push_back(c);  }
-                   else if (N != n_N  )
-                   {
-
-                       bufer.push_back(c);
-                       q.push_back( Socet( Msg( bufer,n_string ) ,(n_string-n0_string+1 ) ) );
-                       bufer.clear(); n_N=-1;
-                      n0_string=n_string;
-                   }
-
-                n_N++;
-            }
-            q.push_back( Socet( Msg( bufer,n_string ) ,(n_string-n0_string+1 ) ) );
-            bufer.clear();
-            for (int i = 0; i != q.size(); i++)
-            {
-                std::cout <<"номер пакета: "<< q.at(i).nomer_Socet << std::endl;
-                std::cout << "номер строки: "<<q.at(i).data.nomer_string << std::endl;
-                std::cout <<"данные: "<< q.at(i).data.data << std::endl;
-            }
-
-            std::shuffle(q.begin(), q.end(), gen);//поменяли рандомно местами
-
-
-            sort(q.begin(), q.end() );//сортировка
-
-            for (int i = 0; i != q.size(); i++)
-            {
-                std::cout <<"номер пакета: "<< q.at(i).nomer_Socet << std::endl;
-                std::cout << "номер строки: "<<q.at(i).data.nomer_string << std::endl;
-                std::cout <<"данные: "<< q.at(i).data.data << std::endl;
-            }
-
-//запись данных в файл
-            std::ofstream fout;
-            fout.open("/home/ilya/Загрузки/file_4.txt",std::ios::trunc);
-            if (!fout.is_open() ) { std::cout << "Файл не может быть создан\n";  }
-            else
-            {
-                std::cout << "Файл создан\n";
-
-                for(int i=0; i!=q.size(); i++)
-                {
-                    fout<<q.at(i).data.data;
-                    std::cout<< q.at(i).data.data ;
-                }
-            }
-
-            fout.close();
-        }
-        file.close();
-
+        std::cout <<"номер пакета: "<< q.at(i).nomer_Socet << std::endl;
+        std::cout << "номер строки: "<<q.at(i).data.nomer_string << std::endl;
+        std::cout <<"данные: "<< q.at(i).data.data << std::endl;
     }
 
 
-};
 
+
+
+
+
+//запись данных в файл
+    std::ofstream fout;
+    fout.open("/home/ilya/Загрузки/file_4.txt",std::ios::trunc);
+    if (!fout.is_open() ) { std::cout << "Файл не может быть создан\n";  }
+    else
+    {
+        std::cout << "Файл создан\n";
+        for(int i=0; i!=q.size(); i++)
+        {
+            fout<<q.at(i).data.data;
+        }
+    }
+
+    fout.close();
+}
 /*
     while (a >=N)
     {
