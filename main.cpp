@@ -10,10 +10,10 @@ using namespace std;
 
 int main()
 {
-int N=1;
 
+int N=2;
     geniration(N);
-    Logic_Socet();
+    Logic_Socet (std::move(N) );
 
     return 0;
 }

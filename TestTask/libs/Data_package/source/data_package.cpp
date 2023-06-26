@@ -3,8 +3,7 @@
 #include <algorithm>
 #include <iterator>
 
-std::random_device rd;
-std::mt19937 gen(rd());
+
 
 int random_l(int N)
 {
@@ -27,14 +26,9 @@ void geniration(int N)
     {
         std::cout << "Файл создан\n";
     int n=random_n();
-    for(int i=1; i!=n+1; i++) fout<<std::string ( random_l(N) ,'*')<<"\n";
-
+    for(int i=0; i!=n; i++) fout<<std::string ( random_l(N) ,'*')<<"\n";
     }
     fout.close();
-
 }
 
 
-
-
-// std::shuffle(big_data.begin(), big_data.end(), gen);//поменяли рандомно местами
