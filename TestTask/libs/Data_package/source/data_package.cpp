@@ -134,11 +134,10 @@ void Socket::Sent_Socket( std::string& str_3, std::string& str_4){
         std::ofstream fout;
         fout.open("/home/ilya/Загрузки/file_4.txt", std::ios::trunc);
         if (!fout.is_open()) { std::cout << "Файл не может быть создан\n"; }
-        else {
+        else
+        {
             std::cout << "Файл_4 создан\n";
-            for (int i = 0; i != q.size(); i++) {
-                fout << q.at(i).data.data;
-            }
+            for (int i = 0; i != q.size(); i++) { fout << q.at(i).data.data; }
         }
         fout.close();
     }
