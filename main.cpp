@@ -15,13 +15,13 @@ int main()
 
    int N=100;
 
-    geniration( N, str_1);
+    geniration_string( N, str_1);
 
-    Packaging_Socket q(N,str_1,str_2);
+    Socket::Packaging_Socket(N,str_1,str_2);
 
-    q.Random_Socket(str_3);
+    Socket::Random_Socket(str_2,str_3);
 
-    Socket::sent_Socket (str_3,str_4);
+    Socket::Sent_Socket (str_3,str_4);
 
 
     return 0;
