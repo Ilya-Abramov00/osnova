@@ -13,8 +13,6 @@ void geniration_string(int N, std::string& str_1);
 
 class Socket;
 
-
-
 class Msg{
 
     friend Socket;
@@ -45,11 +43,11 @@ void static clear(){
     Socket_s::id=0;
 }
 
-    void  write_Socket_file(std::ofstream& file);
+           void  write_Socket_file(std::ofstream& file);
 
-    static  std::vector<Socket>& read_file_Socket( std::ifstream& file ,std::vector<Socket>& q ) ;
+    static       std::vector<Socket>& read_file_Socket( std::ifstream& file ,std::vector<Socket>& q ) ;
 
-    static void Sent_Socket ( std::string& str_3, std::string& str_4);
+    static void  Sent_Socket ( std::string& str_3, std::string& str_4);
 
     static void  Packaging_Socket( int N , std::string& str_1, std::string& str_2 );
 
