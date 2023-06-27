@@ -170,8 +170,7 @@ void Socket::write_Socket_file(std::ofstream& file)
  int n=data.get_string().length();
  file.write((char *) &n, sizeof(int) );
 
- for (int j = 0; j != n; j++)
-  { file.write((char*)&data.get_string()[j], sizeof(data.get_string()[j] ) ); }
+ for (int j = 0; j != n; j++)  { file.write((char*)&data.get_string()[j], sizeof(data.get_string()[j] ) ); }
 }
 
 std::vector<Socket>& Socket::read_file_Socket( std::ifstream& file ,std::vector<Socket>& q )
