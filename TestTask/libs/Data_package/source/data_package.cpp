@@ -30,10 +30,11 @@ void geniration_string(int N, std::string& str_1)
     else
     {
         std::cout << "Файл_1 создан\n";
-         int n=random_n();
+        int n=random_n();
     for(int i=0; i!=n; i++) { fout<<std::string ( random_l(N) ,'*')<<"\n"; }
-    }
     fout.close();
+    }
+
 }
 
 
@@ -137,7 +138,7 @@ void Socket::Sent_Socket( std::string& str_3, std::string& str_4){
         else
         {
             std::cout << "Файл_4 создан\n";
-            for (int i = 0; i != q.size(); i++) { fout << q.at(i).data.data; }
+            for (int i = 0; i != q.size(); i++) { fout << q.at(i).data.get_string(); }
         }
         fout.close();
     }
@@ -147,14 +148,14 @@ void Socket::Sent_Socket( std::string& str_3, std::string& str_4){
 void Socket::write_Socket_file(std::ofstream& file)
 {
  file.write((char *) &nomer_Socket, sizeof(int));
- file.write((char *) &data.nomer_string, sizeof(int));
+ file.write((char *) &data.get_nomer_string(), sizeof(int));
  file.write((char *) &n_string, sizeof(int));
 
- int n=data.data.length();
+ int n=data.get_string().length();
  file.write((char *) &n, sizeof(int) );
 
  for (int j = 0; j != n; j++)
-  { file.write((char*)&data.data[j], sizeof(data.data[j] ) ); }
+  { file.write((char*)&data.get_string()[j], sizeof(data.get_string()[j] ) ); }
 }
 
 std::vector<Socket>& Socket::read_file_Socket( std::ifstream& file ,std::vector<Socket>& q )
@@ -179,7 +180,7 @@ std::vector<Socket>& Socket::read_file_Socket( std::ifstream& file ,std::vector<
         }
         q.emplace_back(Socket(Msg(data, nomer_string), nomer_Socket, n_string));
     }
-    q.pop_back(); //почему-то дублирует последний файл
+    q.pop_back(); //почему-то дублирует последний элемент вектора
     return q;
 }
 
