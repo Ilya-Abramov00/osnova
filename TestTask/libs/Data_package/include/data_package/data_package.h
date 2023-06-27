@@ -4,6 +4,14 @@
 #include <iostream>
 #include<vector>
 
+
+#include <algorithm>
+#include <iterator>
+#include<random>
+#include<fstream>
+
+
+
 int random_l(int N);
 int random_n();
 
@@ -16,6 +24,7 @@ class Sent_Socket;
 class Msg{
     friend  Packaging_Socket;
     friend Sent_Socket;
+    friend Socket;
 public:
    Msg(std::string str, int nomer):data(str), nomer_string(nomer) { }
 private:
@@ -30,8 +39,8 @@ class Packaging_Socket{
 
 public:
 
-    Packaging_Socket( int N , std::string& str_1 );
-    void Random_Socket(int& N , std::string& str_3 );
+    Packaging_Socket( int N , std::string& str_1, std::string& str_2 );
+    void Random_Socket( std::string& str_3 );
 private:
     std::vector<Socket> q;
     static int ide;
@@ -44,18 +53,28 @@ class Socket{
     friend  Packaging_Socket;
     friend  bool operator<(const Socket& x, const Socket& y);
     friend Sent_Socket;
+
 public:
+
 void static clear(){
     Packaging_Socket::ide=0;
 }
+
+    void writefile(std::ofstream& file);
+
+    static void sent_Socket ( std::string str_3, std::string str_4);
+
     Socket(Msg str , int n_string):data(str) ,n_string(n_string) { Packaging_Socket::ide++; this->nomer_Socket=Packaging_Socket::ide;}
     Socket(Msg str ,int nomer_Socket ,int n_string):data(str) ,n_string(n_string),nomer_Socket(nomer_Socket) { }
+
+
 private:
     int nomer_Socket;
     Msg data;
     int n_string;
 };
 
+std::vector<Socket> readfile( std::ifstream& file ,std::vector<Socket> q ) ;
 
 bool operator<(const Socket& x, const Socket& y)
 {
@@ -63,10 +82,9 @@ bool operator<(const Socket& x, const Socket& y)
 }
 
 
-class Sent_Socket{
-public:
-    Sent_Socket(int N,std::string& str_3, std::string& str_4);
-};
+
+
+
 
 
 

@@ -1,9 +1,5 @@
 #include "data_package/data_package.h"
 
-#include <algorithm>
-#include <iterator>
-#include<random>
-#include<fstream>
 
 
 std::random_device rd;
@@ -12,7 +8,7 @@ std::mt19937 gen(rd());
 
 int random_l(int N)
 {
-     std::uniform_int_distribution<> dist(1, 2*N );
+     std::uniform_int_distribution<> dist(1, 10*N );
      return dist(gen);
  }
 
@@ -37,7 +33,7 @@ void geniration(int N, std::string& str_1)
 }
 
 
-Packaging_Socket::Packaging_Socket( int N , std::string& str_1 ){
+Packaging_Socket::Packaging_Socket( int N , std::string& str_1, std::string& str_2 ) {
 
     std::ifstream file;
     q.reserve(10 * N);
@@ -57,7 +53,7 @@ Packaging_Socket::Packaging_Socket( int N , std::string& str_1 ){
             if (N - 1 != n_N) { bufer.push_back(c); }
             else if (N != n_N) {
                 bufer.push_back(c);
-                q.emplace_back( Socket(Msg(bufer, n_string), (n_string - n0_string + 1)) );
+                q.emplace_back(Socket(Msg(bufer, n_string), (n_string - n0_string + 1)));
                 bufer.clear();
                 n_N = -1;
                 n0_string = n_string;
@@ -68,17 +64,23 @@ Packaging_Socket::Packaging_Socket( int N , std::string& str_1 ){
         q.emplace_back(Socket(Msg(bufer, n_string), (n_string - n0_string + 1)));
         bufer.clear();
 
-        for (int i = 0; i != q.size(); i++)
-        {
-            //std::cout << "номер пакета: " << q.at(i).nomer_Socket << std::endl;
-            //std::cout << "номер строки: " << q.at(i).data.nomer_string << std::endl;
-            //std::cout << "данные: " << q.at(i).data.data << std::endl<< std::endl;
+        std::ofstream file;
+        file.open(str_2, std::ios::trunc);
+        if (!file.is_open()) { std::cout << "Файл не может быть создан\n"; }
+        else {
+            std::cout << "Файл_2 создан\n";
+
+            if (!file.is_open()) { std::cout << "Файл не может быть открыт\n"; }
+            else {
+                for (int i = 0; i != q.size(); i++) { q.at(i).writefile(file); }
+                file.close();
+            }
         }
-        file.close();
     }
 }
 
-void Packaging_Socket::Random_Socket(int& N, std::string& str_3){
+void Packaging_Socket::Random_Socket( std::string& str_3)
+{
 
     std::shuffle(q.begin(), q.end(), gen);//поменяли рандомно местами
 
@@ -91,60 +93,77 @@ void Packaging_Socket::Random_Socket(int& N, std::string& str_3){
 
         for(int i=0; i!=q.size(); i++)
         {
-            file.write((char *) &q.at(i).nomer_Socket, sizeof(int));
-            file.write((char *) &q.at(i).data.nomer_string, sizeof(int));
-            file.write((char *) &q.at(i).n_string, sizeof(int));
-            file.write((char *) &q.at(i).data.data,N);
+            q.at(i).writefile(file);
         }
     }
     file.close();
 }
 
-Sent_Socket::Sent_Socket(int N, std::string& str_3, std::string& str_4) {
+void Socket:: writefile(std::ofstream& file)
+{
+ file.write((char *) &nomer_Socket, sizeof(int));
+ file.write((char *) &data.nomer_string, sizeof(int));
+ file.write((char *) &n_string, sizeof(int));
+
+ int n=data.data.length();
+ file.write((char *) &n, sizeof(int) );
+
+ for (int j = 0; j != n; j++)
+  { file.write((char*)&data.data[j], sizeof(data.data[j] ) ); }
+}
+
+std::vector<Socket> readfile( std::ifstream& file ,std::vector<Socket> q )
+{
+    int nomer_Socket;
+    int n_string;
+    int nomer_string;
+    std::string data;
+    char c;
+
+    while (file) {
+        file.read((char *) &nomer_Socket, sizeof(int));
+        file.read((char *) &nomer_string, sizeof(int));
+        file.read((char *) &n_string, sizeof(int));
+
+        int n;
+        file.read((char *) &n, sizeof(int));
+        data = "";
+        for (int i = 0; i != n; i++) {
+            file.read((char *) &c, sizeof(c));
+            data += c;
+        }
+        q.emplace_back(Socket(Msg(data, nomer_string), nomer_Socket, n_string));
+    }
+    q.pop_back(); //почему-то дублирует последний файл
+    return q;
+}
+
+void Socket::sent_Socket( std::string str_3, std::string str_4){
+
 
     std::ifstream file;
     file.open(str_3);
     std::vector<Socket> q;
 
     if (!file.is_open()) { std::cout << "Файл не может быть открыт\n"; }
-    else {
+    else
+    {
         std::cout << "Файл_3 открыт\n";
 
-        int nomer_Socket;
-        int n_string;
-        int nomer_string;
-        std::string data;
-
-
-        while (file) {
-            file.read((char *) &nomer_Socket, sizeof(int));
-            file.read((char *) &nomer_string, sizeof(int));
-            file.read((char *) &n_string, sizeof(int));
-            file.read((char *) &data, N);
-            q.push_back(Socket(Msg(data, nomer_string), nomer_Socket, n_string));
-        }
-
-        q.pop_back();//почему-то дублирует последний файл
+        readfile(file,q);
         file.close();
-}
-    {
-        std::cout << "Файлwfqf\n";
-
-        std::cout << "Файefwан_4\n";
 
         sort(q.begin(), q.end());//сортировка
         std::ofstream fout;
         fout.open("/home/ilya/Загрузки/file_4.txt", std::ios::trunc);
         if (!fout.is_open()) { std::cout << "Файл не может быть создан\n"; }
         else {
-            std::cout << "Файл создан_4\n";
+            std::cout << "Файл_4 создан\n";
             for (int i = 0; i != q.size(); i++) {
                 fout << q.at(i).data.data;
             }
         }
         fout.close();
-
-        q.clear();
     }
-
+    q.clear();
 }
