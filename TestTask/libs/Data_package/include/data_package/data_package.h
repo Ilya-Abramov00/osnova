@@ -18,7 +18,7 @@ public:
     int const& get_nomer_string(){return  nomer_string;}
     std::string const& get_string() { return   string_data; }
 
-   Msg(std::string str, int nomer):string_data(str), nomer_string(nomer) { }
+    Msg(std::string str, int nomer):string_data(str), nomer_string(nomer) { }
 private:
     int nomer_string;
     std::string string_data;
@@ -40,7 +40,7 @@ int Socket_s:: id=0;
 class Socket{
 public:
 
-           void  write_Socket_file(std::ofstream& file);
+    void  write_Socket_file(std::ofstream& file);
 
     static       std::vector<Socket>& read_file_Socket( std::ifstream& file ,std::vector<Socket>& q ) ;
 
@@ -71,9 +71,6 @@ bool operator<( Socket& x, Socket& y)
 {
     return x.get_nomer_Socket() < y.get_nomer_Socket();
 }
-
-
-
 
 
 

@@ -24,29 +24,33 @@ int random_n()
 
 void geniration_string(int N, std::string& str_1)
 {
-    std::ofstream fout;
-    fout.open(str_1,std::ios::trunc);
-    if (!fout.is_open() ) { std::cout << "Файл не может быть создан\n";  }
-    else
+    try
     {
-        std::cout << "Файл_1 создан\n";
-        int n=random_n();
-    for(int i=0; i!=n; i++) { fout<<std::string ( random_l(N) ,'*')<<"\n"; }
-    fout.close();
-    }
+        std::ofstream fout;
+        fout.open(str_1, std::ios::trunc);
 
+        std::cout << "Файл_1 создан\n";
+        int n = random_n();
+        for (int i = 0; i != n; i++) { fout << std::string(random_l(N), '*') << "\n"; }
+        fout.close();
+    }
+    catch (const std::exception& ex)
+    {
+        std::cout<<ex.what()<<"\n";
+        std::cout << "Файл не может быть создан\n";
+    }
 }
 
 
-void Socket::Packaging_Socket( int N , std::string& str_1, std::string& str_2 ) {
+void Socket::Packaging_Socket( int N , std::string& str_1, std::string& str_2 )
+{
 
-    std::ifstream file;
-    std::vector<Socket> q;
-    q.reserve( N * 100);
-    file.open(str_1);
-    if (!file.is_open()) { std::cout << "Файл не может быть открыт\n"; }
-    else
-    {
+try{
+        std::ifstream file;
+        std::vector<Socket> q;
+        q.reserve( N * 100);
+        file.open(str_1);
+
         std::cout << "Файл_1 открыт\n";
 
         std::string bufer;
@@ -54,95 +58,107 @@ void Socket::Packaging_Socket( int N , std::string& str_1, std::string& str_2 ) 
         int n_N = 0;
         int n_string = 1;
         int n0_string = 1;
-        while (file.get(c))
-        {
+        while (file.get(c)) {
             if (c == '\n') { n_string++; } //новая строка
 
             if (N - 1 != n_N) { bufer.push_back(c); }
-            else if (N != n_N)
-            {
+            else if (N != n_N) {
                 bufer.push_back(c);
                 q.emplace_back(Socket(Msg(bufer, n_string), (n_string - n0_string + 1)));
                 bufer.clear();
                 n_N = -1;
                 n0_string = n_string;
-            }
+                }
             n_N++;
-        }
+            }
 
         q.emplace_back(Socket(Msg(bufer, n_string), (n_string - n0_string + 1)));
         bufer.clear();
 
-        std::ofstream file;
-        file.open(str_2, std::ios::trunc);
-        if (!file.is_open()) { std::cout << "Файл не может быть создан\n"; }
-        else
-        {
-            std::cout << "Файл_2 создан\n";
+        std::ofstream fout;
+        fout.open(str_2, std::ios::trunc);
 
-            if (!file.is_open()) { std::cout << "Файл не может быть открыт\n"; }
-            else
-            {
-                for (int i = 0; i != q.size(); i++) { q.at(i).write_Socket_file(file); }
-                file.close();
-            }
-        }
+        std::cout << "Файл_2 создан\n";
+
+
+        for (int i = 0; i != q.size(); i++) { q.at(i).write_Socket_file(fout); }
+        file.close();
+        fout.close();
+
+}
+
+
+    catch (const std::exception& ex)
+    {
+        std::cout<<ex.what()<<"\n";
+        std::cout << "Файл не может быть создан\n";
     }
+
 }
 
 void Socket::Random_Socket( std::string& str_2, std::string& str_3)
 {
-    std::vector<Socket> q;
-    std::ifstream fout;
-    fout.open(str_2);
-    if (!fout.is_open()) { std::cout << "Файл не может быть открыт\n"; }
-    else
-    {
+    try {
+        std::vector<Socket> q;
+        std::ifstream fout;
+        fout.open(str_2);
+
         std::cout << "Файл_2 открыт \n";
 
-        Socket::read_file_Socket(fout,q);
+        Socket::read_file_Socket(fout, q);
         std::shuffle(q.begin(), q.end(), gen);//поменяли рандомно местами
 
         std::ofstream file;
         file.open(str_3, std::ios::trunc);
-        if (!file.is_open()) { std::cout << "Файл не может быть создан\n"; }
-        else
-        {
-            std::cout << "Файл_3 создан\n";
 
-            for (int i = 0; i != q.size(); i++) { q.at(i).write_Socket_file(file); }
-            file.close();
-        }
+        std::cout << "Файл_3 создан\n";
+
+        for (int i = 0; i != q.size(); i++) { q.at(i).write_Socket_file(file); }
+
+        file.close();
         fout.close();
+
     }
+
+    catch (const std::exception& ex)
+    {
+        std::cout<<ex.what()<<"\n";
+        std::cout << "Файл не может быть создан\n";
+    }
+
 }
 
 void Socket::Sent_Socket( std::string& str_3, std::string& str_4){
 
-    std::ifstream file;
-    file.open(str_3);
-    std::vector<Socket> q;
+    try {
+        std::ifstream file;
+        file.open(str_3);
+        std::vector<Socket> q;
 
-    if (!file.is_open()) { std::cout << "Файл не может быть открыт\n"; }
-    else
-    {
         std::cout << "Файл_3 открыт\n";
 
         read_file_Socket(file, q);
         file.close();
 
         sort(q.begin(), q.end());//сортировка
+
+
         std::ofstream fout;
-        fout.open("/home/ilya/Загрузки/file_4.txt", std::ios::trunc);
-        if (!fout.is_open()) { std::cout << "Файл не может быть создан\n"; }
-        else
-        {
-            std::cout << "Файл_4 создан\n";
+        fout.open(str_4, std::ios::trunc);
+
+        std::cout << "Файл_4 создан\n";
             for (int i = 0; i != q.size(); i++) { fout << q.at(i).data.get_string(); }
-        }
+
         fout.close();
+        file.close();
+        q.clear();
     }
-    q.clear();
+
+    catch (const std::exception& ex)
+    {
+        std::cout<<ex.what()<<"\n";
+        std::cout << "Файл не может быть создан\n";
+    }
 }
 
 void Socket::write_Socket_file(std::ofstream& file)
