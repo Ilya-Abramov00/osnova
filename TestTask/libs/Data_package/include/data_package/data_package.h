@@ -11,7 +11,6 @@ int random_n();
 void geniration_string(int N, std::string& str_1);
 
 
-class Socket;
 
 class Msg{
 public:

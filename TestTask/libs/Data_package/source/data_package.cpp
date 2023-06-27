@@ -37,7 +37,7 @@ void geniration_string(int N, std::string& str_1)
     catch (const std::exception& ex)
     {
         std::cout<<ex.what()<<"\n";
-        std::cout << "Файл не может быть создан\n";
+
     }
 }
 
@@ -58,19 +58,21 @@ try{
         int n_N = 0;
         int n_string = 1;
         int n0_string = 1;
-        while (file.get(c)) {
+        while (file.get(c))
+        {
             if (c == '\n') { n_string++; } //новая строка
 
             if (N - 1 != n_N) { bufer.push_back(c); }
-            else if (N != n_N) {
+            else if (N != n_N)
+            {
                 bufer.push_back(c);
                 q.emplace_back(Socket(Msg(bufer, n_string), (n_string - n0_string + 1)));
                 bufer.clear();
                 n_N = -1;
                 n0_string = n_string;
-                }
-            n_N++;
             }
+            n_N++;
+        }
 
         q.emplace_back(Socket(Msg(bufer, n_string), (n_string - n0_string + 1)));
         bufer.clear();
@@ -84,14 +86,12 @@ try{
         for (int i = 0; i != q.size(); i++) { q.at(i).write_Socket_file(fout); }
         file.close();
         fout.close();
-
+        Socket_s::clear();
 }
-
 
     catch (const std::exception& ex)
     {
         std::cout<<ex.what()<<"\n";
-        std::cout << "Файл не может быть создан\n";
     }
 
 }
@@ -123,7 +123,6 @@ void Socket::Random_Socket( std::string& str_2, std::string& str_3)
     catch (const std::exception& ex)
     {
         std::cout<<ex.what()<<"\n";
-        std::cout << "Файл не может быть создан\n";
     }
 
 }
@@ -157,7 +156,6 @@ void Socket::Sent_Socket( std::string& str_3, std::string& str_4){
     catch (const std::exception& ex)
     {
         std::cout<<ex.what()<<"\n";
-        std::cout << "Файл не может быть создан\n";
     }
 }
 
