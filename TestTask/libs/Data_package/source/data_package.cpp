@@ -97,6 +97,8 @@ void Socket::Random_Socket( std::string& str_2, std::string& str_3)
     if (!fout.is_open()) { std::cout << "Файл не может быть открыт\n"; }
     else
     {
+        std::cout << "Файл_2 открыт \n";
+
         Socket::read_file_Socket(fout,q);
         std::shuffle(q.begin(), q.end(), gen);//поменяли рандомно местами
 
