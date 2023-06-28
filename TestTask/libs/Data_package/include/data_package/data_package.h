@@ -16,10 +16,10 @@ template < size_t T>
 
 struct Msg0{
 public:
-    Msg0( std::string data_s )
+    Msg0( const std::string& data_s , int id) :id(id)
     {
-        if (data_s.size()!=T) {std::cout<<"размер не совпадает";}
-        for( int i=0; i!=T; i++ )  {  data[i]=data_s[i] ;        }
+        if (data_s.size()!=T) { std::cout<<"размер не совпадает";}
+        for( int i=0; i!=T; i++ )  {  data[i]=data_s[i] ;  }
     }
 
 
@@ -29,12 +29,11 @@ public:
 
 private:
 
-    static int id;
+    int id;
     char data[T];
 };
 
-template < size_t T>
-int Msg0<T>:: id=0;
+
 
 class Msg{
 public:
