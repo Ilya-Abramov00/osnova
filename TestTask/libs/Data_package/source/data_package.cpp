@@ -165,10 +165,10 @@ void Socket::write_Socket_file(std::ofstream& file)
  file.write((char *) &data.get_nomer_string(), sizeof(int));
  file.write((char *) &n_string, sizeof(int));
 
- int n=data.get_string().length();
- file.write((char *) &n, sizeof(int) );
+ int l_string=data.get_string().length();
+ file.write((char *) &l_string, sizeof(int) );
 
- for (int j = 0; j != n; j++)  { file.write((char*)&data.get_string()[j], sizeof(data.get_string()[j] ) ); }
+ for (int j = 0; j != l_string; j++)  { file.write((char*)&data.get_string()[j], sizeof(data.get_string()[j] ) ); }
 }
 
 std::vector<Socket>& Socket::read_file_Socket( std::ifstream& file ,std::vector<Socket>& q )
@@ -176,22 +176,22 @@ std::vector<Socket>& Socket::read_file_Socket( std::ifstream& file ,std::vector<
     int nomer_Socket;
     int n_string;
     int nomer_string;
-    std::string data;
-    char c;
+    std::string data_string;
+    char atom_data_string;
 
     while (file) {
         file.read((char *) &nomer_Socket, sizeof(int));
         file.read((char *) &nomer_string, sizeof(int));
         file.read((char *) &n_string, sizeof(int));
 
-        int n;
-        file.read((char *) &n, sizeof(int));
-        data = "";
-        for (int i = 0; i != n; i++) {
-            file.read((char *) &c, sizeof(c));
-            data += c;
+        int l_string;
+        file.read((char *) &l_string, sizeof(int));
+        data_string = "";
+        for (int i = 0; i != l_string; i++) {
+            file.read((char *) &atom_data_string, sizeof(atom_data_string));
+            data_string += atom_data_string;
         }
-        q.emplace_back(Socket(Msg(data, nomer_string), nomer_Socket, n_string));
+        q.emplace_back(Socket(Msg(data_string, nomer_string), nomer_Socket, n_string));
     }
     q.pop_back(); //почему-то дублирует последний элемент вектора
     return q;
