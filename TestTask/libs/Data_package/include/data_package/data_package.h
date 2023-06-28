@@ -46,9 +46,9 @@ public:
 
     static void  Packaging_Socket( int N , std::string& str_1, std::string& str_2 );
 
-    static void  Sent_Socket ( std::string& str_3, std::string& str_4);
-
     static void  Random_Socket( std::string& str_2, std::string& str_3);
+
+    static void  Sent_Socket ( std::string& str_3, std::string& str_4);
 
 
     Socket(Msg str , int n_string):data(str) ,n_string(n_string) {Socket_id::id_plus(); this->nomer_Socket=Socket_id::get_id();}
