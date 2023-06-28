@@ -66,6 +66,7 @@ TEST(data_package, 1) {
         str4+=c4;
     }
 
+
     ASSERT_TRUE(str3 != str4); //проверка на то, что данные перемешались
 }
 

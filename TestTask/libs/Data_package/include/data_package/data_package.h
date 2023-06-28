@@ -13,22 +13,29 @@ void geniration_string(int N, std::string& str_1);
 
 
 template < size_t T>
-struct Msg{
-public:
-    Msg(std::string str, int nomer):string_data(str), nomer_string(nomer) { }
 
-    int const& get_id(){ return  id;}
-    std::string const& get_data() { return   data[T]; }
+struct Msg0{
+public:
+    Msg0( std::string data_s )
+    {
+        if (data_s.size()!=T) {std::cout<<"размер не совпадает";}
+        for( int i=0; i!=T; i++ )  {  data[i]=data_s[i] ;        }
+    }
+
+
+    int const& get_id() { return  id; }
+    auto const& get_data() { return   data[T]; }
 
 
 private:
 
-    int id;
+    static int id;
     char data[T];
 };
 
+template < size_t T>
+int Msg0<T>:: id=0;
 
-/*
 class Msg{
 public:
     int const& get_nomer_string(){return  nomer_string;}
@@ -39,7 +46,8 @@ private:
     int nomer_string;
     std::string string_data;
 };
-*/
+
+
 
 
 class Socket_id {
