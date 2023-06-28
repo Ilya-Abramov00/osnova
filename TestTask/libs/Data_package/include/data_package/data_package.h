@@ -11,7 +11,7 @@
 
 
 #include<cstdint>
-/*
+
 int random_l(int N);
 int random_n();
 
@@ -69,14 +69,14 @@ public:
                 else if ( T != i )
                 {
                     bufer.push_back(c);
-                    Messeges_data.emplace_back( Msg0<T>(bufer, id++) );
+                    Messeges_data.emplace_back( Msg0<T>(bufer, ++id) );
                     bufer.clear();
                     i = -1;
                 }
                 i++;
             }
 
-            Messeges_data.emplace_back( Msg0<T>(bufer, id++) );
+            Messeges_data.emplace_back( Msg0<T>(bufer, ++id) );
             bufer.clear();
 
         }
@@ -184,6 +184,8 @@ uint16_t File_Pakage<T>:: Head=0xBABA;
 template < size_t T>
 uint16_t File_Pakage<T>:: Tail=0xDEDA;
 
+
+
 class Msg{
 public:
     int const& get_nomer_string(){return  nomer_string;}
@@ -250,7 +252,7 @@ bool operator<( Socket& x, Socket& y)
 void logic_buf_2()
 
 
-*/
+
 
 
 #endif
