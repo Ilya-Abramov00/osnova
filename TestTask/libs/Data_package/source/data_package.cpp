@@ -105,7 +105,8 @@ void Socket::Random_Socket( std::string& str_2, std::string& str_3)
 
         std::cout << "Файл_2 открыт \n";
 
-        Socket::read_file_Socket(fout, q);
+        Socket::read_file_Socket(fout, q);//прочитали из файла данные
+
         std::shuffle(q.begin(), q.end(), gen);//поменяли рандомно местами
 
         std::ofstream file;
