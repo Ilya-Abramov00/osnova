@@ -11,7 +11,7 @@
 
 
 #include<cstdint>
-
+/*
 int random_l(int N);
 int random_n();
 
@@ -38,7 +38,7 @@ public:
 
 private:
 
-    int id;
+    uint16_t id;
     char data[T];
 };
 
@@ -106,7 +106,8 @@ private:
 
 template < size_t T>
 
-class File_Pakage{
+class File_Pakage
+        {
 public:
     static void write(std::string& str_3,Messeges<T>& Messeges_data )
     {
@@ -122,13 +123,16 @@ public:
 
     static Messeges<T>& read(){}
     static  uint16_t Head;
+
+
     static uint16_t Tail;
 
 private:
     static void write_Msg_file(std::ofstream& file, Msg0<T> msg)
     {
 
-        file.write((char *) &Head, sizeof(Head));
+        file.write((char *) &Head_l, sizeof(Head_l));
+        file.write((char *) &Head_h, sizeof(Head_h));
 
         file.write((char *) &msg.get_id(), sizeof(int));
 
@@ -137,39 +141,48 @@ private:
 
         for (int j = 0; j != l_string; j++)  { file.write((char*)&msg.get_string()[j], sizeof(msg.get_string()[j] ) ); }
 
-        file.write((char *) &Tail, sizeof(Tail));
+        file.write((char *) &Tail_l, sizeof(Tail_l));
+        file.write((char *) &Tail_h, sizeof(Tail_h));
     }
 
-    static  Msg0<T>&   read_Msg_file(std::ifstream& file)
-    {
+    static  Msg0<T>&   read_Msg_file(std::ifstream& file) {
         char c;
-        char flag=0;
+        bool flag = 0;
+        bool flag_head = 0;
+        bool flag_id = 0;
+
+        uint16_t id;
+
+
+
         while (file.get(c))
         {
-            if (c==Head) flag =1;
+            if (c == Head_l) flag = 1;
 
+            if (flag && Head_h==c ) flag_head=1;
 
-           if (flag)
-           {
-
-                int id;
-                file.read((char *) &id, sizeof(int));
-
+            if(flag_head)
+            {
+                bufer
+            }
 
 
                 char atom_data_string;
                 std::string data_string = "";
-                for (int j = 0; j != l_string; j++) {
+               // for (int j = 0; j != l_string; j++) {
                     file.read((char *) &atom_data_string, sizeof(atom_data_string));
                     data_string += atom_data_string;
-                }
+
             }
-     }
-};
+        }
+
+        };
 template < size_t T>
 uint16_t File_Pakage<T>:: Head=0xBABA;
+
+
 template < size_t T>
-uint16_t File_Pakage<T>:: Tail=0xBABA;
+uint16_t File_Pakage<T>:: Tail=0xDEDA;
 
 class Msg{
 public:
@@ -234,10 +247,10 @@ bool operator<( Socket& x, Socket& y)
 }
 
 
+void logic_buf_2()
 
 
-
-
+*/
 
 
 #endif
