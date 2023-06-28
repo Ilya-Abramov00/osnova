@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <iterator>
 #include<random>
-
+#include<array>
 
 #include<cstdint>
 
@@ -25,21 +25,18 @@ template < size_t T>
 
 struct Msg0{
 public:
-    Msg0( const std::string& data_s , int id) :id(id)
+    Msg0( const std::string& data_s , uint16_t id) :id(id)
     {
-          for( int i=0; i!=T; i++ )  {  data[i]=data_s[i] ;  }
-
+          for( int i=0; i!=data_s.size(); i++ )  {  data[i]=data_s[i] ;  }
     }
 
-
-    int const& get_id() { return  id; }
-    auto const& get_data() { return   data[T]; }
-
+    uint16_t const& get_id() { return  id; }
+    std::array <char,T>  const& get_data() { return   data; }
 
 private:
 
     uint16_t id;
-    char data[T];
+    std::array <char,T> data;
 };
 
 
@@ -97,11 +94,9 @@ public:
     }
 
 
-
-
 private:
     Messeges<T> Messeges_data;
-    int id=0;
+    uint16_t id=0;
 };
 
 template < size_t T>
@@ -109,74 +104,97 @@ template < size_t T>
 class File_Pakage
         {
 public:
-    static void write(std::string& str_3,Messeges<T>& Messeges_data )
+    static void write(std::string& str_3, const  Messeges<T>&  Messeges_data )
     {
-        std::ifstream file;
-        file.open(str_3);
+        try{
+            std::ofstream file;
+            file.open(str_3 );
 
-        for (auto const& i : Messeges_data) {
-            write_Msg_file(file,i);
+            for (auto const& i : Messeges_data) {
+                write_Msg_file(file,i);
+            }
         }
+        catch (const std::exception& ex)
+        {
+            std::cout<<ex.what()<<"\n";
+        }
+
     }
 
 
+    static   Messeges<T>&   read(std::string& str_3)
+    {
 
-    static Messeges<T>& read(){}
-    static  uint16_t Head;
+        try
+        {
+            std::ifstream file;
+            file.open(str_3);
 
+            char c;
+            bool flag = 1;
+            bool flag_head = 0;
+            bool flag_head_0 = 0;
+            bool flag_data=0;
+            bool flag_tail = 1;
 
-    static uint16_t Tail;
+            Messeges<T> msg;
 
+            std::string data="";
+
+            uint16_t id;
+
+            uint16_t magic;
+
+            uint8_t *magBuf = reinterpret_cast<uint8_t *>(&magic);
+
+            while (file.get(c))
+            {
+                if (flag) {
+                    magBuf[1] = c;
+                    flag = 0;
+                }
+                else {
+                    magBuf[0] = magBuf[1];
+                    magBuf[1] = c;
+                }
+
+                 if ( magic==Tail ) { flag_data=0;  flag_tail=1; data.pop_back();data.clear(); msg.push_back( Msg0<T>(data ,id) ); }
+
+                else if ( flag_data ) { data+=c; } //считываем данные до тех пор, пока не появится tail
+
+                else if ( flag_head ) {   uint16_t id=magic; flag_head=0; flag_head_0=0; flag_data=1;  }//считали два символа id
+
+                else if ( flag_head_0 ) { flag_head=1;  }
+
+                else if ( magic == Head && flag_tail ) { flag_head_0 = 1;  } //появился head
+                                       //смотреть cнизу-вверх
+            }
+        }
+        catch (const std::exception& ex)
+        {
+            std::cout<<ex.what()<<"\n";
+        }
+
+    }
 private:
     static void write_Msg_file(std::ofstream& file, Msg0<T> msg)
     {
 
-        file.write((char *) &Head_l, sizeof(Head_l));
-        file.write((char *) &Head_h, sizeof(Head_h));
+        file.write((char *) &Head, sizeof(Head));
 
-        file.write((char *) &msg.get_id(), sizeof(int));
+        file.write((char *) &msg.get_id(), sizeof( msg.get_id() ) );
 
-        int l_string=msg.get_string().length();
-        file.write((char *) &l_string, sizeof(int) );
 
-        for (int j = 0; j != l_string; j++)  { file.write((char*)&msg.get_string()[j], sizeof(msg.get_string()[j] ) ); }
+        for (int j = 0; j != msg.get_data().size(); j++)  { file.write((char*)&msg.get_data().at(j), sizeof(msg.get_data().at(j) ) ); }
 
-        file.write((char *) &Tail_l, sizeof(Tail_l));
-        file.write((char *) &Tail_h, sizeof(Tail_h));
+        file.write((char *) &Tail, sizeof(Tail));
     }
 
-    static  Msg0<T>&   read_Msg_file(std::ifstream& file) {
-        char c;
-        bool flag = 0;
-        bool flag_head = 0;
-        bool flag_id = 0;
-
-        uint16_t id;
-
-
-
-        while (file.get(c))
-        {
-            if (c == Head_l) flag = 1;
-
-            if (flag && Head_h==c ) flag_head=1;
-
-            if(flag_head)
-            {
-                bufer
-            }
-
-
-                char atom_data_string;
-                std::string data_string = "";
-               // for (int j = 0; j != l_string; j++) {
-                    file.read((char *) &atom_data_string, sizeof(atom_data_string));
-                    data_string += atom_data_string;
-
-            }
-        }
+    static  uint16_t Head;
+    static uint16_t Tail;
 
         };
+
 template < size_t T>
 uint16_t File_Pakage<T>:: Head=0xBABA;
 
@@ -249,7 +267,7 @@ bool operator<( Socket& x, Socket& y)
 }
 
 
-void logic_buf_2()
+
 
 
 

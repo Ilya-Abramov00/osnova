@@ -3,7 +3,6 @@
 
 
 
-/*
 int random_l(int N)
 {
      std::uniform_int_distribution<> dist(1, 10*N );
@@ -194,4 +193,4 @@ std::vector<Socket>& Socket::read_file_Socket( std::ifstream& file ,std::vector<
     q.pop_back(); //почему-то дублирует последний элемент вектора
     return q;
 }
-*/
+
