@@ -3,7 +3,14 @@
 
 #include <iostream>
 #include<vector>
+#include <list>
+#include<fstream>
+#include <algorithm>
+#include <iterator>
+#include<random>
 
+
+#include<cstdint>
 
 int random_l(int N);
 int random_n();
@@ -11,6 +18,8 @@ int random_n();
 void geniration_string(int N, std::string& str_1);
 
 
+std::random_device rd;
+std::mt19937 gen(rd());
 
 template < size_t T>
 
@@ -18,8 +27,8 @@ struct Msg0{
 public:
     Msg0( const std::string& data_s , int id) :id(id)
     {
-        if (data_s.size()!=T) { std::cout<<"размер не совпадает";}
-        for( int i=0; i!=T; i++ )  {  data[i]=data_s[i] ;  }
+          for( int i=0; i!=T; i++ )  {  data[i]=data_s[i] ;  }
+
     }
 
 
@@ -34,6 +43,133 @@ private:
 };
 
 
+template < size_t T>
+using Messeges=std::list <Msg0<T>>;
+
+template < size_t T>
+class File_parser{
+public:
+
+    File_parser( std::string& file_s )
+    {
+        try
+        {
+            std::ifstream file;
+            file.open(file_s);
+
+            std::string bufer; bufer.reserve(T);
+            char c;
+            int i = 0;
+
+            while ( file.get(c) )
+            {
+
+
+                if ( T - 1 != i ) { bufer.push_back(c); }
+                else if ( T != i )
+                {
+                    bufer.push_back(c);
+                    Messeges_data.emplace_back( Msg0<T>(bufer, id++) );
+                    bufer.clear();
+                    i = -1;
+                }
+                i++;
+            }
+
+            Messeges_data.emplace_back( Msg0<T>(bufer, id++) );
+            bufer.clear();
+
+        }
+        catch (const std::exception& ex)
+        {
+            std::cout<<ex.what()<<"\n";
+        }
+
+    };
+
+    Messeges<T> const &  get_Messeges(){
+        return  Messeges_data;
+    };
+
+    Messeges<T>& shuffle(  Messeges<T> q  )
+    {
+       //
+    }
+
+
+
+
+private:
+    Messeges<T> Messeges_data;
+    int id=0;
+};
+
+template < size_t T>
+
+class File_Pakage{
+public:
+    static void write(std::string& str_3,Messeges<T>& Messeges_data )
+    {
+        std::ifstream file;
+        file.open(str_3);
+
+        for (auto const& i : Messeges_data) {
+            write_Msg_file(file,i);
+        }
+    }
+
+
+
+    static Messeges<T>& read(){}
+    static  uint16_t Head;
+    static uint16_t Tail;
+
+private:
+    static void write_Msg_file(std::ofstream& file, Msg0<T> msg)
+    {
+
+        file.write((char *) &Head, sizeof(Head));
+
+        file.write((char *) &msg.get_id(), sizeof(int));
+
+        int l_string=msg.get_string().length();
+        file.write((char *) &l_string, sizeof(int) );
+
+        for (int j = 0; j != l_string; j++)  { file.write((char*)&msg.get_string()[j], sizeof(msg.get_string()[j] ) ); }
+
+        file.write((char *) &Tail, sizeof(Tail));
+    }
+
+    static  Msg0<T>&   read_Msg_file(std::ifstream& file)
+    {
+        char c;
+        char flag=0;
+        while (file.get(c))
+        {
+            if (c==Head) flag =1;
+
+
+           if (flag)
+           {
+
+                int id;
+                file.read((char *) &id, sizeof(int));
+
+
+
+                char atom_data_string;
+                std::string data_string = "";
+                for (int j = 0; j != l_string; j++) {
+                    file.read((char *) &atom_data_string, sizeof(atom_data_string));
+                    data_string += atom_data_string;
+                }
+            }
+     }
+};
+template < size_t T>
+uint16_t File_Pakage<T>:: Head=0xBABA;
+template < size_t T>
+uint16_t File_Pakage<T>:: Tail=0xBABA;
 
 class Msg{
 public:

@@ -1,14 +1,7 @@
 #include "data_package/data_package.h"
 
-#include <algorithm>
-#include <iterator>
-#include<random>
-#include<fstream>
 
-#include<cstdint>
 
-std::random_device rd;
-std::mt19937 gen(rd());
 
 
 int random_l(int N)
