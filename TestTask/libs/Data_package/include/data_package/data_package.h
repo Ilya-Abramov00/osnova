@@ -27,7 +27,7 @@ private:
 
 class Socket_id {
 public:
-    static int const& get_id(){return id;}
+    static int const& get_id(){ return id;}
     static void clear (){ id=0; }
     static void id_plus (){ id++; }
 private:
@@ -43,11 +43,13 @@ public:
 
     static       std::vector<Socket>& read_file_Socket( std::ifstream& file ,std::vector<Socket>& q ) ;
 
-    static void  Sent_Socket ( std::string& str_3, std::string& str_4);
 
     static void  Packaging_Socket( int N , std::string& str_1, std::string& str_2 );
 
+    static void  Sent_Socket ( std::string& str_3, std::string& str_4);
+
     static void  Random_Socket( std::string& str_2, std::string& str_3);
+
 
     Socket(Msg str , int n_string):data(str) ,n_string(n_string) {Socket_id::id_plus(); this->nomer_Socket=Socket_id::get_id();}
 
