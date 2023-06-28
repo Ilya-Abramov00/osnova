@@ -86,7 +86,7 @@ try{
         for (int i = 0; i != q.size(); i++) { q.at(i).write_Socket_file(fout); }
         file.close();
         fout.close();
-        Socket_s::clear();
+        Socket_id::clear();
 }
 
     catch (const std::exception& ex)

@@ -25,7 +25,7 @@ private:
 
 
 
-class Socket_s {
+class Socket_id {
 public:
     static int const& get_id(){return id;}
     static void clear (){ id=0; }
@@ -33,7 +33,7 @@ public:
 private:
     static int  id ;
 };
-int Socket_s:: id=0;
+int Socket_id:: id=0;
 
 
 class Socket{
@@ -49,7 +49,7 @@ public:
 
     static void  Random_Socket( std::string& str_2, std::string& str_3);
 
-    Socket(Msg str , int n_string):data(str) ,n_string(n_string) {Socket_s::id_plus(); this->nomer_Socket=Socket_s::get_id();}
+    Socket(Msg str , int n_string):data(str) ,n_string(n_string) {Socket_id::id_plus(); this->nomer_Socket=Socket_id::get_id();}
 
     Socket(Msg str ,int nomer_Socket ,int n_string):data(str) ,n_string(n_string),nomer_Socket(nomer_Socket) { }
 
