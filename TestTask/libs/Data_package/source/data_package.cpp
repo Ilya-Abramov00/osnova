@@ -98,7 +98,8 @@ try{
 
 void Socket::Random_Socket( std::string& str_2, std::string& str_3)
 {
-    try {
+    try
+    {
         std::vector<Socket> q;
         std::ifstream fout;
         fout.open(str_2);
