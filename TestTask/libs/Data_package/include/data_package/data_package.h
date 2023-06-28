@@ -12,6 +12,23 @@ void geniration_string(int N, std::string& str_1);
 
 
 
+template < size_t T>
+struct Msg{
+public:
+    Msg(std::string str, int nomer):string_data(str), nomer_string(nomer) { }
+
+    int const& get_id(){ return  id;}
+    std::string const& get_data() { return   data[T]; }
+
+
+private:
+
+    int id;
+    char data[T];
+};
+
+
+/*
 class Msg{
 public:
     int const& get_nomer_string(){return  nomer_string;}
@@ -22,7 +39,7 @@ private:
     int nomer_string;
     std::string string_data;
 };
-
+*/
 
 
 class Socket_id {
@@ -35,7 +52,7 @@ private:
 };
 int Socket_id:: id=0;
 
-
+//file_parser
 class Socket{
 public:
 
