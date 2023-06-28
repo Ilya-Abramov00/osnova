@@ -45,7 +45,8 @@ void geniration_string(int N, std::string& str_1)
 void Socket::Packaging_Socket( int N , std::string& str_1, std::string& str_2 )
 {
 
-try{
+try
+{
         std::ifstream file;
         std::vector<Socket> q;
         q.reserve( N * 100);
@@ -131,7 +132,8 @@ void Socket::Random_Socket( std::string& str_2, std::string& str_3)
 
 void Socket::Sent_Socket( std::string& str_3, std::string& str_4){
 
-    try {
+    try
+    {
         std::ifstream file;
         file.open(str_3);
         std::vector<Socket> q;
