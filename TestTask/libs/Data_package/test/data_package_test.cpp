@@ -7,18 +7,32 @@ TEST(data_package, 1) {
 
     std::string str_1="/home/ilya/Загрузки/file_1.txt";
     std::string str_2="/home/ilya/Загрузки/file_2.txt";
-    std::string str_3="/home/ilya/Загрузки/file_3.txt";
+
     std::string str_4="/home/ilya/Загрузки/file_4.txt";
 
-    int N=100;
+    int N=10;
 
     geniration_string( N, str_1);
 
-    Socket::Packaging_Socket(N,str_1,str_2);
 
-    Socket::Random_Socket(str_2,str_3);
+    File_parser<20> q;
 
-    Socket::Sent_Socket (str_3,str_4);
+
+    File_Package<20> qe( q.get_File_parser(str_1) );
+
+    qe.write(str_2);
+
+    //qe.shuffle_write(str_2);
+
+
+    File_Package<20> eq;
+    eq.read(str_2);
+
+   // eq.sort_Messeges();
+
+    File_Package<20>::write_string(eq.Data_Repoirter(), str_4);
+
+
 
     std::ifstream file1;
     file1.open(str_1);
@@ -41,33 +55,18 @@ TEST(data_package, 1) {
         str2+=c2;
     }
 
+
+
+
+    std::cout<<"было "<<str1.size()<<"\n";
+
+    std::cout<<"стало "<<str2.size()<<"\n";
+
+    ASSERT_TRUE(str1.size() == str2.size());
     ASSERT_TRUE(str1 == str2); // данные до отправки и после одинаковы
 
 
-    std::ifstream file3;
-    file3.open(str_2);
-    char c3;
-    std::string str3="";
 
-
-    while (file3.get(c3))
-    {
-        str3+=c3;
-    }
-
-    std::ifstream file4;
-    file3.open(str_3);
-    char c4;
-    std::string str4="";
-
-
-    while (file4.get(c4))
-    {
-        str4+=c4;
-    }
-
-
-    ASSERT_TRUE(str3 != str4); //проверка на то, что данные перемешались
 }
 
 

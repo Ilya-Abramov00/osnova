@@ -37,7 +37,7 @@ void geniration_string(int N, std::string& str_1)
 
     }
 }
-
+/*
 
 void Socket::Packaging_Socket( int N , std::string& str_1, std::string& str_2 )
 {
@@ -198,3 +198,4 @@ std::vector<Socket>& Socket::read_file_Socket( std::ifstream& file ,std::vector<
     return q;
 }
 
+*/
