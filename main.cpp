@@ -38,6 +38,7 @@ magic=0XFFFF;
 //}
 
     File_Pakage<20>::write( str_3 , q.get_Messeges() );
-    File_Pakage<20>::read( str_3  );
+    auto b=File_Pakage<20>::read( str_3  );
+    File_Pakage<20>::Data_Repoirter(b);
 
 }
