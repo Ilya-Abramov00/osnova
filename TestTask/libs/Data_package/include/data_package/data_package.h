@@ -123,8 +123,7 @@ public:
 
       void   read(std::string& str_3) {
 
-        try
-        {
+        try {
             std::ifstream file;
             file.open(str_3);
 
@@ -137,14 +136,13 @@ public:
 
             std::string data = "";
 
-            uint16_t id=0;
+            uint16_t id = 0;
 
             uint16_t magic;
 
             uint8_t *magBuf = reinterpret_cast<uint8_t *>(&magic);
 
-            while (file.get(c))
-            {
+            while (file.get(c)) {
                 if (flag) {
                     magBuf[1] = c;
                     flag = 0;
@@ -153,20 +151,16 @@ public:
                     magBuf[1] = c;
                 }
 
-                if (magic == Tail)
-                {
+                if (magic == Tail) {
                     flag_data = 0;
                     flag_tail = 1;
                     data.pop_back();
                     this->Messeges_data.push_back(Msg0<T>(data, id));
                     data.clear();
-                }
+                } else if (flag_data) { data += c; } //считываем данные до тех пор, пока не появится tail
 
-                else if (flag_data) { data += c; } //считываем данные до тех пор, пока не появится tail
-
-                else if (flag_head)
-                {
-                     id = magic;
+                else if (flag_head) {
+                    id = magic;
                     flag_head = 0;
                     flag_head_0 = 0;
                     flag_data = 1;
@@ -174,10 +168,9 @@ public:
 
                 else if (flag_head_0) { flag_head = 1; }
 
-                else if (magic == Head && flag_tail)   { flag_head_0 = 1; } //появился head
+                else if (magic == Head && flag_tail) { flag_head_0 = 1; } //появился head
                 //смотреть cнизу-вверх
             }
-            Messeges_data.pop_back();//иначе лишнии данные получаются
         }
         catch (const std::exception &ex) {
             std::cout << ex.what() << "\n";
@@ -185,6 +178,9 @@ public:
     }
     void sort_Messeges(){
         Messeges_data.sort();
+    }
+    void clear(){
+        Messeges_data.clear();
     }
       std::string Data_Repoirter( )
        {
@@ -233,6 +229,10 @@ catch (const std::exception& ex)
 {
     std::cout<<ex.what()<<"\n";
 }
+    }
+    Messeges<T> const & get_Messeges_data()
+    {
+        return Messeges_data;
     }
 
 private:
