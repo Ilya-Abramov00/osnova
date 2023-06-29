@@ -11,7 +11,7 @@
 #include<array>
 #include<cstdint>
 
-
+int random_n(int a, int b);
 int random_l(int N);
 int random_n();
 
@@ -60,8 +60,6 @@ public:
 
             while ( file.get(c) )
             {
-
-
                 if ( T - 1 != i ) { bufer.push_back(c); }
                 else if ( T != i )
                 {
@@ -75,27 +73,16 @@ public:
 
             Messeges_data.emplace_back( Msg0<T>(bufer, ++id) );
             bufer.clear();
-
         }
         catch (const std::exception& ex)
         {
             std::cout<<ex.what()<<"\n";
         }
-
     };
 
-    Messeges<T> const &  get_Messeges(){
+    Messeges<T> &  get_Messeges(){
         return  Messeges_data;
     };
-
-    Messeges<T>& shuffle(  Messeges<T> q  )
-    {
-       //
-    }
-
-
-
-
 private:
     Messeges<T> Messeges_data;
     uint16_t id=0;
@@ -104,9 +91,11 @@ private:
 template < size_t T>
 
 
-class File_Pakage
-        {
+class File_Package{
 public:
+
+    File_Package(Messeges<T>& Messeges_data) :Messeges_data(Messeges_data){}
+
 
 
      void write(std::string& str_3 )
@@ -126,6 +115,7 @@ public:
         }
 
     }
+
 
 
       void   read(std::string& str_3) {
@@ -189,18 +179,16 @@ public:
             std::cout << ex.what() << "\n";
         }
     }
-       std::string Data_Repoirter( )
+       void Data_Repoirter(std::string& cyda_write )
        {
-        std::string data="";
-
            for(auto i= this->Messeges_data.begin();i!= this->Messeges_data.end();i++ )
            {
                for(int j=0; j!=i->get_data().size();j++  )
                {
-                   data.push_back(i->get_data().at(j) ) ;
+                   cyda_write.push_back(i->get_data().at(j) ) ;
                }
            }
-           return data;
+
         }
      static void write_string(std::string data, std::string& str_3)
      {
@@ -208,8 +196,7 @@ public:
          {
              std::ofstream file;
              file.open(str_3 );
-             file.write((char *)&data, sizeof(data));
-
+             file<<data;
          }
          catch (const std::exception& ex)
          {
@@ -221,30 +208,37 @@ private:
     static void write_Msg_file(std::ofstream& file, Msg0<T> msg)
     {
         file.write((char *) &Head, sizeof(Head));
-
         file.write((char *) &msg.get_id(), sizeof( msg.get_id() ) );
-
         for (int j = 0; j != msg.get_data().size(); j++)  { file.write((char*)&msg.get_data().at(j), sizeof(msg.get_data().at(j) ) ); }
-
         file.write((char *) &Tail, sizeof(Tail));
     }
 
     static  uint16_t Head;
     static uint16_t Tail;
-    Messeges<T>& Messeges_data;
+    Messeges<T> Messeges_data;
 };
 
 template < size_t T>
-uint16_t File_Pakage<T>:: Head=0xBABA;
-
+uint16_t File_Package<T>:: Head=0xBABA;
 
 template < size_t T>
-uint16_t File_Pakage<T>:: Tail=0xDEDA;
+uint16_t File_Package<T>:: Tail=0xDEDA;
 
-
-
-
-
+//template < size_t T>
+//Messeges<T>& shuffle(  Messeges<T>& q  )
+//{
+ //   for(auto l:q)
+//    {
+//        auto a = q.begin();
+//        auto b = a;
+ //       for (int i=0; i!=random_n( 1, q.size() ) ; i++) {a++;}
+//        for (int i=0; i!=random_n( 1, q.size() ) ; i++) {b++;}
+ //       auto c=*a;
+ //       *a=*b;
+//        *b=*c;
+ //   }
+  //  return q;
+//}
 
 
 

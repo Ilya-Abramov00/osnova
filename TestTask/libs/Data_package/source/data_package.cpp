@@ -1,7 +1,11 @@
 #include "data_package/data_package.h"
 
 
-
+int random_n(int a, int b)
+{
+    std::uniform_int_distribution<> dist(a, b);
+    return dist(gen);
+}
 
 int random_l(int N)
 {
