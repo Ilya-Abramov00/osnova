@@ -19,7 +19,7 @@ int main()
     File_parser<20> q(str_1);
 
     auto data=q.get_Messeges();
-    shuffle(data);
+    //shuffle(data);
     File_Package<20> qe( data );
 
     qe.write(str_3);
