@@ -15,11 +15,11 @@ int random_l(int N)
 
 int random_n()
 {
-    std::uniform_int_distribution<> dist(100, 150);
+    std::uniform_int_distribution<> dist(40, 50);
     return dist(gen);
 }
 
-void geniration_string(int N, std::string& str_1)
+void geniration_string(int n, int N, std::string& str_1)
 {
     try
     {

@@ -15,7 +15,7 @@ int random_n(int a, int b);
 int random_l(int N);
 int random_n();
 
-void geniration_string(int N, std::string& str_1);
+void geniration_string(int n, int N, std::string& str_1);
 
 
 std::random_device rd;
@@ -29,7 +29,14 @@ public:
     {
           for( int i=0; i!=data_s.size(); i++ )  {  data[i]=data_s[i] ;  }
     }
-
+    Msg0( const std::string& data_s , uint16_t id, size_t N) :id(id)
+    {
+        for( int i=0; i!=N; i++ )
+        {
+            if (i< data_s.size() ) { data[i]=data_s[i] ;}
+            else {data[i]='^';}
+        }
+    }
     uint16_t const& get_id() { return  id; }
     std::array <char,T>  const& get_data() { return   data; }
 
@@ -77,7 +84,8 @@ public:
                 }
                 i++;
             }
-            Messeges_data.emplace_back( Msg0<T>(bufer, ++id) );
+
+            Messeges_data.emplace_back( Msg0<T>(bufer, ++id, T) );
             bufer.clear();
             return  Messeges_data;
         }
@@ -185,12 +193,23 @@ public:
       std::string Data_Repoirter( )
        {
            std::string str;
-           for(auto i= this->Messeges_data.begin(); i!= this->Messeges_data.end(); i++ )
+           auto z=Messeges_data.end();
+           --z;
+           for(auto i= this->Messeges_data.begin(); i!=z; i++ )
            {
                for(int j=0; j!=i->get_data().size(); j++  )
                {
                    str.push_back(i->get_data().at(j) ) ;
                }
+
+           }
+           z;
+          auto e=z->get_data();
+
+           int i=0;
+           while( ( i!=e.size() ) && (e.at(i)!='^') )
+           {
+               str.push_back(e.at(i++) ) ;
            }
            return str;
         }
@@ -199,7 +218,7 @@ public:
          try
          {
              std::ofstream file;
-             file.open(str_3 );
+             file.open(str_3 ,std::ios::trunc);
              file<<data;
          }
          catch (const std::exception& ex)

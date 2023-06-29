@@ -4,27 +4,27 @@
 #include<fstream>
 using namespace std;
 
+
+
+
+
+TEST(data_package,write_read) {
 std::string str_1="/home/ilya/Загрузки/file_1.txt";
 std::string str_2="/home/ilya/Загрузки/file_2.txt";
 std::string str_3="/home/ilya/Загрузки/file_3.txt";
 std::string str_4="/home/ilya/Загрузки/file_4.txt";
+    int N=random_n(5,10);
 
-int N=20;
+    geniration_string(10, N, str_1);
 
-TEST(data_package,write_read) {
-
-    int N=random_n(30,40);
-
-    geniration_string( N, str_1);
-
-    File_parser<20> q;
+    File_parser<10> q;
 
 
-    File_Package<20> qe( q.get_File_parser(str_1) );
+    File_Package<10> qe( q.get_File_parser(str_1) );
 
     qe.write(str_2);
 
-    File_Package<20> eq;
+    File_Package<10> eq;
     eq.read(str_2);
 
 
@@ -52,22 +52,25 @@ b++;
 
 TEST(data_package, write_one)
 {
-    Msg0<8> a("a b c d ",1);
-    Msg0<8> b("a b c d ",2);
-    Msg0<8> c("a b c d ",3);
-    Msg0<8> d("a b c d ",3);
-Messeges<8> q{a,b,c,d};
+    std::string str_1="/home/ilya/Загрузки/file_1.txt";
+    std::string str_2="/home/ilya/Загрузки/file_2.txt";
+    std::string str_3="/home/ilya/Загрузки/file_3.txt";
+    std::string str_4="/home/ilya/Загрузки/file_4.txt";
 
-    File_Package<8> qw(q);
-    qw.write(str_2);
-    qw.clear();
-    qw.read(str_2);
+
+    string a("1234");
+
+    File_Package<3>::write_string(a,str_1);
+    File_parser<3> q;
+
+
+    File_Package<3> qw(q.get_File_parser(str_1) );
+
 
     auto e=qw.Data_Repoirter();
-    ASSERT_TRUE(e=="a b c d a b c d a b c d a b c d ");
+    ASSERT_TRUE(e==a);
 
 }
-
 
 
 TEST(data_package, 2) {
@@ -79,7 +82,7 @@ TEST(data_package, 2) {
 
     int N=10;
 
-    geniration_string( N, str_1);
+    geniration_string( 10,N, str_1);
 
 
     File_parser<20> q;
@@ -89,13 +92,13 @@ TEST(data_package, 2) {
 
     qe.write(str_2);
 
-    //qe.shuffle_write(str_2);
+    qe.shuffle_write(str_2);
 
 
     File_Package<20> eq;
     eq.read(str_2);
 
-    // eq.sort_Messeges();
+     eq.sort_Messeges();
 
     File_Package<20>::write_string(eq.Data_Repoirter(), str_4);
 
@@ -122,12 +125,6 @@ TEST(data_package, 2) {
         str2+=c2;
     }
 
-
-
-
-    std::cout<<"было "<<str1.size()<<"\n";
-
-    std::cout<<"стало "<<str2.size()<<"\n";
 
     ASSERT_TRUE(str1.size() == str2.size());
     ASSERT_TRUE(str1 == str2); // данные до отправки и после одинаковы
