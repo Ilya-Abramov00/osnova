@@ -9,8 +9,8 @@
 #include <iterator>
 #include<random>
 #include<array>
-
 #include<cstdint>
+
 
 int random_l(int N);
 int random_n();
@@ -103,16 +103,20 @@ private:
 
 template < size_t T>
 
+
 class File_Pakage
         {
 public:
-    static void write(std::string& str_3, const  Messeges<T>&  Messeges_data )
+
+
+     void write(std::string& str_3 )
     {
-        try{
+        try
+        {
             std::ofstream file;
             file.open(str_3 );
 
-            for (auto const& i : Messeges_data) {
+            for (auto const& i :  this->Messeges_data) {
                 write_Msg_file(file,i);
             }
         }
@@ -124,9 +128,10 @@ public:
     }
 
 
-    static   Messeges<T>&   read(std::string& str_3) {
+      void   read(std::string& str_3) {
 
-        try {
+        try
+        {
             std::ifstream file;
             file.open(str_3);
 
@@ -137,17 +142,16 @@ public:
             bool flag_data = 0;
             bool flag_tail = 1;
 
-            Messeges<T> msg;
-
             std::string data = "";
 
-            uint16_t id;
+            uint16_t id=0;
 
             uint16_t magic;
 
             uint8_t *magBuf = reinterpret_cast<uint8_t *>(&magic);
 
-            while (file.get(c)) {
+            while (file.get(c))
+            {
                 if (flag) {
                     magBuf[1] = c;
                     flag = 0;
@@ -156,18 +160,20 @@ public:
                     magBuf[1] = c;
                 }
 
-                if (magic == Tail) {
+                if (magic == Tail)
+                {
                     flag_data = 0;
                     flag_tail = 1;
                     data.pop_back();
+                    this->Messeges_data.push_back(Msg0<T>(data, id));
                     data.clear();
-                    msg.push_back(Msg0<T>(data, id));
                 }
 
                 else if (flag_data) { data += c; } //считываем данные до тех пор, пока не появится tail
 
-                else if (flag_head) {
-                    uint16_t id = magic;
+                else if (flag_head)
+                {
+                     id = magic;
                     flag_head = 0;
                     flag_head_0 = 0;
                     flag_data = 1;
@@ -175,7 +181,7 @@ public:
 
                 else if (flag_head_0) { flag_head = 1; }
 
-                else if (magic == Head && flag_tail) { flag_head_0 = 1; } //появился head
+                else if (magic == Head && flag_tail)   { flag_head_0 = 1; } //появился head
                 //смотреть cнизу-вверх
             }
         }
@@ -183,24 +189,40 @@ public:
             std::cout << ex.what() << "\n";
         }
     }
-       static std::string Data_Repoirter(Messeges<T>& Messeges_data)
+       std::string Data_Repoirter( )
        {
         std::string data="";
-            for(auto i:Messeges_data )
-            {
-                data+=i.g;
-            }
-        }
 
+           for(auto i= this->Messeges_data.begin();i!= this->Messeges_data.end();i++ )
+           {
+               for(int j=0; j!=i->get_data().size();j++  )
+               {
+                   data.push_back(i->get_data().at(j) ) ;
+               }
+           }
+           return data;
+        }
+     static void write_string(std::string data, std::string& str_3)
+     {
+         try
+         {
+             std::ofstream file;
+             file.open(str_3 );
+             file.write((char *)&data, sizeof(data));
+
+         }
+         catch (const std::exception& ex)
+         {
+             std::cout<<ex.what()<<"\n";
+         }
+     }
 
 private:
     static void write_Msg_file(std::ofstream& file, Msg0<T> msg)
     {
-
         file.write((char *) &Head, sizeof(Head));
 
         file.write((char *) &msg.get_id(), sizeof( msg.get_id() ) );
-
 
         for (int j = 0; j != msg.get_data().size(); j++)  { file.write((char*)&msg.get_data().at(j), sizeof(msg.get_data().at(j) ) ); }
 
@@ -209,8 +231,8 @@ private:
 
     static  uint16_t Head;
     static uint16_t Tail;
-
-        };
+    Messeges<T>& Messeges_data;
+};
 
 template < size_t T>
 uint16_t File_Pakage<T>:: Head=0xBABA;
@@ -218,6 +240,15 @@ uint16_t File_Pakage<T>:: Head=0xBABA;
 
 template < size_t T>
 uint16_t File_Pakage<T>:: Tail=0xDEDA;
+
+
+
+
+
+
+
+
+
 
 
 

@@ -14,31 +14,16 @@ int main()
     int N=100;
 
     geniration_string( N, str_1);
-uint16_t i=1;
-
-Messeges<20>a;
-a.push_back(Msg0<20>("1sfdfs",i));
-uint16_t magic;
-uint8_t * magBuf=reinterpret_cast<uint8_t*>(&magic);
-
-magic=0XFFFF;
-
-    std::cout<<"[0]="<<std::hex<<+magBuf[0]<<"\n";
-    std::cout<<"[1]="<<std::hex<<+magBuf[1] <<std::endl;
-
-    std::cout<< std::dec<<"magic=" <<magic<<"\n";
-
 
 
     File_parser<20> q(str_1);
-    //for(auto i:q.get_Messeges()){
-   // for(int j=0; j!=i.get_data().size(); j++) {
-      //  std::cout << i.get_data().at(j);
-   // }
-//}
 
-    File_Pakage<20>::write( str_3 , q.get_Messeges() );
-    auto b=File_Pakage<20>::read( str_3  );
-    File_Pakage<20>::Data_Repoirter(b);
+    File_Pakage<20> q;
+
+    q.write( str_3 , q.get_Messeges() );
+    auto Messeges_data=File_Pakage<20>::read( str_3  );
+
+    auto e=File_Pakage<20>::Data_Repoirter(Messeges_data);
+    //std::cout<<e;
 
 }
