@@ -225,6 +225,26 @@ public:
              std::cout<<ex.what()<<"\n";
          }
      }
+    static std::string read_string( std::string& str_3)
+    {
+        try
+        {
+            std::ifstream file2;
+            file2.open(str_3);
+            char c2;
+            std::string str2="";
+
+            while (file2.get(c2))
+            {
+                str2+=c2;
+            }
+            return  str2;
+        }
+        catch (const std::exception& ex)
+        {
+            std::cout<<ex.what()<<"\n";
+        }
+    }
 
     void shuffle_write(std::string& str_2  )
     {

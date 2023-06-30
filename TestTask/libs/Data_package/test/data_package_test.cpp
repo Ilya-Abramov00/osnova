@@ -53,16 +53,12 @@ TEST(data_package, write_one)
 {
     std::string str_1="/home/ilya/Загрузки/file_1.txt";
 
-
-
     string a("1234");
 
     File_Package<3>::write_string(a,str_1);
     File_parser<3> q;
 
-
     File_Package<3> qw(q.get_File_parser(str_1) );
-
 
     auto e=qw.Data_Repoirter();
     ASSERT_TRUE(e==a);
@@ -81,14 +77,11 @@ TEST(data_package, 2) {
 
     geniration_string( 101,N, str_1);
 
-
     File_parser<20> q;
-
 
     File_Package<20> qe( q.get_File_parser(str_1) );
 
     qe.shuffle_write(str_2);
-
 
     File_Package<20> eq;
     eq.read(str_2);
@@ -98,26 +91,9 @@ TEST(data_package, 2) {
     File_Package<20>::write_string(eq.Data_Repoirter(), str_4);
 
 
-    std::ifstream file1;
-    file1.open(str_1);
-    char c1;
-    std::string str1="";
 
-    while (file1.get(c1))
-    {
-        str1+=c1;
-    }
-
-    std::ifstream file2;
-    file2.open(str_4);
-    char c2;
-    std::string str2="";
-
-
-    while (file2.get(c2))
-    {
-        str2+=c2;
-    }
+    std::string str1=File_Package<20>::read_string(str_1);
+    std::string str2=File_Package<20>::read_string(str_4);;
 
 
     ASSERT_TRUE( str1.size() == str2.size() );
