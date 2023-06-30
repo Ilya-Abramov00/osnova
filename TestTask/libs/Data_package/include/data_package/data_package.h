@@ -11,6 +11,9 @@
 #include<array>
 #include<cstdint>
 
+std::random_device rd;
+std::mt19937 gen(rd());
+
 int random_n(int a, int b);
 int random_l(int N);
 int random_n();
@@ -18,8 +21,7 @@ int random_n();
 void geniration_string(int n, int N, std::string& str_1);
 
 
-std::random_device rd;
-std::mt19937 gen(rd());
+
 
 template < size_t T>
 
@@ -150,31 +152,31 @@ public:
 
             uint8_t *magBuf = reinterpret_cast<uint8_t *>(&magic);
 
-            while (file.get(c)) {
+            while (file.get(c) )
+            {
                 if (flag) {
                     magBuf[1] = c;
                     flag = 0;
-                } else {
+                } else
+                {
                     magBuf[0] = magBuf[1];
                     magBuf[1] = c;
                 }
 
-                if (magic == Tail) {
+
+                if (magic == Tail)
+                {
                     flag_data = 0;
                     flag_tail = 1;
                     data.pop_back();
                     this->Messeges_data.push_back(Msg0<T>(data, id));
                     data.clear();
-                } else if (flag_data) { data += c; } //считываем данные до тех пор, пока не появится tail
+                }
+                else if (flag_data)    { data += c; } //считываем данные до тех пор, пока не появится tail
 
-                else if (flag_head) {
-                    id = magic;
-                    flag_head = 0;
-                    flag_head_0 = 0;
-                    flag_data = 1;
-                }//считали два символа id
+                else if (flag_head)    {   id = magic;   flag_head = 0; flag_head_0 = 0;  flag_data = 1; }//считали два символа id
 
-                else if (flag_head_0) { flag_head = 1; }
+                else if (flag_head_0)  { flag_head = 1; }
 
                 else if (magic == Head && flag_tail) { flag_head_0 = 1; } //появился head
                 //смотреть cнизу-вверх

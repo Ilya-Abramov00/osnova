@@ -1,9 +1,9 @@
 
 
+#include<random>
+std::random_device rd;
+std::mt19937 gen(rd());
 
-using namespace std;
-#include "data_package/data_package.h"
-#include<cstdint>
 
 int main()
 {
