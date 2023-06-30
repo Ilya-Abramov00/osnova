@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 if(UNITTEST AND EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test)
 	if(NOT TEST_OUTPUT_PATH)
-		set(TEST_OUTPUT_PATH ${CMAKE_BINARY_DIR}/test)
+		set(TEST_OUTPUT_PATH ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}/binaries/test)
 	endif()
 
 	file(GLOB SRC ${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/test/*.h)
@@ -16,5 +16,6 @@ if(UNITTEST AND EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
 	if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test/config/conf.cmake)
 		include(${CMAKE_CURRENT_SOURCE_DIR}/test/config/conf.cmake)
+
 	endif()
 endif()

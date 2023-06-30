@@ -69,7 +69,7 @@ public:
             Messeges<T> Messeges_data;
             std::ifstream file;
             file.open(file_s);
-
+            std::cout<<"файл открылся\n";
             std::string bufer; bufer.reserve(T);
             char c;
             int i = 0;
@@ -116,8 +116,8 @@ public:
         try
         {
             std::ofstream file;
-            file.open(str_3 );
-
+            file.open(str_3 ,std::ios::trunc);
+            std::cout<<"файл открылся\n";
             for (auto const& i :  this->Messeges_data) {
                 write_Msg_file(file,i);
             }
@@ -136,7 +136,7 @@ public:
         try {
             std::ifstream file;
             file.open(str_3);
-
+            std::cout<<"файл открылся\n";
             char c;
             bool flag = 1;
             bool flag_head = 0;
@@ -256,7 +256,7 @@ try
     std::shuffle(v.begin(), v.end(), gen);
 
     std::ofstream file;
-    file.open(str_2);
+    file.open(str_2,std::ios::trunc);
 
     for(int  i=0; i!=v.size(); i++){
         write_Msg_file(file, v.at(i).get() );
