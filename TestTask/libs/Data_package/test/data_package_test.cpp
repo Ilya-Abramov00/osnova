@@ -8,7 +8,7 @@ using namespace std;
 
 
 
-TEST(data_package,write_read) {
+TEST(data_package,write_read_messeges) {
 std::string str_1="/home/ilya/Загрузки/file_1.txt";
 std::string str_2="/home/ilya/Загрузки/file_2.txt";
 
@@ -62,7 +62,6 @@ TEST(data_package, write_one)
 
     auto e=qw.Data_Repoirter();
     ASSERT_TRUE(e==a);
-
 }
 
 
