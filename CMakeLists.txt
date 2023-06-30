@@ -42,6 +42,7 @@ add_subdirectory(TestTask/libs/Data_package)
 if(UNITTEST)
         message(" output lib dir " ${CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG})
         enable_testing()
+
 endif()
 
 add_executable(tddProject main.cpp)
@@ -78,6 +79,7 @@ if(UNIX)
                 COMMAND rm -rf ./binnaries/plugins/*
                 COMMAND rm -rf ./binnaries/tasks/*
                 WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/${QBOX_PROJECT_NAME})
+
 endif()
 
 

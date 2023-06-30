@@ -6,8 +6,6 @@ using namespace std;
 
 
 
-
-
 TEST(data_package,write_read_messeges) {
 std::string str_1="/home/ilya/Загрузки/file_1.txt";
 std::string str_2="/home/ilya/Загрузки/file_2.txt";
@@ -36,12 +34,11 @@ auto c=eq.get_Messeges_data().end();
 
 for(;a!=c; )
 {
-    auto d=*a;
-    auto e=*b;
+    auto d=*(a++);
+    auto e=*(b++);
     ASSERT_TRUE(d.get_id()==e.get_id());
     ASSERT_TRUE(d.get_data()==e.get_data());
-a++;
-b++;
+
 }
 }
 
@@ -97,8 +94,6 @@ TEST(data_package, 2) {
 
     ASSERT_TRUE( str1.size() == str2.size() );
     ASSERT_TRUE(str1 == str2); // данные до отправки и после одинаковы
-
-
 
 }
 
