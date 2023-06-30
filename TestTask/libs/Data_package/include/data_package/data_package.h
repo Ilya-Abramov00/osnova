@@ -203,13 +203,12 @@ public:
                }
 
            }
-           z;
           auto e=z->get_data();
 
-           int i=0;
-           while( ( i!=e.size() ) && (e.at(i)!='^') )
+           int k=0;
+           while( ( k!=e.size() ) && (e.at(k)!='^') )
            {
-               str.push_back(e.at(i++) ) ;
+               str.push_back(e.at(k++) ) ;
            }
            return str;
         }
@@ -229,7 +228,6 @@ public:
 
     void shuffle_write(std::string& str_2  )
     {
-
 try
 {
     std::vector<std::reference_wrapper<const Msg0<T> >>v(Messeges_data.cbegin(), Messeges_data.cend());
@@ -273,11 +271,6 @@ uint16_t File_Package<T>:: Head=0xBABA;
 
 template < size_t T>
 uint16_t File_Package<T>:: Tail=0xDEDA;
-
-
-
-
-
 
 
 

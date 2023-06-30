@@ -11,8 +11,7 @@ using namespace std;
 TEST(data_package,write_read) {
 std::string str_1="/home/ilya/Загрузки/file_1.txt";
 std::string str_2="/home/ilya/Загрузки/file_2.txt";
-std::string str_3="/home/ilya/Загрузки/file_3.txt";
-std::string str_4="/home/ilya/Загрузки/file_4.txt";
+
     int N=random_n(5,10);
 
     geniration_string(10, N, str_1);
@@ -53,9 +52,7 @@ b++;
 TEST(data_package, write_one)
 {
     std::string str_1="/home/ilya/Загрузки/file_1.txt";
-    std::string str_2="/home/ilya/Загрузки/file_2.txt";
-    std::string str_3="/home/ilya/Загрузки/file_3.txt";
-    std::string str_4="/home/ilya/Загрузки/file_4.txt";
+
 
 
     string a("1234");

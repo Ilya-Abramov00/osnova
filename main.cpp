@@ -8,9 +8,6 @@ using namespace std;
 int main()
 {
 
-vector<int> q={1,3,1,5};
-auto c=q.end();
 
-cout<<*(c);
 
 }
