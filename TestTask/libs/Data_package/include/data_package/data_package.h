@@ -25,13 +25,13 @@ void geniration_string(int n, int N, std::string& str_1);
 
 template < size_t T>
 
-struct Msg0{
+struct Msg{
 public:
-    Msg0( const std::string& data_s , uint16_t id) :id(id)
+    Msg( const std::string& data_s , uint16_t id) :id(id)
     {
           for( int i=0; i!=data_s.size(); i++ )  {  data[i]=data_s[i] ;  }
     }
-    Msg0( const std::string& data_s , uint16_t id, size_t N) :id(id)
+    Msg( const std::string& data_s , uint16_t id, size_t N) :id(id)
     {
         for( int i=0; i!=N; i++ )
         {
@@ -41,21 +41,21 @@ public:
     }
     uint16_t const& get_id() { return  id; }
 
-    char  data[T];
+    char const *  get_data() {   return data; }
 
 private:
     uint16_t id;
-
+    char  data[T];
 };
 template < size_t T>
-bool operator<( Msg0<T>& x, Msg0<T>& y)
+bool operator<( Msg<T>& x, Msg<T>& y)
 {
     return x.get_id() < y.get_id();
 }
 
 
 template < size_t T>
-using Messeges=std::list <Msg0<T>>;
+using Messeges=std::list <Msg<T>>;
 
 template < size_t T>
 
@@ -79,14 +79,14 @@ public:
                 else if ( T != i )
                 {
                     bufer.push_back(c);
-                    Messeges_data.emplace_back( Msg0<T>(bufer, ++id) );
+                    Messeges_data.emplace_back( Msg<T>(bufer, ++id) );
                     bufer.clear();
                     i = -1;
                 }
                 i++;
             }
 
-            Messeges_data.emplace_back( Msg0<T>(bufer, ++id, T) );
+            Messeges_data.emplace_back( Msg<T>(bufer, ++id, T) );
             bufer.clear();
             return  Messeges_data;
         }
@@ -167,7 +167,7 @@ public:
                     flag_data = 0;
                     flag_tail = 1;
                     data.pop_back();
-                    this->Messeges_data.push_back(Msg0<T>(data, id));
+                    this->Messeges_data.push_back(Msg<T>(data, id));
                     data.clear();
                 }
                 else if (flag_data)    { data += c; } //считываем данные до тех пор, пока не появится tail
@@ -199,16 +199,16 @@ public:
            {
                for(int j=0; j!=T; j++  )
                {
-                   str.push_back(i->data[j] ) ;
+                   auto r=i->get_data();
+                   str.push_back(i->get_data()[j] ) ;
                }
 
            }
 
-
            int k=0;
-           while( ( k!=T ) && (z->data[k]!='^') )
+           while( ( k!=T ) && (z->get_data()[k]!='^') )
            {
-               str.push_back(z->data[k++] ) ;
+               str.push_back(z->get_data()[k++] ) ;
            }
            return str;
         }
@@ -250,7 +250,7 @@ public:
     {
 try
 {
-    std::vector<std::reference_wrapper<const Msg0<T> >>v(Messeges_data.cbegin(), Messeges_data.cend());
+    std::vector<std::reference_wrapper<const Msg<T> >>v(Messeges_data.cbegin(), Messeges_data.cend());
     std::shuffle(v.begin(), v.end(), gen);
 
     std::ofstream file;
@@ -273,11 +273,11 @@ catch (const std::exception& ex)
     }
 
 private:
-    static void write_Msg_file(std::ofstream& file, Msg0<T> msg)
+    static void write_Msg_file(std::ofstream& file, Msg<T> msg)
     {
         file.write((char *) &Head, sizeof(Head));
         file.write((char *) &msg.get_id(), sizeof( msg.get_id() ) );
-        for (int j = 0; j != T; j++)  { file.write((char*)&msg.data[j], sizeof(msg.data[j] ) ); }
+        for (int j = 0; j != T; j++)  { file.write((char*)&msg.get_data()[j], sizeof(msg.get_data()[j] ) ); }
         file.write((char *) &Tail, sizeof(Tail));
     }
 
