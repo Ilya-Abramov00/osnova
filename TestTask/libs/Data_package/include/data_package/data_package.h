@@ -40,12 +40,12 @@ public:
         }
     }
     uint16_t const& get_id() { return  id; }
-  array <char,T>  const& get_data() { return   data; }
+
+    char data[T];
 
 private:
-
     uint16_t id;
-    std::array <char,T> data;
+
 };
 template < size_t T>
 bool operator<( Msg0<T>& x, Msg0<T>& y)
@@ -197,18 +197,18 @@ public:
            --z;
            for(auto i= this->Messeges_data.begin(); i!=z; i++ )
            {
-               for(int j=0; j!=i->get_data().size(); j++  )
+               for(int j=0; j!=T; j++  )
                {
-                   str.push_back(i->get_data().at(j) ) ;
+                   str.push_back(i->data[j] ) ;
                }
 
            }
-          auto e=z->get_data();
+
 
            int k=0;
-           while( ( k!=e.size() ) && (e.at(k)!='^') )
+           while( ( k!=T ) && (z->data[k]!='^') )
            {
-               str.push_back(e.at(k++) ) ;
+               str.push_back(z->data[k++] ) ;
            }
            return str;
         }
@@ -277,7 +277,7 @@ private:
     {
         file.write((char *) &Head, sizeof(Head));
         file.write((char *) &msg.get_id(), sizeof( msg.get_id() ) );
-        for (int j = 0; j != msg.get_data().size(); j++)  { file.write((char*)&msg.get_data().at(j), sizeof(msg.get_data().at(j) ) ); }
+        for (int j = 0; j != T; j++)  { file.write((char*)&msg.data[j], sizeof(msg.data[j] ) ); }
         file.write((char *) &Tail, sizeof(Tail));
     }
 
