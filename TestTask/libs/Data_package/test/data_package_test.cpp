@@ -34,7 +34,10 @@ auto c=eq.get_Messeges_data().end();
     auto d=*(a++);
     auto e=*(b++);
     ASSERT_TRUE(d.get_id()==e.get_id());
-    ASSERT_TRUE(d.data[0]==e.data[0]);
+    for( int i=0;i!=10;i++)
+    {
+        ASSERT_TRUE(d.data[i] == e.data[i]);
+    }
    }
 
 }

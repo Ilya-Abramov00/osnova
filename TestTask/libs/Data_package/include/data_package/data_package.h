@@ -41,7 +41,7 @@ public:
     }
     uint16_t const& get_id() { return  id; }
 
-    char data[T];
+    char  data[T];
 
 private:
     uint16_t id;
