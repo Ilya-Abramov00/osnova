@@ -40,46 +40,14 @@ auto c=eq.get_Messeges_data().end();
 }
 
 
-/*
-TEST(data_package,write_read_messeges2) {
-
-    std::string str_1="/home/ilya/Загрузки/file_1.txt";
-    std::string str_2="/home/ilya/Загрузки/file_2.txt";
-    std::string str_3="/home/ilya/Загрузки/file_3.txt";
-    std::string str_4="/home/ilya/Загрузки/file_4.txt";
-
-    File_parser<10> q;
-
-    File_Package<10> qe( q.get_File_parser(str_1) );
-
-    qe.write(str_2);
-
-    File_Package<10> eq;
-    eq.read(str_2);
 
 
-    ASSERT_TRUE(eq.get_Messeges_data().size() == qe.get_Messeges_data().size());
-
-    auto a=eq.get_Messeges_data().begin();
-    auto b=qe.get_Messeges_data().begin();
-
-    auto c=eq.get_Messeges_data().end();
-
-    for(;a!=c; )
-    {
-        auto d=*(a++);
-        auto e=*(b++);
-        ASSERT_TRUE(d.get_id()==e.get_id());
-        ASSERT_TRUE(d.get_data()==e.get_data());
-    }
-
-}
 
 
-/*
 TEST(data_package, write_one)
 {
-    std::string str_1="/home/ilya/Загрузки/file_1.txt";
+    std::string str_1="string_test/file_1.txt";
+
 
     string a("1234");
 
@@ -95,10 +63,9 @@ TEST(data_package, write_one)
 
 TEST(data_package, 2) {
 
-    std::string str_1="/home/ilya/Загрузки/file_1.txt";
-    std::string str_2="/home/ilya/Загрузки/file_2.txt";
-    std::string str_3="/home/ilya/Загрузки/file_3.txt";
-    std::string str_4="/home/ilya/Загрузки/file_4.txt";
+    std::string str_1="string_test/file_1.txt";
+    std::string str_2="string_test/file_2.txt";
+    std::string str_4="string_test/file_4.txt";
 
     int N=32;
 
@@ -127,5 +94,3 @@ TEST(data_package, 2) {
     ASSERT_TRUE(str1 == str2); // данные до отправки и после одинаковы
 
 }
-
-*/
