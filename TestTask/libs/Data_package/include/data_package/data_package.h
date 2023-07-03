@@ -161,7 +161,6 @@ public:
                     magBuf[1] = c;
                 }
 
-
                 if (magic == Tail)
                 {
                     flag_data = 0;
@@ -199,10 +198,8 @@ public:
            {
                for(int j=0; j!=T; j++  )
                {
-                   auto r=i->get_data();
                    str.push_back(i->get_data()[j] ) ;
                }
-
            }
 
            int k=0;
@@ -291,7 +288,6 @@ uint16_t File_Package<T>:: Head=0xBABA;
 
 template < size_t T>
 uint16_t File_Package<T>:: Tail=0xDEDA;
-
 
 
 #endif
