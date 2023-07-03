@@ -118,8 +118,9 @@ class StateMachine
 {
   public:
     StateMachine(): state(State::Idle) {}
-    Messeges<T> ReadMesseges (std::vector<char>&& bufferfile , Messeges<T>& Messeges_data, uint16_t Head=0xBABA, uint16_t Tail=0xDEDA)
+    void  ReadMesseges (std::vector<char>& bufferfile , Messeges<T>& Messeges_data, uint16_t Head=0xBABA, uint16_t Tail=0xDEDA)
     {
+
             state=State::Magicbegin;
             uint16_t magic;
             uint16_t id = 0;
@@ -130,7 +131,8 @@ class StateMachine
 
             for(int i=0;i!=bufferfile.size();i++)
             {
-                if ( i%2==0 )
+
+               if ( i%2==0 )
                 {
                     magBuf[1] = bufferfile.at(i);
                 } else
@@ -155,21 +157,25 @@ class StateMachine
                     break;
 
                 case (State::Datacollecting):
-                    data += bufferfile.at(i);
+                    data.push_back( bufferfile.at(i)  );
                     if ( magic==Tail )
-                    { state=State::Magicend; data.pop_back(); }
+                    { state=State::Magicend;
+                      data.pop_back();
+                    Messeges_data.push_back(Msg<T>(data, id));
+                     data.clear();
+                    }
 
                     break;
 
                 case (State::Magicend):
-                    Messeges_data.push_back(Msg<T>(data, id));
-                    data.clear();
                     state=State::Magicbegin;
-                    break;
+                  break;
+
                 }
             }
-            if(state==State::Magicbegin){ state=State::Idle;}
-            return Messeges_data;
+
+            if(state==State::Magicend) { state=State::Idle;}
+            return ;
     }
     State get(){
             return state;
@@ -212,7 +218,11 @@ public:
 
             auto bufferfile= readfullfile(namefile);
 
+StateMachine<T> a;
+a.ReadMesseges(bufferfile,this->Messeges_data);
 
+
+/*
             bool flag = 1;
             bool flag_head = 0;
             bool flag_head_0 = 0;
@@ -228,10 +238,11 @@ public:
             uint8_t *magBuf = reinterpret_cast<uint8_t *>(&magic);
 
            for(int i=0; i!=bufferfile.size(); i++) {
-            if (flag) {
+            if ( i%2==0 )
+            {
                 magBuf[1] = bufferfile.at(i);
-                flag = 0;
-            } else {
+            } else
+            {
                 magBuf[0] = magBuf[1];
                 magBuf[1] = bufferfile.at(i);
             }
@@ -240,6 +251,7 @@ public:
                 flag_data = 0;
                 flag_tail = 1;
                 data.pop_back();
+
                 this->Messeges_data.push_back(Msg<T>(data, id));
                 data.clear();
             } else if (flag_data) {
@@ -262,6 +274,7 @@ public:
             } // появился head
             // смотреть cнизу-вверх
             }
+            */
       }
     void sort_Messeges(){
         Messeges_data.sort();
