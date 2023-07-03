@@ -109,4 +109,10 @@ TEST(data_package, write_read)
 
 
   ASSERT_TRUE(a.size() == e.size() );
+
+}
+TEST(data_package, StateMachine)
+{
+  StateMachine<20> q;
+
 }

@@ -28,17 +28,15 @@ std::vector<char> readfullfile(std::string& namefile){
 
   if(!file. is_open() ) {std::cout<<"не открылся";}
 
-
   file.seekg(0, std::ios::end);
-
   size_t sizefile = file.tellg();
-
   file.seekg(0);
 
   std::vector<char> bufferfile(sizefile);
-  auto c=bufferfile.data();
+  auto data=bufferfile.data();
 
-  file.read(c,sizefile);
+  file.read(data,sizefile);
+
   if (file.fail()) {std::cout<<"искл";}
 
   file.close();
@@ -71,6 +69,7 @@ private:
     uint16_t id;
     char  data[T];
 };
+
 template < size_t T>
 bool operator<( Msg<T>& x, Msg<T>& y)
 {
@@ -90,30 +89,59 @@ public:
     {
             Messeges<T> Messeges_data;
 
-            auto buferfile= readfullfile(filename);
-            std::string bufer; bufer.reserve(T);
+            auto bufferfile= readfullfile(filename);
+            std::string buffer; buffer.reserve(T);
 
-            for(int k=1; k!=buferfile.size()+1; k++)
+            for(int k=1; k!=bufferfile.size()+1; k++)
             {
-                  bufer.push_back(buferfile.at(k-1));
+                  buffer.push_back(bufferfile.at(k-1));
                 if ( !(k % T) )
                 {
-                    Messeges_data.emplace_back( Msg<T>(bufer, ++id) );
-                    bufer.clear();
+                    Messeges_data.emplace_back( Msg<T>(buffer, ++id) );
+                    buffer.clear();
                 }
             }
-
-            Messeges_data.emplace_back( Msg<T>(bufer, ++id, T) );
-            bufer.clear();
+            Messeges_data.emplace_back( Msg<T>(buffer, ++id, T) );
+            buffer.clear();
             return  Messeges_data;
     }
-
 private:
     uint16_t id=0;
 };
 
+
+enum class State{Idle,Magicbegin,Datacollecting,Magicend};
 template < size_t T>
 
+class StateMachine
+{
+  public:
+    StateMachine(): state(State::Idle) {}
+    void Start (std::vector<char> const data)
+    {
+            for(int i=0;i!=data.size();i++)
+            {
+                switch (state)
+                {
+                case (State::Idle):
+
+                    break;
+                case (State::Magicbegin):
+                    std::cout << "Magicbegin";
+                    break;
+                }
+            }
+    }
+    State get(){
+            return state;
+    }
+  private:
+
+    State state;
+};
+
+
+template < size_t T>
 class File_Package{
 public:
 
@@ -128,6 +156,8 @@ public:
         {
             std::ofstream file;
             file.open(str_3 ,std::ios::trunc);
+            //проверка
+
             for (auto const& i :  this->Messeges_data) {
                 write_Msg_file(file,i);
             }
@@ -138,14 +168,12 @@ public:
         }
     }
 
-
-
       void   read(std::string& namefile)
     {
 
             auto bufferfile= readfullfile(namefile);
 
-            char c;
+
             bool flag = 1;
             bool flag_head = 0;
             bool flag_head_0 = 0;
@@ -283,25 +311,21 @@ try
     }
 
 
-    static void write_Msg_file(std::ofstream& file, Msg<T> msg)
+     void write_Msg_file(std::ofstream& file, Msg<T> msg)
     {
         file.write((char *) &Head, sizeof(Head));
         file.write((char *) &msg.get_id(), sizeof( msg.get_id() ) );
-        for (int j = 0; j != T; j++)  { file.write((char*)&msg.get_data()[j], sizeof(msg.get_data()[j] ) ); }
+        file.write ( msg.get_data(), T );
         file.write((char *) &Tail, sizeof(Tail));
     }
 
 
 private:
-    static  uint16_t Head;
-    static uint16_t Tail;
+      uint16_t Head=0xBABA;
+      uint16_t Tail=0xDEDA;
     Messeges<T> Messeges_data;
 };
 
-template < size_t T>
-uint16_t File_Package<T>:: Head=0xBABA;
 
-template < size_t T>
-uint16_t File_Package<T>:: Tail=0xDEDA;
 
 #endif
