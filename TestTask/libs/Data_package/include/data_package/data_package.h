@@ -8,7 +8,6 @@
 #include <algorithm>
 #include <iterator>
 #include<random>
-#include<array>
 #include<cstdint>
 
 std::random_device rd;
@@ -119,7 +118,7 @@ class StateMachine
 {
   public:
     StateMachine(): state(State::Idle) {}
-    void  ReadMesseges (std::vector<char>& bufferfile , Messeges<T>& Messeges_data, uint16_t Head=0xBABA, uint16_t Tail=0xDEDA)
+    void  ReadMesseges (std::vector<char>&& bufferfile , Messeges<T>& Messeges_data, uint16_t Head, uint16_t Tail)
     {
             state=State::Magicbegin;
 
@@ -181,7 +180,7 @@ class StateMachine
             if(state==State::Magicend) { state=State::Idle;}
             return ;
     }
-    State get(){
+    State get_state(){
             return state;
     }
   private:
@@ -199,38 +198,34 @@ public:
     File_Package() { }
 
 
-     void write(std::string& str_3 )
+     void write(std::string& filename )
     {
-        try
-        {
             std::ofstream file;
-            file.open(str_3 ,std::ios::trunc);
+            file.open(filename ,std::ios::trunc);
             //проверка
 
             for (auto const& i :  this->Messeges_data) {
                 write_Msg_file(file,i);
             }
-        }
-        catch (const std::exception& ex)
-        {
-            std::cout<<ex.what()<<"\n";
-        }
+
     }
+
 
       void   read(std::string& namefile)
     {
-
-            auto bufferfile= readfullfile(namefile);
-
-            StateMachine<T> a;
-            a.ReadMesseges(bufferfile,this->Messeges_data);
+        stateMachine.ReadMesseges(readfullfile(namefile),this->Messeges_data, Head, Tail);
+        if (stateMachine.get_state()!=State::Idle) std::cout<<"дела плохи";
       }
+
+
     void sort_Messeges(){
         Messeges_data.sort();
     }
+
     void clear(){
         Messeges_data.clear();
     }
+
       std::string Data_Repoirter( )
        {
            std::string string_data="";
@@ -253,23 +248,18 @@ public:
            }
            return string_data;
         }
+
      static void write_string(std::string data, std::string& str_3)
      {
-         try
-         {
+
              std::ofstream file;
              file.open(str_3 ,std::ios::trunc);
              file<<data;
-         }
-         catch (const std::exception& ex)
-         {
-             std::cout<<ex.what()<<"\n";
-         }
+
      }
     static std::string read_string( std::string& str_3)
     {
-        try
-        {
+
             std::ifstream file2;
             file2.open(str_3);
             char c2;
@@ -280,11 +270,6 @@ public:
                 str2+=c2;
             }
             return  str2;
-        }
-        catch (const std::exception& ex)
-        {
-            std::cout<<ex.what()<<"\n";
-        }
     }
 
     void shuffle_write(std::string& str_2  )
@@ -327,6 +312,7 @@ private:
       uint16_t Head=0xBABA;
       uint16_t Tail=0xDEDA;
     Messeges<T> Messeges_data;
+    StateMachine<T> stateMachine;
 };
 
 
