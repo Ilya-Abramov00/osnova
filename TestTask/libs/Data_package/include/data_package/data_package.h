@@ -110,27 +110,66 @@ private:
 };
 
 
-enum class State{Idle,Magicbegin,Datacollecting,Magicend};
+
+enum class State{Idle,Magicbegin,Idcollecting,Datacollecting,Magicend};
 template < size_t T>
 
 class StateMachine
 {
   public:
     StateMachine(): state(State::Idle) {}
-    void Start (std::vector<char> const data)
+    Messeges<T> ReadMesseges (std::vector<char>&& bufferfile , Messeges<T>& Messeges_data, uint16_t Head=0xBABA, uint16_t Tail=0xDEDA)
     {
-            for(int i=0;i!=data.size();i++)
+            state=State::Magicbegin;
+            uint16_t magic;
+            uint16_t id = 0;
+            uint8_t *magBuf = reinterpret_cast<uint8_t *>(&magic);
+            std::string data="";
+
+            int k=0;
+
+            for(int i=0;i!=bufferfile.size();i++)
             {
+                if ( i%2==0 )
+                {
+                    magBuf[1] = bufferfile.at(i);
+                } else
+                {
+                    magBuf[0] = magBuf[1];
+                    magBuf[1] = bufferfile.at(i);
+                }
+
                 switch (state)
                 {
-                case (State::Idle):
+
+                case (State::Magicbegin):
+                    if ( magic==Head )
+                    { state=State::Idcollecting;}
+                    break;
+
+                case (State::Idcollecting):
+                    k++;
+                    if (k==2)
+                    { id=magic; state=State::Datacollecting; k=0;}
 
                     break;
-                case (State::Magicbegin):
-                    std::cout << "Magicbegin";
+
+                case (State::Datacollecting):
+                    data += bufferfile.at(i);
+                    if ( magic==Tail )
+                    { state=State::Magicend; data.pop_back(); }
+
+                    break;
+
+                case (State::Magicend):
+                    Messeges_data.push_back(Msg<T>(data, id));
+                    data.clear();
+                    state=State::Magicbegin;
                     break;
                 }
             }
+            if(state==State::Magicbegin){ state=State::Idle;}
+            return Messeges_data;
     }
     State get(){
             return state;
@@ -233,20 +272,22 @@ public:
       std::string Data_Repoirter( )
        {
            std::string str;
-           auto z=Messeges_data.end();
-           --z;
-           for(auto i= this->Messeges_data.begin(); i!=z; i++ )
+           auto end =Messeges_data.end();
+           auto begin = this->Messeges_data.begin();
+           --end;
+           while(begin != end)
            {
                for(int j=0; j!=T; j++  )
                {
-                   str.push_back(i->get_data()[j] ) ;
+                   str.push_back(begin->get_data()[j] ) ;
                }
+               begin++;
            }
 
            int k=0;
-           while( ( k!=T ) && (z->get_data()[k]!='^') )
+           while( ( k!=T ) && (end->get_data()[k]!='^') )
            {
-               str.push_back(z->get_data()[k++] ) ;
+               str.push_back(end->get_data()[k++] ) ;
            }
            return str;
         }

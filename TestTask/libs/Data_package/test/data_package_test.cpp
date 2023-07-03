@@ -104,15 +104,33 @@ TEST(data_package, write_read)
 
     string a("absegegd");
 
-    File_Package<3>::write_string(a,str_1);
+    File_Package<12>::write_string(a,str_1);
    auto e=readfullfile(str_1);
 
 
   ASSERT_TRUE(a.size() == e.size() );
 
 }
+
 TEST(data_package, StateMachine)
 {
-  StateMachine<20> q;
+  std::string str_1="string_test/file_1.txt";
+  std::string str_2="string_test/file_2.txt";
+
+  string a("absegegd");
+
+    File_parser<2> q;
+
+    File_Package<2> qw;
+    qw.write_string(a,str_1);
+
+    auto c=q.get_File_parser(str_1);
+    File_Package<2> qe(c);
+    qe.write(str_2);
+
+    File_Package<2> qc(c);
+    qc.read(str_2);
+
+    ASSERT_TRUE(a ==  qe.Data_Repoirter() );
 
 }
