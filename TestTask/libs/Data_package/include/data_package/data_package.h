@@ -140,11 +140,10 @@ public:
 
 
 
-      void   read(std::string& str_3) {
+      void   read(std::string& namefile)
+    {
 
-        try {
-            std::ifstream file;
-            file.open(str_3);
+            auto bufferfile= readfullfile(namefile);
 
             char c;
             bool flag = 1;
@@ -161,39 +160,42 @@ public:
 
             uint8_t *magBuf = reinterpret_cast<uint8_t *>(&magic);
 
-            while (file.get(c) )
-            {
-                if (flag) {
-                    magBuf[1] = c;
-                    flag = 0;
-                } else
-                {
-                    magBuf[0] = magBuf[1];
-                    magBuf[1] = c;
-                }
-
-                if (magic == Tail)
-                {
-                    flag_data = 0;
-                    flag_tail = 1;
-                    data.pop_back();
-                    this->Messeges_data.push_back(Msg<T>(data, id));
-                    data.clear();
-                }
-                else if (flag_data)    { data += c; } //считываем данные до тех пор, пока не появится tail
-
-                else if (flag_head)    {   id = magic;   flag_head = 0; flag_head_0 = 0;  flag_data = 1; }//считали два символа id
-
-                else if (flag_head_0)  { flag_head = 1; }
-
-                else if (magic == Head && flag_tail) { flag_head_0 = 1; } //появился head
-                //смотреть cнизу-вверх
+           for(int i=0; i!=bufferfile.size(); i++) {
+            if (flag) {
+                magBuf[1] = bufferfile.at(i);
+                flag = 0;
+            } else {
+                magBuf[0] = magBuf[1];
+                magBuf[1] = bufferfile.at(i);
             }
-        }
-        catch (const std::exception &ex) {
-            std::cout << ex.what() << "\n";
-        }
-    }
+
+            if (magic == Tail) {
+                flag_data = 0;
+                flag_tail = 1;
+                data.pop_back();
+                this->Messeges_data.push_back(Msg<T>(data, id));
+                data.clear();
+            } else if (flag_data) {
+                data += bufferfile.at(i);
+            } // считываем данные до тех пор, пока не появится tail
+
+            else if (flag_head) {
+                id = magic;
+                flag_head = 0;
+                flag_head_0 = 0;
+                flag_data = 1;
+            } // считали два символа id
+
+            else if (flag_head_0) {
+                flag_head = 1;
+            }
+
+            else if (magic == Head && flag_tail) {
+                flag_head_0 = 1;
+            } // появился head
+            // смотреть cнизу-вверх
+            }
+      }
     void sort_Messeges(){
         Messeges_data.sort();
     }
