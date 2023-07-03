@@ -259,10 +259,10 @@ try
     file.close();
 }
 
-catch (const std::exception& ex)
-{
+ catch (const std::exception& ex)
+ {
     std::cout<<ex.what()<<"\n";
-}
+ }
     }
     Messeges<T> const & get_Messeges_data()
     {
