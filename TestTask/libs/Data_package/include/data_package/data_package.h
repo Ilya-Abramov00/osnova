@@ -124,7 +124,6 @@ public:
         {
             std::cout<<ex.what()<<"\n";
         }
-
     }
 
 
