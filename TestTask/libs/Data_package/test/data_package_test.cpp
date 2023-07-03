@@ -72,9 +72,9 @@ TEST(data_package, 2) {
     std::string str_2="string_test/file_2.txt";
     std::string str_4="string_test/file_4.txt";
 
-    int N=32;
+    int N=23;
 
-    geniration_string( 101,N, str_1);
+    geniration_string( 33,N, str_1);
 
     File_parser<20> q;
 
@@ -121,17 +121,18 @@ TEST(data_package, StateMachine)
 
   string a("absegegd");
 
-    File_parser<2> q;
 
-    File_Package<2> qw;
+
+    File_Package<3> qw;
     qw.write_string(a,str_1);
 
+    File_parser<3> q;
     auto c=q.get_File_parser(str_1);
-    File_Package<2> qe(c);
+    File_Package<3> qe(c);
     qe.write(str_2);
+qe.clear();
 
-    File_Package<2> qc;
-    qc.read(str_2);
+    qe.read(str_2);
 
     ASSERT_TRUE(a ==  qe.Data_Repoirter() );
 

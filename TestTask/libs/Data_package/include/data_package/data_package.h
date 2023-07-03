@@ -92,10 +92,10 @@ public:
             auto bufferfile= readfullfile(filename);
             std::string buffer; buffer.reserve(T);
 
-            for(int k=1; k!=bufferfile.size()+1; k++)
+            for(int i =1; i !=bufferfile.size()+1; i++)
             {
-                  buffer.push_back(bufferfile.at(k-1));
-                if ( !(k % T) )
+                  buffer.push_back(bufferfile.at(i -1));
+                if ( !(i % T) )
                 {
                     Messeges_data.emplace_back( Msg<T>(buffer, ++id) );
                     buffer.clear();
@@ -112,6 +112,7 @@ private:
 
 
 enum class State{Idle,Magicbegin,Idcollecting,Datacollecting,Magicend};
+
 template < size_t T>
 
 class StateMachine
@@ -120,23 +121,24 @@ class StateMachine
     StateMachine(): state(State::Idle) {}
     void  ReadMesseges (std::vector<char>& bufferfile , Messeges<T>& Messeges_data, uint16_t Head=0xBABA, uint16_t Tail=0xDEDA)
     {
-
             state=State::Magicbegin;
+
             uint16_t magic;
             uint16_t id = 0;
             uint8_t *magBuf = reinterpret_cast<uint8_t *>(&magic);
-            std::string data="";
+            std::string data;  data.reserve(T+2);
+            bool flag = 1;
 
-            int k=0;
+
+            int i_id=0;
 
             for(int i=0;i!=bufferfile.size();i++)
             {
 
-               if ( i%2==0 )
-                {
+                if (flag) {
                     magBuf[1] = bufferfile.at(i);
-                } else
-                {
+                    flag = 0;
+                } else {
                     magBuf[0] = magBuf[1];
                     magBuf[1] = bufferfile.at(i);
                 }
@@ -150,18 +152,20 @@ class StateMachine
                     break;
 
                 case (State::Idcollecting):
-                    k++;
-                    if (k==2)
-                    { id=magic; state=State::Datacollecting; k=0;}
+                    i_id++;
+                    if (i_id==2)
+                    { id=magic; state=State::Datacollecting; i_id=0;}
 
                     break;
 
                 case (State::Datacollecting):
-                    data.push_back( bufferfile.at(i)  );
+                    data+= bufferfile.at(i)  ;
                     if ( magic==Tail )
-                    { state=State::Magicend;
+                    {
+                      state=State::Magicend;
                       data.pop_back();
-                    Messeges_data.push_back(Msg<T>(data, id));
+                      data.pop_back();
+                   Messeges_data.push_back(Msg<T>(data, id));
                      data.clear();
                     }
 
@@ -218,63 +222,8 @@ public:
 
             auto bufferfile= readfullfile(namefile);
 
-StateMachine<T> a;
-a.ReadMesseges(bufferfile,this->Messeges_data);
-
-
-/*
-            bool flag = 1;
-            bool flag_head = 0;
-            bool flag_head_0 = 0;
-            bool flag_data = 0;
-            bool flag_tail = 1;
-
-            std::string data = "";
-
-            uint16_t id = 0;
-
-            uint16_t magic;
-
-            uint8_t *magBuf = reinterpret_cast<uint8_t *>(&magic);
-
-           for(int i=0; i!=bufferfile.size(); i++) {
-            if ( i%2==0 )
-            {
-                magBuf[1] = bufferfile.at(i);
-            } else
-            {
-                magBuf[0] = magBuf[1];
-                magBuf[1] = bufferfile.at(i);
-            }
-
-            if (magic == Tail) {
-                flag_data = 0;
-                flag_tail = 1;
-                data.pop_back();
-
-                this->Messeges_data.push_back(Msg<T>(data, id));
-                data.clear();
-            } else if (flag_data) {
-                data += bufferfile.at(i);
-            } // считываем данные до тех пор, пока не появится tail
-
-            else if (flag_head) {
-                id = magic;
-                flag_head = 0;
-                flag_head_0 = 0;
-                flag_data = 1;
-            } // считали два символа id
-
-            else if (flag_head_0) {
-                flag_head = 1;
-            }
-
-            else if (magic == Head && flag_tail) {
-                flag_head_0 = 1;
-            } // появился head
-            // смотреть cнизу-вверх
-            }
-            */
+            StateMachine<T> a;
+            a.ReadMesseges(bufferfile,this->Messeges_data);
       }
     void sort_Messeges(){
         Messeges_data.sort();
@@ -284,7 +233,7 @@ a.ReadMesseges(bufferfile,this->Messeges_data);
     }
       std::string Data_Repoirter( )
        {
-           std::string str;
+           std::string string_data="";
            auto end =Messeges_data.end();
            auto begin = this->Messeges_data.begin();
            --end;
@@ -292,17 +241,17 @@ a.ReadMesseges(bufferfile,this->Messeges_data);
            {
                for(int j=0; j!=T; j++  )
                {
-                   str.push_back(begin->get_data()[j] ) ;
+                string_data.push_back(begin->get_data()[j] ) ;
                }
                begin++;
            }
 
-           int k=0;
-           while( ( k!=T ) && (end->get_data()[k]!='^') )
+           int i =0;
+           while( (i !=T ) && (end->get_data()[i]!='^') )
            {
-               str.push_back(end->get_data()[k++] ) ;
+               string_data.push_back(end->get_data()[i++] ) ;
            }
-           return str;
+           return string_data;
         }
      static void write_string(std::string data, std::string& str_3)
      {
