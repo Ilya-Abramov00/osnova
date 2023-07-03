@@ -21,6 +21,30 @@ int random_n();
 void geniration_string(int n, int N, std::string& str_1);
 
 
+std::vector<char> readfullfile(std::string& namefile){
+
+  std::ifstream file;
+  file.open(namefile);
+
+  if(!file. is_open() ) {std::cout<<"не открылся";}
+
+
+  file.seekg(0, std::ios::end);
+
+  size_t sizefile = file.tellg();
+
+  file.seekg(0);
+
+  std::vector<char> bufferfile(sizefile);
+  auto c=bufferfile.data();
+
+  file.read(c,sizefile);
+  if (file.fail()) {std::cout<<"искл";}
+
+  file.close();
+
+  return bufferfile;
+}
 
 
 template < size_t T>
@@ -62,39 +86,27 @@ template < size_t T>
 class File_parser{
 public:
 
-    Messeges<T> get_File_parser( std::string& file_s )
+    Messeges<T> get_File_parser( std::string& filename )
     {
-        try
-        {
             Messeges<T> Messeges_data;
-            std::ifstream file;
-            file.open(file_s);
-            std::string bufer; bufer.reserve(T);
-            char c;
-            int i = 0;
 
-            while ( file.get(c) )
+            auto buferfile= readfullfile(filename);
+            std::string bufer; bufer.reserve(T);
+
+            for(int k=1; k!=buferfile.size()+1; k++)
             {
-                if ( T - 1 != i ) { bufer.push_back(c); }
-                else if ( T != i )
+                  bufer.push_back(buferfile.at(k-1));
+                if ( !(k % T) )
                 {
-                    bufer.push_back(c);
                     Messeges_data.emplace_back( Msg<T>(bufer, ++id) );
                     bufer.clear();
-                    i = -1;
                 }
-                i++;
             }
 
             Messeges_data.emplace_back( Msg<T>(bufer, ++id, T) );
             bufer.clear();
             return  Messeges_data;
-        }
-        catch (const std::exception& ex)
-        {
-            std::cout<<ex.what()<<"\n";
-        }
-    };
+    }
 
 private:
     uint16_t id=0;
@@ -268,7 +280,7 @@ try
         return Messeges_data;
     }
 
-private:
+
     static void write_Msg_file(std::ofstream& file, Msg<T> msg)
     {
         file.write((char *) &Head, sizeof(Head));
@@ -277,6 +289,8 @@ private:
         file.write((char *) &Tail, sizeof(Tail));
     }
 
+
+private:
     static  uint16_t Head;
     static uint16_t Tail;
     Messeges<T> Messeges_data;
@@ -287,6 +301,5 @@ uint16_t File_Package<T>:: Head=0xBABA;
 
 template < size_t T>
 uint16_t File_Package<T>:: Tail=0xDEDA;
-
 
 #endif

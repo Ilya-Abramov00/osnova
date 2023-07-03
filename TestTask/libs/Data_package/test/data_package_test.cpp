@@ -52,12 +52,12 @@ TEST(data_package, write_one)
     std::string str_1="string_test/file_1.txt";
 
 
-    string a("1234");
+    string a("1234567");
 
-    File_Package<3>::write_string(a,str_1);
-    File_parser<3> q;
+    File_Package<6>::write_string(a,str_1);
+    File_parser<6> q;
 
-    File_Package<3> qw(q.get_File_parser(str_1) );
+    File_Package<6> qw(q.get_File_parser(str_1) );
 
     auto e=qw.Data_Repoirter();
     ASSERT_TRUE(e==a);
@@ -96,4 +96,17 @@ TEST(data_package, 2) {
     ASSERT_TRUE( str1.size() == str2.size() );
     ASSERT_TRUE(str1 == str2); // данные до отправки и после одинаковы
 
+}
+TEST(data_package, write_read)
+{
+    std::string str_1="string_test/file_1.txt";
+    std::string str_2="string_test/file_2.txt";
+
+    string a("absegegd");
+
+    File_Package<3>::write_string(a,str_1);
+   auto e=readfullfile(str_1);
+
+
+  ASSERT_TRUE(a.size() == e.size() );
 }
