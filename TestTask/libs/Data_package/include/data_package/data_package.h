@@ -128,39 +128,31 @@ public:
 	{
 		state = State::Magicbegin;
 
-		uint16_t magic;
-		uint16_t id     = 0;
+		uint16_t id = 0;
+
 		uint8_t* magBuf = reinterpret_cast<uint8_t*>(&magic);
 		std::string data;
 		data.reserve(T + 2);
-		bool flag = 1;
 
 		char count_id = 0;
 
 		for(int i = 0; i != bufferfile.size(); i++) {
-			write_magic(bufferfile.at(i), magBuf, flag);
+			write_magic(bufferfile.at(i), magBuf);
 
 			switch(state) {
 			case(State::Magicbegin):
 
-				func_Magicbegin(magic);
+				func_Magicbegin();
 
 				break;
 
 			case(State::Idcollecting):
-				func_Idcollecting(magic, count_id, id);
+				func_Idcollecting(count_id, id);
 
 				break;
 
 			case(State::Datacollecting):
-				data += bufferfile.at(i);
-				if(magic == Tail) {
-					state = State::Magicend;
-					data.pop_back();
-					data.pop_back();
-					Messeges_data.push_back(Msg<T>(data, id));
-					data.clear();
-				}
+				func_Datacollecting(data, bufferfile.at(i), Messeges_data, id);
 				break;
 
 			case(State::Magicend):
@@ -183,8 +175,22 @@ private:
 	State state;
 	uint16_t Head;
 	uint16_t Tail;
+	uint16_t magic;
+	bool flag = 1;
 
-	void func_Idcollecting(uint16_t& magic, char& count_id, uint16_t& id)
+	void func_Datacollecting(std::string& data, char const& data_is_bufferfile, Messeges<T>& Messeges_data,
+	                         uint16_t& id)
+	{
+		data += data_is_bufferfile;
+		if(magic == Tail) {
+			state = State::Magicend;
+			data.pop_back();
+			data.pop_back();
+			Messeges_data.push_back(Msg<T>(data, id));
+			data.clear();
+		}
+	}
+	void func_Idcollecting(char& count_id, uint16_t& id)
 	{
 		count_id++;
 		if(count_id == 2) {
@@ -193,13 +199,13 @@ private:
 			count_id = 0;
 		}
 	}
-	void func_Magicbegin(uint16_t const& magic)
+	void func_Magicbegin()
 	{
 		if(magic == Head) {
 			state = State::Idcollecting;
 		}
 	}
-	void write_magic(char const data_is_bufferfile, uint8_t* magBuf, bool& flag)
+	void write_magic(char const data_is_bufferfile, uint8_t* magBuf)
 	{
 		if(flag) {
 			magBuf[1] = data_is_bufferfile;
