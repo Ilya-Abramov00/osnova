@@ -18,9 +18,9 @@ int random_l(int N);
 int random_n();
 
 
-void geniration_string(int n, int N, std::string& str_1);
+void geniration_string(int n, int N, std::string const & namefile);
 
-std::vector<char> readfullfile(std::string& namefile){
+std::vector<char> readfullfile( std::string const& namefile){
 
   std::ifstream file;
   file.open(namefile);
@@ -48,15 +48,15 @@ template < size_t T>
 
 struct Msg{
 public:
-    Msg( const std::string& data_s , uint16_t id) :id(id)
+    Msg(  std::string const & data_string , uint16_t const id) :id(id)
     {
-          for( int i=0; i!=data_s.size(); i++ )  {  data[i]=data_s[i] ;  }
+          for( int i=0; i!=data_string.size(); i++ )  {  data[i]=data_string[i] ;  }
     }
-    Msg( const std::string& data_s , uint16_t id, size_t N) :id(id)
+    Msg( std::string const & data_string , uint16_t const id, size_t const N) :id(id)
     {
         for( int i=0; i!=N; i++ )
         {
-            if (i< data_s.size() ) { data[i]=data_s[i] ;}
+            if (i< data_string.size() ) { data[i]=data_string[i] ;}
             else {data[i]='^';}
         }
     }
@@ -84,11 +84,11 @@ template < size_t T>
 class File_parser{
 public:
 
-    Messeges<T> get_File_Messeges( std::string& filename )
+    Messeges<T> get_File_Messeges( std::string const& namefile )
     {
             Messeges<T> Messeges_data;
 		    uint16_t id=0;
-            auto bufferfile= readfullfile(filename);
+            auto bufferfile= readfullfile(namefile);
             std::string buffer; buffer.reserve(T);
 
             for(int i =1; i !=bufferfile.size()+1; i++)
@@ -200,14 +200,14 @@ public:
             file.open(filename ,std::ios::trunc);
             if(!file. is_open() ) { throw "файл не открылся"; }
 
-            for (auto const& i :  this->Messeges_data) {
+            for (auto i :  Messeges_data) {
                 write_Msg_file(file,i);
             }
             file.close();
     }
 
 
-      void   read(std::string& namefile)
+      void   read(std::string const& namefile)
     {
             statemachine.ReadMesseges(readfullfile(namefile),this->Messeges_data, Head, Tail);
         if (statemachine.get_state()!=State::Idle)  { throw "ошибка состояния StateMachine"; }
@@ -246,7 +246,7 @@ public:
         }
 
 
-    void shuffle_write(std::string&namefile)
+    void shuffle_write(std::string const& namefile)
     {
     std::vector<std::reference_wrapper<const Msg<T> >>v(Messeges_data.cbegin(), Messeges_data.cend());
     std::shuffle(v.begin(), v.end(), gen);
@@ -274,7 +274,7 @@ public:
     {
         file.write((char *) &Head, sizeof(Head));
         file.write((char *) &msg.get_id(), sizeof( msg.get_id() ) );
-        file.write ( msg.get_data(), T );
+        file.write (msg.get_data(), T );
         file.write((char *) &Tail, sizeof(Tail));
     }
 
@@ -288,7 +288,7 @@ private:
 
 
 
-std::string read_string( std::string& namefile)
+std::string read_string( std::string const& namefile)
 {
 
     std::ifstream file;
@@ -304,11 +304,11 @@ std::string read_string( std::string& namefile)
     file.close();
     return data;
 }
- void write_string(std::string data, std::string& str_3)
+ void write_string(std::string data, std::string const& namefile)
 {
 
     std::ofstream file;
-    file.open(str_3 ,std::ios::trunc);
+    file.open(namefile,std::ios::trunc);
     if(!file. is_open() ) { throw "файл не открылся"; }
     file<<data;
 

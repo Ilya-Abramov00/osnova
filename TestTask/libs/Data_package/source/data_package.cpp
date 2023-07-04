@@ -14,12 +14,12 @@ int random_l(int N)
  }
 
 
-void geniration_string(int n, int N, std::string& str_1)
+ void geniration_string(int n, int N, std::string const & namefile)
 {
     try
     {
         std::ofstream fout;
-        fout.open(str_1, std::ios::trunc);
+        fout.open(namefile, std::ios::trunc);
 
 
         for (int i = 0; i != n; i++) { fout << std::string(random_l(N), '*') << "\n"; }
