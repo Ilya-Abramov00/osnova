@@ -17,8 +17,8 @@ int random_n(int a, int b);
 int random_l(int N);
 int random_n();
 
-void geniration_string(int n, int N, std::string& str_1);
 
+void geniration_string(int n, int N, std::string& str_1);
 
 std::vector<char> readfullfile(std::string& namefile){
 
@@ -32,9 +32,9 @@ std::vector<char> readfullfile(std::string& namefile){
   file.seekg(0);
 
   std::vector<char> bufferfile(sizefile);
-  auto data=bufferfile.data();
 
-  file.read(data,sizefile);
+
+  file.read(bufferfile.data(),sizefile);
 
   if (file.fail()) { throw "ошибка чтения данных";}
 
@@ -84,16 +84,17 @@ template < size_t T>
 class File_parser{
 public:
 
-    Messeges<T> get_File_parser( std::string& filename )
+    Messeges<T> get_File_Messeges( std::string& filename )
     {
             Messeges<T> Messeges_data;
-
+		    uint16_t id=0;
             auto bufferfile= readfullfile(filename);
             std::string buffer; buffer.reserve(T);
 
             for(int i =1; i !=bufferfile.size()+1; i++)
             {
                   buffer.push_back(bufferfile.at(i -1));
+
                 if ( !(i % T) )
                 {
                     Messeges_data.emplace_back( Msg<T>(buffer, ++id) );
@@ -105,7 +106,6 @@ public:
             return  Messeges_data;
     }
 private:
-    uint16_t id=0;
 };
 
 
@@ -118,12 +118,13 @@ class StateMachine
 {
   public:
     StateMachine(): state(State::Idle) {}
+
     void  ReadMesseges (std::vector<char>&& bufferfile , Messeges<T>& Messeges_data, uint16_t Head, uint16_t Tail)
     {
             state=State::Magicbegin;
 
             uint16_t magic;
-            uint16_t id = 0;
+uint16_t id = 0;
             uint8_t *magBuf = reinterpret_cast<uint8_t *>(&magic);
             std::string data;  data.reserve(T+2);
             bool flag = 1;
