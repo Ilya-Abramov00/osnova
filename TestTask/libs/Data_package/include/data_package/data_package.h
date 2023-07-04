@@ -318,19 +318,10 @@ private:
 
 std::string read_string(std::string const& namefile)
 {
-	std::ifstream file;
-	file.open(namefile);
-	if(!file.is_open()) {
-		throw FileNotFoundException();
-	}
-	char c;
-	std::string data = "";
+	auto data=readfullfile(namefile);
+	char*  data_string=data.data();
 
-	while(file.get(c)) {
-		data += c;
-	}
-	file.close();
-	return data;
+	return data_string;
 }
 void write_string(std::string data, std::string const& namefile)
 {
