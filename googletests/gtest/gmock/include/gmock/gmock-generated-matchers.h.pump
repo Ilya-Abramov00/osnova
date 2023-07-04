@@ -521,7 +521,7 @@ $$   // show up in the generated code.
 //   FooMatcherPk<p1_type, ..., pk_type>
 //   Foo(p1_type p1, ..., pk_type pk) { ... }
 //
-// When you write Foo(v1, ..., vk), the compiler infers the types of
+// When you write_messeges Foo(v1, ..., vk), the compiler infers the types of
 // the parameters v1, ..., and vk for you.  If you are not happy with
 // the result of the type inference, you can specify the types by
 // explicitly instantiating the template, as in Foo<long, bool>(5,

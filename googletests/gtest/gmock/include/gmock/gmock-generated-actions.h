@@ -797,7 +797,7 @@ DoAll(Action1 a1, Action2 a2, Action3 a3, Action4 a4, Action5 a5, Action6 a6,
 //     return ++(*temp);
 //   }
 //
-// allows you to write
+// allows you to write_messeges
 //
 //   ...WillOnce(IncrementArg1());
 //
@@ -820,14 +820,14 @@ DoAll(Action1 a1, Action2 a2, Action3 a3, Action4 a4, Action5 a5, Action6 a6,
 //
 //   ACTION_P(Add, n) { return arg0 + n; }
 //
-// will allow you to write:
+// will allow you to write_messeges:
 //
 //   ...WillOnce(Add(5));
 //
 // Note that you don't need to provide the type of the parameter
 // either.  If you need to reference the type of a parameter named
-// 'foo', you can write 'foo_type'.  For example, in the body of
-// ACTION_P(Add, n) above, you can write 'n_type' to refer to the type
+// 'foo', you can write_messeges 'foo_type'.  For example, in the body of
+// ACTION_P(Add, n) above, you can write_messeges 'n_type' to refer to the type
 // of 'n'.
 //
 // We also provide ACTION_P2, ACTION_P3, ..., up to ACTION_P10 to support
@@ -922,7 +922,7 @@ DoAll(Action1 a1, Action2 a2, Action3 a3, Action4 a4, Action5 a5, Action6 a6,
 //     EXPECT_CALL(mock, Foo(_, _))
 //         .WillOnce(DuplicateArg<1, unsigned char>(&n));
 //
-// To create an instance of an action template, write:
+// To create an instance of an action template, write_messeges:
 //
 //   ActionName<t1, ..., t_m>(v1, ..., v_n)
 //

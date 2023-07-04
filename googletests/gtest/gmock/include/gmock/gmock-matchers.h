@@ -65,7 +65,7 @@ namespace testing {
 //      FooMatcherImpl*.
 //
 // The two-level delegation design makes it possible to allow a user
-// to write "v" instead of "Eq(v)" where a Matcher is expected, which
+// to write_messeges "v" instead of "Eq(v)" where a Matcher is expected, which
 // is impossible if we pass matchers by pointers.  It also eases
 // ownership management as Matcher objects can now be copied like
 // plain values.
@@ -327,12 +327,12 @@ class Matcher : public internal::MatcherBase<T> {
   explicit Matcher(const MatcherInterface<T>* impl)
       : internal::MatcherBase<T>(impl) {}
 
-  // Implicit constructor here allows people to write
+  // Implicit constructor here allows people to write_messeges
   // EXPECT_CALL(foo, Bar(5)) instead of EXPECT_CALL(foo, Bar(Eq(5))) sometimes
   Matcher(T value);  // NOLINT
 };
 
-// The following two specializations allow the user to write str
+// The following two specializations allow the user to write_messeges str
 // instead of Eq(str) and "foo" instead of Eq("foo") when a string
 // matcher is expected.
 template <>
@@ -344,11 +344,11 @@ class GTEST_API_ Matcher<const internal::string&>
   explicit Matcher(const MatcherInterface<const internal::string&>* impl)
       : internal::MatcherBase<const internal::string&>(impl) {}
 
-  // Allows the user to write str instead of Eq(str) sometimes, where
+  // Allows the user to write_messeges str instead of Eq(str) sometimes, where
   // str is a string object.
   Matcher(const internal::string& s);  // NOLINT
 
-  // Allows the user to write "foo" instead of Eq("foo") sometimes.
+  // Allows the user to write_messeges "foo" instead of Eq("foo") sometimes.
   Matcher(const char* s);  // NOLINT
 };
 
@@ -361,11 +361,11 @@ class GTEST_API_ Matcher<internal::string>
   explicit Matcher(const MatcherInterface<internal::string>* impl)
       : internal::MatcherBase<internal::string>(impl) {}
 
-  // Allows the user to write str instead of Eq(str) sometimes, where
+  // Allows the user to write_messeges str instead of Eq(str) sometimes, where
   // str is a string object.
   Matcher(const internal::string& s);  // NOLINT
 
-  // Allows the user to write "foo" instead of Eq("foo") sometimes.
+  // Allows the user to write_messeges "foo" instead of Eq("foo") sometimes.
   Matcher(const char* s);  // NOLINT
 };
 
@@ -406,7 +406,7 @@ class GTEST_API_ Matcher<StringPiece>
   // str is a string object.
   Matcher(const internal::string& s);  // NOLINT
 
-  // Allows the user to write "foo" instead of Eq("foo") sometimes.
+  // Allows the user to write_messeges "foo" instead of Eq("foo") sometimes.
   Matcher(const char* s);  // NOLINT
 
   // Allows the user to pass StringPieces directly.
@@ -475,7 +475,7 @@ class PolymorphicMatcher {
 
 // Creates a matcher from its implementation.  This is easier to use
 // than the Matcher<T> constructor as it doesn't require you to
-// explicitly write the template argument, e.g.
+// explicitly write_messeges the template argument, e.g.
 //
 //   MakeMatcher(foo);
 // vs
@@ -487,7 +487,7 @@ inline Matcher<T> MakeMatcher(const MatcherInterface<T>* impl) {
 
 // Creates a polymorphic matcher from its implementation.  This is
 // easier to use than the PolymorphicMatcher<Impl> constructor as it
-// doesn't require you to explicitly write the template argument, e.g.
+// doesn't require you to explicitly write_messeges the template argument, e.g.
 //
 //   MakePolymorphicMatcher(foo);
 // vs
@@ -682,7 +682,7 @@ inline void PrintIfNotEmpty(const internal::string& explanation,
   }
 }
 
-// Returns true if the given type name is easy to read by a human.
+// Returns true if the given type name is easy to read_messeges by a human.
 // This is used to decide whether printing the type of a value might
 // be helpful.
 inline bool IsReadableTypeName(const string& type_name) {
@@ -863,7 +863,7 @@ class AnyMatcherImpl : public MatcherInterface<T> {
   virtual void DescribeTo(::std::ostream* os) const { *os << "is anything"; }
   virtual void DescribeNegationTo(::std::ostream* os) const {
     // This is mostly for completeness' safe, as it's not very useful
-    // to write Not(A<bool>()).  However we cannot completely rule out
+    // to write_messeges Not(A<bool>()).  However we cannot completely rule out
     // such a possibility, and it doesn't hurt to be prepared.
     *os << "never matches";
   }
@@ -1768,7 +1768,7 @@ class TrulyMatcher {
     // Without the if-statement, MSVC sometimes warns about converting
     // a value to bool (warning 4800).
     //
-    // We cannot write 'return !!predicate_(x);' as that doesn't work
+    // We cannot write_messeges 'return !!predicate_(x);' as that doesn't work
     // when predicate_(x) returns a class convertible to bool but
     // having no operator!().
     if (predicate_(x))
@@ -1807,13 +1807,13 @@ class MatcherAsPredicate {
   bool operator()(const T& x) const {
     // We let matcher_ commit to a particular type here instead of
     // when the MatcherAsPredicate object was constructed.  This
-    // allows us to write Matches(m) where m is a polymorphic matcher
+    // allows us to write_messeges Matches(m) where m is a polymorphic matcher
     // (e.g. Eq(5)).
     //
-    // If we write Matcher<T>(matcher_).Matches(x) here, it won't
-    // compile when matcher_ has type Matcher<const T&>; if we write
+    // If we write_messeges Matcher<T>(matcher_).Matches(x) here, it won't
+    // compile when matcher_ has type Matcher<const T&>; if we write_messeges
     // Matcher<const T&>(matcher_).Matches(x) here, it won't compile
-    // when matcher_ has type Matcher<T>; if we just write
+    // when matcher_ has type Matcher<T>; if we just write_messeges
     // matcher_.Matches(x), it won't compile when matcher_ is
     // polymorphic, e.g. Eq(5).
     //
@@ -1846,10 +1846,10 @@ class PredicateFormatterFromMatcher {
     // know which type to instantiate it to until we actually see the
     // type of x here.
     //
-    // We write SafeMatcherCast<const T&>(matcher_) instead of
+    // We write_messeges SafeMatcherCast<const T&>(matcher_) instead of
     // Matcher<const T&>(matcher_), as the latter won't compile when
     // matcher_ has type Matcher<T> (e.g. An<int>()).
-    // We don't write MatcherCast<const T&> either, as that allows
+    // We don't write_messeges MatcherCast<const T&> either, as that allows
     // potentially unsafe downcasting of the matcher argument.
     const Matcher<const T&> matcher = SafeMatcherCast<const T&>(matcher_);
     StringMatchResultListener listener;
@@ -1871,7 +1871,7 @@ class PredicateFormatterFromMatcher {
 };
 
 // A helper function for converting a matcher to a predicate-formatter
-// without the user needing to explicitly write the type.  This is
+// without the user needing to explicitly write_messeges the type.  This is
 // used for implementing ASSERT_THAT() and EXPECT_THAT().
 // Implementation detail: 'matcher' is received by-value to force decaying.
 template <typename M>
@@ -3756,7 +3756,7 @@ Matcher<T>::Matcher(T value) { *this = Eq(value); }
 // We could define similar monomorphic matchers for other comparison
 // operations (e.g. TypedLt, TypedGe, and etc), but decided not to do
 // it yet as those are used much less than Eq() in practice.  A user
-// can always write Matcher<T>(Lt(5)) to be explicit about the type,
+// can always write_messeges Matcher<T>(Lt(5)) to be explicit about the type,
 // for example.
 template <typename Lhs, typename Rhs>
 inline Matcher<Lhs> TypedEq(const Rhs& rhs) { return Eq(rhs); }
@@ -4375,7 +4375,7 @@ inline internal::AnyOfMatcher<Args...> AnyOf(const Args&... matchers) {
 //
 //   EXPECT_CALL(foo, Bar(_, _)).With(AllArgs(Eq()));
 //
-// which is easier to read than
+// which is easier to read_messeges than
 //
 //   EXPECT_CALL(foo, Bar(_, _)).With(Eq());
 template <typename InnerMatcher>

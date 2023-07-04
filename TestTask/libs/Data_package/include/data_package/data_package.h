@@ -103,7 +103,7 @@ public:
 		std::string buffer;
 		buffer.reserve(T);
 
-		for(int i = 1; i != bufferfile.size() + 1; i++) {
+		for(int i = 1; i != bufferfile.size() +1; i++) {
 			buffer.push_back(bufferfile.at(i - 1));
 
 			if(!(i % T)) {
@@ -111,8 +111,10 @@ public:
 				buffer.clear();
 			}
 		}
-		Messeges_data.emplace_back(Msg<T>(buffer, ++id));
-		buffer.clear();
+		if (buffer.size()!=0) {
+			Messeges_data.emplace_back(Msg<T>(buffer, ++id));
+			buffer.clear();
+		}
 		return Messeges_data;
 	}
 
@@ -227,7 +229,7 @@ public:
 	File_Package()
 	{}
 
-	void write(std::string& filename)
+	void write_messeges(std::string& filename)
 	{
 		std::ofstream file;
 		file.open(filename, std::ios::trunc);
@@ -241,7 +243,7 @@ public:
 		file.close();
 	}
 
-	void read(std::string const& namefile)
+	void read_messeges(std::string const& namefile)
 	{
 		StateMachine<T> statemachine(Head, Tail);
 		statemachine.ReadMesseges(readfullfile(namefile), Messeges_data);
@@ -279,7 +281,7 @@ public:
 		return string_data;
 	}
 
-	void shuffle_write(std::string const& namefile)
+	void shuffle_write_messeges(std::string const& namefile)
 	{
 		std::vector<std::reference_wrapper<const Msg<T>>> v(Messeges_data.cbegin(), Messeges_data.cend());
 		std::shuffle(v.begin(), v.end(), gen);
@@ -297,10 +299,17 @@ public:
 		file.close();
 	}
 
-	Messeges<T> const& get_Messeges_data()
+	Messeges<T> const& get_Messeges()
 	{
 		return Messeges_data;
 	}
+
+
+
+private:
+	uint16_t Head = 0xBABA;
+	uint16_t Tail = 0xDEDA;
+	Messeges<T> Messeges_data;
 
 	void write_Msg_file(Msg<T> msg, std::ofstream& file)
 	{
@@ -309,11 +318,6 @@ public:
 		file.write(msg.get_data(), T);
 		file.write((char*)&Tail, sizeof(Tail));
 	}
-
-private:
-	uint16_t Head = 0xBABA;
-	uint16_t Tail = 0xDEDA;
-	Messeges<T> Messeges_data;
 };
 
 std::string read_string(std::string const& namefile)

@@ -57,7 +57,7 @@ class FooTest : public testing::Test {
 typedef testing::Types<char, int, unsigned int> MyTypes;
 TYPED_TEST_CASE(FooTest, MyTypes);
 
-// If the type list contains only one type, you can write that type
+// If the type list contains only one type, you can write_messeges that type
 // directly without Types<...>:
 //   TYPED_TEST_CASE(FooTest, int);
 
@@ -95,7 +95,7 @@ TYPED_TEST(FooTest, HasPropertyA) { ... }
 // suite of type-parameterized tests to verify properties that any
 // valid implementation of the interface/concept should have.  Then,
 // each implementation can easily instantiate the test suite to verify
-// that it conforms to the requirements, without having to write
+// that it conforms to the requirements, without having to write_messeges
 // similar tests repeatedly.  Here's an example:
 
 #if 0
@@ -140,7 +140,7 @@ REGISTER_TYPED_TEST_CASE_P(FooTest,
 typedef testing::Types<char, int, unsigned int> MyTypes;
 INSTANTIATE_TYPED_TEST_CASE_P(My, FooTest, MyTypes);
 
-// If the type list contains only one type, you can write that type
+// If the type list contains only one type, you can write_messeges that type
 // directly without Types<...>:
 //   INSTANTIATE_TYPED_TEST_CASE_P(My, FooTest, int);
 

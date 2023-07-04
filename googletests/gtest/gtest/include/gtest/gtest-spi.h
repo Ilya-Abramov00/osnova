@@ -196,7 +196,7 @@ class GTEST_API_ SingleFailureChecker {
 // AcceptsMacroThatExpandsToUnprotectedComma test in gtest_unittest.cc
 // catches that.
 //
-// For the same reason, we have to write
+// For the same reason, we have to write_messeges
 //   if (::testing::internal::AlwaysTrue()) { statement; }
 // instead of
 //   GTEST_SUPPRESS_UNREACHABLE_CODE_WARNING_BELOW_(statement)

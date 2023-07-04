@@ -6,133 +6,208 @@ using namespace std;
 
 
 
-TEST(data_package,write_read_messeges) {
-
-std::string str_1="string_test/file_1.txt";
-std::string str_2="string_test/file_2.txt";
-
-string data_test("123456789abcde");
-
-write_string(data_test,str_1);
-    File_parser<10> q;
-
-    File_Package<10> qe(q.get_File_Messeges(str_1) );
-
-    qe.write(str_2);
-
-    File_Package<10> eq;
-    eq.read(str_2);
-
-
-    ASSERT_TRUE(eq.get_Messeges_data().size() == qe.get_Messeges_data().size());
-
-auto a=eq.get_Messeges_data().begin();
-auto b=qe.get_Messeges_data().begin();
-
-auto c=eq.get_Messeges_data().end();
-
-   for(;a!=c; )
-   {
-    auto d=*(a++);
-    auto e=*(b++);
-    ASSERT_TRUE(d.get_id()==e.get_id());
-    for( int i=0;i!=10;i++)
-    {
-        ASSERT_TRUE(d.get_data()[i] == e.get_data()[i]);
-    }
-   }
-
-}
-
-
-
-
-
-
-TEST(data_package, write_one)
+TEST(data_package, write_messeges_data_1)
 {
-    std::string str_1="string_test/file_1.txt";
+	std::string str_1 = "string_test/file_5.txt";
+	std::string str_2 = "string_test/file_6.txt";
 
+	string data_test("123");
 
-    string a("1234567");
+	write_string(data_test, str_1);
 
-    write_string(a,str_1);
-    File_parser<6> q;
+	File_parser<3> fileParser;
 
-    File_Package<6> qw(q.get_File_Messeges(str_1) );
+	File_Package<3> filepackage1(fileParser.get_File_Messeges(str_1));
+	filepackage1.write_messeges(str_2);
 
-    auto e=qw.Data_Repoirter();
-    ASSERT_TRUE(e==a);
+auto data_file= readfullfile(str_2);
+ASSERT_TRUE((uint8_t) data_file[0]==0XBA);
+ASSERT_TRUE((uint8_t) data_file[1]==0XBA);
+ASSERT_TRUE( (uint8_t)data_file[2]==0x01);
+ASSERT_TRUE( (uint8_t)data_file[3]==0x00);
+ASSERT_TRUE( (char)data_file[4]==data_test[0]);
+ASSERT_TRUE( (char)data_file[5]==data_test[1]);
+ASSERT_TRUE( (char)data_file[6]==data_test[2]);
+ASSERT_TRUE( (uint8_t)data_file[7]==0XDA);
+ASSERT_TRUE( (uint8_t)data_file[8]==0XDE);
 }
 
-
-TEST(data_package, 2) {
-
-    std::string str_1="string_test/file_1.txt";
-    std::string str_2="string_test/file_2.txt";
-    std::string str_4="string_test/file_4.txt";
-
-    int N=23;
-
-    geniration_string( 33,N, str_1);
-
-    File_parser<20> q;
-
-    File_Package<20> qe(q.get_File_Messeges(str_1) );
-
-    qe.shuffle_write(str_2);
-
-    File_Package<20> eq;
-    eq.read(str_2);
-
-     eq.sort_Messeges();
-
-   write_string(eq.Data_Repoirter(), str_4);
-
-
-
-    std::string str1=read_string(str_1);
-    std::string str2=read_string(str_4);;
-
-
-    ASSERT_TRUE( str1.size() == str2.size() );
-    ASSERT_TRUE(str1 == str2); // данные до отправки и после одинаковы
-
-}
-TEST(data_package, write_read)
+TEST(data_package, write_messeges_data_2)
 {
-    std::string str_1="string_test/file_1.txt";
-    std::string str_2="string_test/file_2.txt";
+std::string str_1 = "string_test/file_5.txt";
+std::string str_2 = "string_test/file_6.txt";
 
-    string a("absegegd");
+string data_test("12345");
 
-    write_string(a,str_1);
-   auto e=readfullfile(str_1);
+write_string(data_test, str_1);
 
+File_parser<3> fileParser;
 
-  ASSERT_TRUE(a.size() == e.size() );
+File_Package<3> filepackage1(fileParser.get_File_Messeges(str_1));
+filepackage1.write_messeges(str_2);
 
+auto data_file= readfullfile(str_2);
+ASSERT_TRUE((uint8_t) data_file[0]==0XBA);
+ASSERT_TRUE((uint8_t) data_file[1]==0XBA);
+ASSERT_TRUE( (uint8_t)data_file[2]==0x01);
+ASSERT_TRUE( (uint8_t)data_file[3]==0x00);
+ASSERT_TRUE( (char)data_file[4]==data_test[0]);
+ASSERT_TRUE( (char)data_file[5]==data_test[1]);
+ASSERT_TRUE( (char)data_file[6]==data_test[2]);
+ASSERT_TRUE( (uint8_t)data_file[7]==0XDA);
+ASSERT_TRUE( (uint8_t)data_file[8]==0XDE);
+
+ASSERT_TRUE((uint8_t) data_file[9]==0XBA);
+ASSERT_TRUE((uint8_t) data_file[10]==0XBA);
+ASSERT_TRUE( (uint8_t)data_file[11]==0x02);
+ASSERT_TRUE( (uint8_t)data_file[12]==0x00);
+ASSERT_TRUE( (char)data_file[13]==data_test[3]);
+ASSERT_TRUE( (char)data_file[14]==data_test[4]);
+ASSERT_TRUE( (char)data_file[15]=='^');
+ASSERT_TRUE( (uint8_t)data_file[16]==0XDA);
+ASSERT_TRUE( (uint8_t)data_file[17]==0XDE);
+}
+TEST(data_package, write_read_messeges_data_1)
+{
+	std::string str_1 = "string_test/file_1.txt";
+	std::string str_2 = "string_test/file_2.txt";
+
+	string data_test("123456789abcde");
+
+	write_string(data_test, str_1);
+
+	File_parser<10> fileParser;
+
+	File_Package<10> filepackage1(fileParser.get_File_Messeges(str_1));
+	filepackage1.write_messeges(str_2);
+
+	File_Package<10> filepackage2;
+	filepackage2.read_messeges(str_2);
+
+	ASSERT_TRUE(filepackage2.get_Messeges().size() == filepackage1.get_Messeges().size());
+
+	ASSERT_TRUE(filepackage2.Data_Repoirter() == filepackage1.Data_Repoirter());
 }
 
-TEST(data_package, StateMachine)
+TEST(data_package, write_read_messeges_data_2)
 {
-  std::string str_1="string_test/file_1.txt";
-  std::string str_2="string_test/file_2.txt";
+	std::string str_1 = "string_test/file_1.txt";
+	std::string str_2 = "string_test/file_2.txt";
 
-  string a("absegegd");
+	string data_test("1234");
 
+	write_string(data_test, str_1);
 
+	File_parser<10> fileParser;
 
-    write_string(a,str_1);
+	File_Package<10> filepackage1(fileParser.get_File_Messeges(str_1));
+	filepackage1.write_messeges(str_2);
 
-    File_parser<3> q;
-    auto c= q.get_File_Messeges(str_1);
-    File_Package<3> qe(c);
-    qe.write(str_2);
-qe.clear();
+	File_Package<10> filepackage2;
+	filepackage2.read_messeges(str_2);
 
-    qe.read(str_2);
+	ASSERT_TRUE(filepackage2.get_Messeges().size() == filepackage1.get_Messeges().size());
 
-    ASSERT_TRUE(a ==  qe.Data_Repoirter() );
+	ASSERT_TRUE(filepackage2.Data_Repoirter() == filepackage1.Data_Repoirter());
+}
 
+TEST(data_package, write_read_messeges_data_3)
+{
+	std::string str_1 = "string_test/file_1.txt";
+	std::string str_2 = "string_test/file_2.txt";
+
+	string data_test("0123456789");
+
+	write_string(data_test, str_1);
+
+	File_parser<10> fileParser;
+
+	File_Package<10> filepackage1(fileParser.get_File_Messeges(str_1));
+	filepackage1.write_messeges(str_2);
+
+	File_Package<10> filepackage2;
+	filepackage2.read_messeges(str_2);
+
+	ASSERT_TRUE(filepackage2.get_Messeges().size() == filepackage1.get_Messeges().size());
+
+	ASSERT_TRUE(filepackage2.Data_Repoirter() == filepackage1.Data_Repoirter());
+}
+
+TEST(data_package, write_read_messeges_data_4)
+{
+	std::string str_1 = "string_test/file_1.txt";
+	std::string str_2 = "string_test/file_2.txt";
+
+	geniration_string(33, 100, str_1);
+
+	File_parser<10> fileParser;
+
+	File_Package<10> filepackage1(fileParser.get_File_Messeges(str_1));
+	filepackage1.write_messeges(str_2);
+
+	File_Package<10> filepackage2;
+	filepackage2.read_messeges(str_2);
+
+	ASSERT_TRUE(filepackage2.get_Messeges().size() == filepackage1.get_Messeges().size());
+
+	ASSERT_TRUE(filepackage2.Data_Repoirter() == filepackage1.Data_Repoirter());
+}
+
+TEST(data_package, write_read_shuffle)
+{
+	std::string str_1 = "string_test/file_1.txt";
+	std::string str_2 = "string_test/file_2.txt";
+	std::string str_4 = "string_test/file_4.txt";
+
+	geniration_string(33, 100, str_1);
+
+	File_parser<20> fileParser;
+
+	File_Package<20> filePackage1(fileParser.get_File_Messeges(str_1));
+
+	filePackage1.shuffle_write_messeges(str_2);
+
+	File_Package<20> filePackage2;
+
+	filePackage2.read_messeges(str_2);
+
+	ASSERT_TRUE(filePackage1.get_Messeges().size() == filePackage2.get_Messeges().size());
+
+	ASSERT_TRUE(filePackage1.Data_Repoirter() != filePackage2.Data_Repoirter());
+
+	filePackage2.sort_Messeges();
+
+	ASSERT_TRUE(filePackage1.get_Messeges().size() == filePackage2.get_Messeges().size());
+
+	ASSERT_TRUE(filePackage1.Data_Repoirter() == filePackage2.Data_Repoirter());
+
+	write_string(filePackage2.Data_Repoirter(), str_4);
+}
+
+TEST(data_package, writestring_readfullfile)
+{
+	std::string str_1 = "string_test/file_1.txt";
+
+	string data_1("absegegd");
+
+	write_string(data_1, str_1);
+
+	auto data_2 = readfullfile(str_1);
+
+	ASSERT_TRUE(data_1.size() == data_2.size());
+	for(int i = 0; i != data_1.size(); i++) {
+		ASSERT_TRUE(data_1[i] == data_2[i]);
+	}
+}
+TEST(data_package, writestring_readstring)
+{
+	std::string str_1 = "string_test/file_1.txt";
+
+	string data_1("absegegd");
+
+	write_string(data_1, str_1);
+
+	auto data_2 = read_string(str_1);
+
+	ASSERT_TRUE(data_1 == data_2);
 }

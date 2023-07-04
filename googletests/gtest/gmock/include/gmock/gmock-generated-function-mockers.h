@@ -833,7 +833,7 @@ using internal::FunctionMocker;
 //   Foo(3);
 //
 // and want to verify that Foo(1) and Foo(3) both invoke
-// mock.Bar("a"), but Foo(2) doesn't invoke anything, you can write:
+// mock.Bar("a"), but Foo(2) doesn't invoke anything, you can write_messeges:
 //
 // TEST(FooTest, InvokesBarCorrectly) {
 //   MyMock mock;

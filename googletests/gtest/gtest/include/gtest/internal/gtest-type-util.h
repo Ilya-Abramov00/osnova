@@ -712,16 +712,16 @@ struct Types50 {
 
 }  // namespace internal
 
-// We don't want to require the users to write TypesN<...> directly,
+// We don't want to require the users to write_messeges TypesN<...> directly,
 // as that would require them to count the length.  Types<...> is much
-// easier to write, but generates horrible messages when there is a
+// easier to write_messeges, but generates horrible messages when there is a
 // compiler error, as gcc insists on printing out each template
 // argument, even if it has the default value (this means Types<int>
 // will appear as Types<int, None, None, ..., None> in the compiler
 // errors).
 //
 // Our solution is to combine the best part of the two approaches: a
-// user would write Types<T1, ..., TN>, and Google Test will translate
+// user would write_messeges Types<T1, ..., TN>, and Google Test will translate
 // that to TypesN<T1, ..., TN> internally to make error messages
 // readable.  The translation is done by the 'type' member of the
 // Types template.
@@ -2420,16 +2420,16 @@ struct Templates50 {
 };
 
 
-// We don't want to require the users to write TemplatesN<...> directly,
+// We don't want to require the users to write_messeges TemplatesN<...> directly,
 // as that would require them to count the length.  Templates<...> is much
-// easier to write, but generates horrible messages when there is a
+// easier to write_messeges, but generates horrible messages when there is a
 // compiler error, as gcc insists on printing out each template
 // argument, even if it has the default value (this means Templates<list>
 // will appear as Templates<list, NoneT, NoneT, ..., NoneT> in the compiler
 // errors).
 //
 // Our solution is to combine the best part of the two approaches: a
-// user would write Templates<T1, ..., TN>, and Google Test will translate
+// user would write_messeges Templates<T1, ..., TN>, and Google Test will translate
 // that to TemplatesN<T1, ..., TN> internally to make error messages
 // readable.  The translation is done by the 'type' member of the
 // Templates template.

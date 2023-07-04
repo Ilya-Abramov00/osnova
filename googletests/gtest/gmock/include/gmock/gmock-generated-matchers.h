@@ -1190,7 +1190,7 @@ AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8, M9 m9, M10 m10) {
 //
 //   MATCHER(IsEven, "") { return (arg % 2) == 0; }
 //
-// allows you to write
+// allows you to write_messeges
 //
 //   // Expects mock_foo.Bar(n) to be called where n is even.
 //   EXPECT_CALL(mock_foo, Bar(IsEven()));
@@ -1234,7 +1234,7 @@ AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8, M9 m9, M10 m10) {
 //
 //   MATCHER_P(HasAbsoluteValue, value, "") { return abs(arg) == value; }
 //
-// will allow you to write:
+// will allow you to write_messeges:
 //
 //   EXPECT_THAT(Blah("a"), HasAbsoluteValue(n));
 //
@@ -1247,9 +1247,9 @@ AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8, M9 m9, M10 m10) {
 // Note that both the matcher description and its parameter are
 // printed, making the message human-friendly.
 //
-// In the matcher definition body, you can write 'foo_type' to
+// In the matcher definition body, you can write_messeges 'foo_type' to
 // reference the type of a parameter named 'foo'.  For example, in the
-// body of MATCHER_P(HasAbsoluteValue, value) above, you can write
+// body of MATCHER_P(HasAbsoluteValue, value) above, you can write_messeges
 // 'value_type' to refer to the type of 'value'.
 //
 // We also provide MATCHER_P2, MATCHER_P3, ..., up to MATCHER_P10 to
@@ -1310,7 +1310,7 @@ AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8, M9 m9, M10 m10) {
 //   FooMatcherPk<p1_type, ..., pk_type>
 //   Foo(p1_type p1, ..., pk_type pk) { ... }
 //
-// When you write Foo(v1, ..., vk), the compiler infers the types of
+// When you write_messeges Foo(v1, ..., vk), the compiler infers the types of
 // the parameters v1, ..., and vk for you.  If you are not happy with
 // the result of the type inference, you can specify the types by
 // explicitly instantiating the template, as in Foo<long, bool>(5,

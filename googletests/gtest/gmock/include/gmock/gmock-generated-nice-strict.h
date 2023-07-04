@@ -52,7 +52,7 @@
 //
 // NiceMock, NaggyMock, and StrictMock "inherit" the constructors of
 // their respective base class, with up-to 10 arguments.  Therefore
-// you can write NiceMock<MockFoo>(5, "a") to construct a nice mock
+// you can write_messeges NiceMock<MockFoo>(5, "a") to construct a nice mock
 // where MockFoo has a constructor that accepts (int, const char*),
 // for example.
 //

@@ -270,7 +270,7 @@ InternalRunDeathTestFlag* ParseInternalRunDeathTestFlag();
 // EXPECT_DEATH_IF_SUPPORTED and ASSERT_DEATH_IF_SUPPORTED on systems where
 // death tests are not supported. Those macros must compile on such systems
 // iff EXPECT_DEATH and ASSERT_DEATH compile with the same parameters on
-// systems that support death tests. This allows one to write such a macro
+// systems that support death tests. This allows one to write_messeges such a macro
 // on a system that does not support death tests and be sure that it will
 // compile on a death-test supporting system.
 //

@@ -300,7 +300,7 @@ GTEST_DEFINE_bool_(
 GTEST_DEFINE_string_(
     flagfile,
     internal::StringFromGTestEnv("flagfile", ""),
-    "This flag specifies the flagfile to read command-line flags from.");
+    "This flag specifies the flagfile to read_messeges command-line flags from.");
 #endif  // GTEST_USE_OWN_FLAGFILE_FLAG_
 
 namespace internal {
@@ -4688,7 +4688,7 @@ bool UnitTestImpl::RunAllTests() {
 
 // Reads the GTEST_SHARD_STATUS_FILE environment variable, and creates the file
 // if the variable is present. If a file already exists at this location, this
-// function will write over it. If the variable is present, but the file cannot
+// function will write_messeges over it. If the variable is present, but the file cannot
 // be created, prints an error and exits.
 void WriteToShardStatusFileIfNeeded() {
   const char* const test_shard_file = posix::GetEnv(kTestShardStatusFile);
@@ -4696,7 +4696,7 @@ void WriteToShardStatusFileIfNeeded() {
     FILE* const file = posix::FOpen(test_shard_file, "w");
     if (file == NULL) {
       ColoredPrintf(COLOR_RED,
-                    "Could not write to the test shard status file \"%s\" "
+                    "Could not write_messeges to the test shard status file \"%s\" "
                     "specified by the %s environment variable.\n",
                     test_shard_file, kTestShardStatusFile);
       fflush(stdout);
@@ -5215,7 +5215,7 @@ static const char kColorEncodedHelpMessage[] =
     "color=no@D or set\n"
 "the @G" GTEST_FLAG_PREFIX_UPPER_ "COLOR@D environment variable to @Gno@D.\n"
 "\n"
-"For more information, please read the " GTEST_NAME_ " documentation at\n"
+"For more information, please read_messeges the " GTEST_NAME_ " documentation at\n"
 "@G" GTEST_PROJECT_URL_ "@D. If you find a bug in " GTEST_NAME_ "\n"
 "(not one in your own code or tests), please report it to\n"
 "@G<" GTEST_DEV_EMAIL_ ">@D.\n";

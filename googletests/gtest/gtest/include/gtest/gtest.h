@@ -1340,9 +1340,9 @@ class GTEST_API_ UnitTest {
 //   testing::Environment* const foo_env =
 //       testing::AddGlobalTestEnvironment(new FooEnvironment);
 //
-// However, we strongly recommend you to write your own main() and
+// However, we strongly recommend you to write_messeges your own main() and
 // call AddGlobalTestEnvironment() there, as relying on initialization
-// of global variables makes the code harder to read and may cause
+// of global variables makes the code harder to read_messeges and may cause
 // problems when you register multiple environments from different
 // translation units and the environments have dependencies among them
 // (remember that the compiler doesn't guarantee the order in which
@@ -1755,7 +1755,7 @@ class WithParamInterface {
   const ParamType& GetParam() const {
     GTEST_CHECK_(parameter_ != NULL)
         << "GetParam() can only be called inside a value-parameterized test "
-        << "-- did you intend to write TEST_P instead of TEST_F?";
+        << "-- did you intend to write_messeges TEST_P instead of TEST_F?";
     return *parameter_;
   }
 

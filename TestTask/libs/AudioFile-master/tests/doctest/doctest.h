@@ -5175,7 +5175,7 @@ namespace {
     {}
 
     void XmlEncode::encodeTo( std::ostream& os ) const {
-        // Apostrophe escaping not necessary if we always use " to write attributes
+        // Apostrophe escaping not necessary if we always use " to write_messeges attributes
         // (see: https://www.w3.org/TR/xml/#syntax)
 
         for( std::size_t idx = 0; idx < m_str.size(); ++ idx ) {

@@ -249,7 +249,7 @@ GTEST_API_ std::string WideStringToUtf8(const wchar_t* str, int num_chars);
 
 // Reads the GTEST_SHARD_STATUS_FILE environment variable, and creates the file
 // if the variable is present. If a file already exists at this location, this
-// function will write over it. If the variable is present, but the file cannot
+// function will write_messeges over it. If the variable is present, but the file cannot
 // be created, prints an error and exits.
 void WriteToShardStatusFileIfNeeded();
 
@@ -824,7 +824,7 @@ class GTEST_API_ UnitTestImpl {
   // Points to (but doesn't own) the global test part result reporter.
   TestPartResultReporterInterface* global_test_part_result_repoter_;
 
-  // Protects read and write access to global_test_part_result_reporter_.
+  // Protects read_messeges and write_messeges access to global_test_part_result_reporter_.
   internal::Mutex global_test_part_result_reporter_mutex_;
 
   // Points to (but doesn't own) the per-thread test part result reporter.

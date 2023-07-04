@@ -105,7 +105,7 @@ class ParamIteratorInterface {
   // Clones the iterator object. Used for implementing copy semantics
   // of ParamIterator<T>.
   virtual ParamIteratorInterface* Clone() const = 0;
-  // Dereferences the current iterator and provides (read-only) access
+  // Dereferences the current iterator and provides (read_messeges-only) access
   // to the pointed value. It is the caller's responsibility not to call
   // Current() on an iterator equal to BaseGenerator()->End().
   // Used for implementing ParamGenerator<T>::operator*().

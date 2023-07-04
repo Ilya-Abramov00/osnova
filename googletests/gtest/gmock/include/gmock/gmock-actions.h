@@ -466,7 +466,7 @@ Action<F> MakeAction(ActionInterface<F>* impl) {
 
 // Creates a polymorphic action from its implementation.  This is
 // easier to use than the PolymorphicAction<Impl> constructor as it
-// doesn't require you to explicitly write the template argument, e.g.
+// doesn't require you to explicitly write_messeges the template argument, e.g.
 //
 //   MakePolymorphicAction(foo);
 // vs
@@ -1034,7 +1034,7 @@ class DoBothAction {
 //   EXEPCT_CALL(mock, Bar(5, _, _))
 //       .WillOnce(Invoke(DistanceToOriginWithIndex));
 //
-// you could write
+// you could write_messeges
 //
 //   // We can declare any uninteresting argument as Unused.
 //   double DistanceToOrigin(Unused, double x, double y) {
@@ -1192,7 +1192,7 @@ inline internal::IgnoreResultAction<A> IgnoreResult(const A& an_action) {
 // you can explicitly specify the type of the reference.  For example,
 // suppose 'derived' is an object of type Derived, ByRef(derived)
 // would wrap a Derived&.  If you want to wrap a const Base& instead,
-// where Base is a base class of Derived, just write:
+// where Base is a base class of Derived, just write_messeges:
 //
 //   ByRef<const Base>(derived)
 template <typename T>

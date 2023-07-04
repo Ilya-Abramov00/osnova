@@ -526,11 +526,11 @@ bool AudioFile<T>::load (std::string filePath)
 
 	if (file.gcount() != length)
 	{
-		reportError ("ERROR: Couldn't read entire file\n" + filePath);
+		reportError ("ERROR: Couldn't read_messeges entire file\n" + filePath);
 		return false;
 	}
     
-    // Handle very small files that will break our attempt to read the
+    // Handle very small files that will break our attempt to read_messeges the
     // first header info from them
     if (fileData.size() < 12)
     {
@@ -582,7 +582,7 @@ bool AudioFile<T>::decodeWaveFile (std::vector<uint8_t>& fileData)
     int indexOfXMLChunk = getIndexOfChunk (fileData, "iXML", 12);
     
     // if we can't find the data or format chunks, or the IDs/formats don't seem to be as expected
-    // then it is unlikely we'll able to read this file, so abort
+    // then it is unlikely we'll able to read_messeges this file, so abort
     if (indexOfDataChunk == -1 || indexOfFormatChunk == -1 || headerChunkID != "RIFF" || format != "WAVE")
     {
         reportError ("ERROR: this doesn't seem to be a valid .WAV file");
@@ -603,7 +603,7 @@ bool AudioFile<T>::decodeWaveFile (std::vector<uint8_t>& fileData)
     
     if (bitDepth > sizeof (T) * 8)
     {
-        std::string message = "ERROR: you are trying to read a ";
+        std::string message = "ERROR: you are trying to read_messeges a ";
         message += std::to_string (bitDepth);
         message += "-bit file using a ";
         message += std::to_string (sizeof (T) * 8);
@@ -662,7 +662,7 @@ bool AudioFile<T>::decodeWaveFile (std::vector<uint8_t>& fileData)
             
             if ((sampleIndex + (bitDepth / 8) - 1) >= fileData.size())
             {
-                reportError ("ERROR: read file error as the metadata indicates more samples than there are in the file data");
+                reportError ("ERROR: read_messeges file error as the metadata indicates more samples than there are in the file data");
                 return false;
             }
             
@@ -743,7 +743,7 @@ bool AudioFile<T>::decodeAiffFile (std::vector<uint8_t>& fileData)
     int indexOfXMLChunk = getIndexOfChunk (fileData, "iXML", 12, Endianness::BigEndian);
     
     // if we can't find the data or format chunks, or the IDs/formats don't seem to be as expected
-    // then it is unlikely we'll able to read this file, so abort
+    // then it is unlikely we'll able to read_messeges this file, so abort
     if (indexOfSoundDataChunk == -1 || indexOfCommChunk == -1 || headerChunkID != "FORM" || audioFormat == AIFFAudioFormat::Error)
     {
         reportError ("ERROR: this doesn't seem to be a valid AIFF file");
@@ -762,7 +762,7 @@ bool AudioFile<T>::decodeAiffFile (std::vector<uint8_t>& fileData)
     
     if (bitDepth > sizeof (T) * 8)
     {
-        std::string message = "ERROR: you are trying to read a ";
+        std::string message = "ERROR: you are trying to read_messeges a ";
         message += std::to_string (bitDepth);
         message += "-bit file using a ";
         message += std::to_string (sizeof (T) * 8);
@@ -823,7 +823,7 @@ bool AudioFile<T>::decodeAiffFile (std::vector<uint8_t>& fileData)
             
             if ((sampleIndex + (bitDepth / 8) - 1) >= fileData.size())
             {
-                reportError ("ERROR: read file error as the metadata indicates more samples than there are in the file data");
+                reportError ("ERROR: read_messeges file error as the metadata indicates more samples than there are in the file data");
                 return false;
             }
             
@@ -1023,7 +1023,7 @@ bool AudioFile<T>::saveToWaveFile (std::string filePath)
             }
             else
             {
-                assert (false && "Trying to write a file with unsupported bit depth");
+                assert (false && "Trying to write_messeges a file with unsupported bit depth");
                 return false;
             }
         }
@@ -1045,7 +1045,7 @@ bool AudioFile<T>::saveToWaveFile (std::string filePath)
         return false;
     }
     
-    // try to write the file
+    // try to write_messeges the file
     return writeDataToFile (fileData, filePath);
 }
 
@@ -1122,13 +1122,13 @@ bool AudioFile<T>::saveToAiffFile (std::string filePath)
             }
             else if (bitDepth == 32)
             {
-                // write samples as signed integers (no implementation yet for floating point, but looking at WAV implementation should help)
+                // write_messeges samples as signed integers (no implementation yet for floating point, but looking at WAV implementation should help)
                 int32_t sampleAsInt = AudioSampleConverter<T>::sampleToThirtyTwoBitInt (samples[channel][i]);
                 addInt32ToFileData (fileData, sampleAsInt, Endianness::BigEndian);
             }
             else
             {
-                assert (false && "Trying to write a file with unsupported bit depth");
+                assert (false && "Trying to write_messeges a file with unsupported bit depth");
                 return false;
             }
         }
@@ -1150,7 +1150,7 @@ bool AudioFile<T>::saveToAiffFile (std::string filePath)
         return false;
     }
     
-    // try to write the file
+    // try to write_messeges the file
     return writeDataToFile (fileData, filePath);
 }
 
@@ -1273,7 +1273,7 @@ int32_t AudioFile<T>::fourBytesToInt (std::vector<uint8_t>& source, int startInd
     }
     else
     {
-        assert (false && "Attempted to read four bytes from vector at position where out of bounds access would occur");
+        assert (false && "Attempted to read_messeges four bytes from vector at position where out of bounds access would occur");
         return 0; // this is a dummy value as we don't have one to return
     }
 }
@@ -1335,7 +1335,7 @@ int AudioFile<T>::getIndexOfChunk (std::vector<uint8_t>& source, const std::stri
 
         i += dataLen;
         
-        // If somehow we don't have 4 bytes left to read, then exit with -1
+        // If somehow we don't have 4 bytes left to read_messeges, then exit with -1
         if ((i + 4) >= source.size())
             return -1;
         

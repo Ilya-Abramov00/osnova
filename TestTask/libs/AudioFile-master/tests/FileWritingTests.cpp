@@ -73,11 +73,11 @@ void writeTestAudioFile (int numChannels, int sampleRate, int bitDepth, AudioFil
     
     if (format == AudioFileFormat::Wave)
     {
-        filePath = projectBuildDirectory + "/audio-write-tests/" + sampleType + "_" + numChannelsAsString + "_" + sampleRateAsString + "_" + bitDepthAsString + "bit" + ".wav";
+        filePath = projectBuildDirectory + "/audio-write_messeges-tests/" + sampleType + "_" + numChannelsAsString + "_" + sampleRateAsString + "_" + bitDepthAsString + "bit" + ".wav";
     }
     else if (format == AudioFileFormat::Aiff)
     {
-        filePath = projectBuildDirectory + "/audio-write-tests/" + sampleType + "_" + numChannelsAsString + "_" + sampleRateAsString + "_" + bitDepthAsString + "bit" + ".aif";
+        filePath = projectBuildDirectory + "/audio-write_messeges-tests/" + sampleType + "_" + numChannelsAsString + "_" + sampleRateAsString + "_" + bitDepthAsString + "bit" + ".aif";
         
     }
     
@@ -85,7 +85,7 @@ void writeTestAudioFile (int numChannels, int sampleRate, int bitDepth, AudioFil
     REQUIRE (OK);
     
     //-----------------------------------------------------------------
-    // for some key bit depths and mono/stereo files, read in the audio file
+    // for some key bit depths and mono/stereo files, read_messeges in the audio file
     // we just wrote and do a sample-by-sample comparison to confirm we are
     // writing good files
     if ((bitDepth == 8 || bitDepth == 16 || bitDepth == 24) &&  numChannels <= 2)
@@ -109,7 +109,7 @@ void writeTestAudioFile (int numChannels, int sampleRate, int bitDepth, AudioFil
         {
             for (int k = 0; k < audioFileReader.getNumChannels(); k++)
             {
-                // NOTE: We can expect audio files we read back in to differ a small amount from the original due to small rounding errors
+                // NOTE: We can expect audio files we read_messeges back in to differ a small amount from the original due to small rounding errors
                 REQUIRE (audioFileReader.samples[k][i] == doctest::Approx (audioFileWriter.samples[k][i]).epsilon (0.01));
             }
         }
@@ -186,7 +186,7 @@ TEST_SUITE ("Writing Tests")
         CHECK (loadedOK);
         
         audioFile2.setAudioBuffer (audioFile1.samples);
-        bool savedOK = audioFile2.save (projectBuildDirectory + "/audio-write-tests/copied_audio_file.aif", AudioFileFormat::Aiff);
+        bool savedOK = audioFile2.save (projectBuildDirectory + "/audio-write_messeges-tests/copied_audio_file.aif", AudioFileFormat::Aiff);
         CHECK (savedOK);
     }
 }

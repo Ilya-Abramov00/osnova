@@ -114,7 +114,7 @@ GTEST_API_ extern const char kStackTraceMarker[];
 // Given IsNullLiteralHelper(x), the compiler will pick the first
 // version if x can be implicitly converted to Secret*, and pick the
 // second version otherwise.  Since Secret is a secret and incomplete
-// type, the only expression a user can write that has type Secret* is
+// type, the only expression a user can write_messeges that has type Secret* is
 // a null pointer literal.  Therefore, we know that x is a null
 // pointer literal if and only if the first version is picked by the
 // compiler.
@@ -1022,7 +1022,7 @@ void CopyArray(const T* from, size_t size, U* to) {
 struct RelationToSourceReference {};
 struct RelationToSourceCopy {};
 
-// Adapts a native array to a read-only STL-style container.  Instead
+// Adapts a native array to a read_messeges-only STL-style container.  Instead
 // of the complete STL container concept, this adaptor only implements
 // members useful for Google Mock's container matchers.  New members
 // should be added as needed.  To simplify the implementation, we only

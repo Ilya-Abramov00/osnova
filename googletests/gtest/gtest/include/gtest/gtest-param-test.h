@@ -49,7 +49,7 @@
 
 #if 0
 
-// To write value-parameterized tests, first you should define a fixture
+// To write_messeges value-parameterized tests, first you should define a fixture
 // class. It is usually derived from testing::TestWithParam<T> (see below for
 // another inheritance scheme that's sometimes useful in more complicated
 // class hierarchies), where the type of your parameter values.

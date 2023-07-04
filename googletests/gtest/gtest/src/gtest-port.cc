@@ -950,7 +950,7 @@ class CapturedStream {
                                     << temp_file_path;
     filename_ = temp_file_path;
 # else
-    // There's no guarantee that a test has write access to the current
+    // There's no guarantee that a test has write_messeges access to the current
     // directory, so we create the temporary file in the /tmp directory
     // instead. We use /tmp on most systems, and /sdcard on Android.
     // That's because Android doesn't have /tmp.
@@ -1082,12 +1082,12 @@ std::string ReadEntireFile(FILE* file) {
   const size_t file_size = GetFileSize(file);
   char* const buffer = new char[file_size];
 
-  size_t bytes_last_read = 0;  // # of bytes read in the last fread()
-  size_t bytes_read = 0;       // # of bytes read so far
+  size_t bytes_last_read = 0;  // # of bytes read_messeges in the last fread()
+  size_t bytes_read = 0;       // # of bytes read_messeges so far
 
   fseek(file, 0, SEEK_SET);
 
-  // Keeps reading the file until we cannot read further or the
+  // Keeps reading the file until we cannot read_messeges further or the
   // pre-determined file size is reached.
   do {
     bytes_last_read = fread(buffer+bytes_read, 1, file_size-bytes_read, file);

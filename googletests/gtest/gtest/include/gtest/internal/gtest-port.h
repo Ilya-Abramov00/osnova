@@ -388,7 +388,7 @@
 #endif
 
 // Brings in definitions for functions used in the testing::internal::posix
-// namespace (read, write, close, chdir, isatty, stat). We do not currently
+// namespace (read_messeges, write_messeges, close, chdir, isatty, stat). We do not currently
 // use them on Windows Mobile.
 #if GTEST_OS_WINDOWS
 # if !GTEST_OS_WINDOWS_MOBILE
@@ -1581,7 +1581,7 @@ extern "C" inline void* ThreadFuncWithCLinkage(void* thread) {
 }
 
 // Helper class for testing Google Test's multi-threading constructs.
-// To use it, write:
+// To use it, write_messeges:
 //
 //   void ThreadFunc(int param) { /* Do things with param */ }
 //   Notification thread_can_start;

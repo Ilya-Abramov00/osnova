@@ -23224,7 +23224,7 @@ void QCPItemTracer::draw(QCPPainter *painter)
   position to reside on the graph data, depending on the configured key (\ref setGraphKey).
   
   It is called automatically on every redraw and normally doesn't need to be called manually. One
-  exception is when you want to read the tracer coordinates via \a position and are not sure that
+  exception is when you want to read_messeges the tracer coordinates via \a position and are not sure that
   the graph's data (or the tracer key with \ref setGraphKey) hasn't changed since the last redraw.
   In that situation, call this function before accessing \a position, to make sure you don't get
   out-of-date coordinates.

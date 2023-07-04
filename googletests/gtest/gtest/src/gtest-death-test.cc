@@ -316,10 +316,10 @@ std::string GetLastErrnoDescription() {
     return errno == 0 ? "" : posix::StrError(errno);
 }
 
-// This is called from a death test parent process to read a failure
+// This is called from a death test parent process to read_messeges a failure
 // message from the death test child process and log it with the FATAL
-// severity. On Windows, the message is read from a pipe handle. On other
-// platforms, it is read from a file descriptor.
+// severity. On Windows, the message is read_messeges from a pipe handle. On other
+// platforms, it is read_messeges from a file descriptor.
 static void FailFromInternalError(int fd) {
   Message error;
   char buffer[256];
@@ -419,11 +419,11 @@ class DeathTestImpl : public DeathTest {
   int status_;
   // How the death test concluded.
   DeathTestOutcome outcome_;
-  // Descriptor to the read end of the pipe to the child process.  It is
-  // always -1 in the child process.  The child keeps its write end of the
+  // Descriptor to the read_messeges end of the pipe to the child process.  It is
+  // always -1 in the child process.  The child keeps its write_messeges end of the
   // pipe in write_fd_.
   int read_fd_;
-  // Descriptor to the child's write end of the pipe to the parent process.
+  // Descriptor to the child's write_messeges end of the pipe to the parent process.
   // It is always -1 in the parent process.  The parent keeps its end of the
   // pipe in read_fd_.
   int write_fd_;
@@ -437,7 +437,7 @@ void DeathTestImpl::ReadAndInterpretStatusByte() {
   char flag;
   int bytes_read;
 
-  // The read() here blocks until data is available (signifying the
+  // The read_messeges() here blocks until data is available (signifying the
   // failure of the death test) or until the pipe is closed (signifying
   // its success), so it's okay to call this in the parent before
   // the child process has exited.
@@ -480,7 +480,7 @@ void DeathTestImpl::ReadAndInterpretStatusByte() {
 // calls _exit(1).
 void DeathTestImpl::Abort(AbortReason reason) {
   // The parent process considers the death test to be a failure if
-  // it finds any data in our pipe.  So, here we write a single flag byte
+  // it finds any data in our pipe.  So, here we write_messeges a single flag byte
   // to the pipe, then exit.
   const char status_ch =
       reason == TEST_DID_NOT_DIE ? kDeathTestLived :
@@ -607,7 +607,7 @@ bool DeathTestImpl::Passed(bool status_ok) {
 // 4. Now the parent can release the write end of the pipe on its side. If
 //    this is done before step 3, the object's reference count goes down to
 //    0 and it is destroyed, preventing the child from acquiring it. The
-//    parent now has to release it, or read operations on the read end of
+//    parent now has to release it, or read operations on the read_messeges end of
 //    the pipe will not return when the child terminates.
 // 5. The parent reads child's output through the pipe (outcome code and
 //    any possible error messages) from the pipe, and its stderr and then
@@ -665,7 +665,7 @@ int WindowsDeathTest::Wait() {
       GTEST_DEATH_TEST_CHECK_(false);  // Should not get here.
   }
 
-  // The child has acquired the write end of the pipe or exited.
+  // The child has acquired the write_messeges end of the pipe or exited.
   // We release the handle on our side and continue.
   write_handle_.Reset();
   event_handle_.Reset();
@@ -936,7 +936,7 @@ class Arguments {
 // threadsafe-style death test process.
 struct ExecDeathTestArgs {
   char* const* argv;  // Command-line arguments for the child's call to exec
-  int close_fd;       // File descriptor to close; the read end of a pipe
+  int close_fd;       // File descriptor to close; the read_messeges end of a pipe
 };
 
 #  if GTEST_OS_MAC
@@ -1129,7 +1129,7 @@ DeathTest::TestRole ExecDeathTest::AssumeRole() {
 
   int pipe_fd[2];
   GTEST_DEATH_TEST_CHECK_(pipe(pipe_fd) != -1);
-  // Clear the close-on-exec flag on the write end of the pipe, lest
+  // Clear the close-on-exec flag on the write_messeges end of the pipe, lest
   // it be closed when the child process does an exec:
   GTEST_DEATH_TEST_CHECK_(fcntl(pipe_fd[1], F_SETFD, 0) != -1);
 
@@ -1281,7 +1281,7 @@ int GetStatusFileDescriptor(unsigned int parent_process_id,
   }
 
   // Signals the parent that the write end of the pipe has been acquired
-  // so the parent can release its own write end.
+  // so the parent can release its own write_messeges end.
   ::SetEvent(dup_event_handle);
 
   return write_fd;
