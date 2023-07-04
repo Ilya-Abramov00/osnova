@@ -121,10 +121,10 @@ enum class State { Idle, Magicbegin, Idcollecting, Datacollecting, Magicend };
 template <size_t T>
 class StateMachine {
 public:
-	StateMachine(uint16_t Head, uint16_t Tail) : state(State::Idle) ,Head(Head), Tail(Tail)
+	StateMachine(uint16_t Head, uint16_t Tail) : state(State::Idle), Head(Head), Tail(Tail)
 	{}
 
-	void ReadMesseges(std::vector<char> const& bufferfile, Messeges<T>& Messeges_data )
+	void ReadMesseges(std::vector<char> const& bufferfile, Messeges<T>& Messeges_data)
 	{
 		state = State::Magicbegin;
 
@@ -143,21 +143,13 @@ public:
 			switch(state) {
 			case(State::Magicbegin):
 
-//				void func_Magicbegin(uint16_t const& magic)
-//				{
-					if(magic == Head) {
-						state = State::Idcollecting;
-					}
-//				}
+				func_Magicbegin(magic);
+
 				break;
 
 			case(State::Idcollecting):
-				count_id++;
-				if(count_id == 2) {
-					id       = magic;
-					state    = State::Datacollecting;
-					count_id = 0;
-				}
+				func_Idcollecting(magic, count_id, id);
+
 				break;
 
 			case(State::Datacollecting):
@@ -191,6 +183,22 @@ private:
 	State state;
 	uint16_t Head;
 	uint16_t Tail;
+
+	void func_Idcollecting(uint16_t& magic, char& count_id, uint16_t& id)
+	{
+		count_id++;
+		if(count_id == 2) {
+			id       = magic;
+			state    = State::Datacollecting;
+			count_id = 0;
+		}
+	}
+	void func_Magicbegin(uint16_t const& magic)
+	{
+		if(magic == Head) {
+			state = State::Idcollecting;
+		}
+	}
 	void write_magic(char const data_is_bufferfile, uint8_t* magBuf, bool& flag)
 	{
 		if(flag) {
@@ -202,7 +210,6 @@ private:
 			magBuf[1] = data_is_bufferfile;
 		}
 	}
-
 };
 
 template <size_t T>
@@ -230,7 +237,7 @@ public:
 
 	void read(std::string const& namefile)
 	{
-		StateMachine<T> statemachine(Head,Tail);
+		StateMachine<T> statemachine(Head, Tail);
 		statemachine.ReadMesseges(readfullfile(namefile), Messeges_data);
 		if(statemachine.get_state() != State::Idle) {
 			throw "ошибка состояния StateMachine";
