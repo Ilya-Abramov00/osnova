@@ -17,7 +17,7 @@ int random_l(int N)
 	    file.open(namefile, std::ios::trunc);
 
 	    if(!file.is_open()) {
-		    throw FileException("файл не открылся");
+		    throw MyException("файл не открылся");
 	    }
         for (int i = 0; i != n; i++) { file << std::string(random_l(N), '*') << "\n"; }
 	    file.close();
