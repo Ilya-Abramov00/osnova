@@ -12,18 +12,14 @@ int random_l(int N)
 
  void geniration_string(int n, int N, std::string const & namefile)
 {
-    try
-    {
-        std::ofstream fout;
-        fout.open(namefile, std::ios::trunc);
 
+        std::ofstream file;
+	    file.open(namefile, std::ios::trunc);
 
-        for (int i = 0; i != n; i++) { fout << std::string(random_l(N), '*') << "\n"; }
-        fout.close();
-    }
-    catch (const std::exception& ex)
-    {
-        std::cout<<ex.what()<<"\n";
+	    if(!file.is_open()) {
+		    throw FileNotFoundException("файл не открылся");
+	    }
+        for (int i = 0; i != n; i++) { file << std::string(random_l(N), '*') << "\n"; }
+	    file.close();
 
-    }
 }

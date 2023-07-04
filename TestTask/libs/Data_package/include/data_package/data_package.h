@@ -17,11 +17,18 @@ int random_l(int N);
 
 void geniration_string(int n, int N, std::string const& namefile);
 
-class FileNotFoundException : public std::runtime_error {
+class FileException : public std::runtime_error {
 public:
-	FileNotFoundException() : runtime_error("File not found")
+	FileException() : runtime_error("File not found")
 	{}
-	FileNotFoundException(std::string& msg) : runtime_error(msg.c_str())
+	FileException(std::string const& msg) : runtime_error(msg.c_str())
+	{}
+};
+
+class StateMashinaException : public std::runtime_error {
+public:
+
+	StateMashinaException (std::string const& msg) : runtime_error(msg.c_str())
 	{}
 };
 
@@ -31,7 +38,7 @@ std::vector<char> readfullfile(std::string const& namefile)
 	file.open(namefile);
 
 	if(!file.is_open()) {
-		throw FileNotFoundException();
+		throw FileException("файл не открылся");
 	}
 
 	file.seekg(0, std::ios::end);
@@ -42,8 +49,9 @@ std::vector<char> readfullfile(std::string const& namefile)
 
 	file.read(bufferfile.data(), sizefile);
 
-	if(!file.is_open()) {
-		throw FileNotFoundException();
+	if (file.fail()) {
+
+		throw FileException("ошибка чтения данных");
 	}
 
 	file.close();
@@ -232,7 +240,7 @@ public:
 		std::ofstream file;
 		file.open(filename, std::ios::trunc);
 		if(!file.is_open()) {
-			throw FileNotFoundException();
+			throw FileException("файл не открылся");
 		}
 
 		for(auto i: Messeges_data) {
@@ -246,7 +254,7 @@ public:
 		StateMachine<T> statemachine(Head, Tail);
 		statemachine.ReadMesseges(readfullfile(namefile), Messeges_data);
 		if(statemachine.get_state() != State::Idle) {
-			throw "ошибка состояния StateMachine";
+			throw StateMashinaException("ошибка состояния StateMachine");
 		}
 	}
 
@@ -287,7 +295,7 @@ public:
 		std::ofstream file;
 		file.open(namefile, std::ios::trunc);
 		if(!file.is_open()) {
-			throw FileNotFoundException();
+			throw FileException("файл не открылся");
 		}
 
 		for(int i = 0; i != v.size(); i++) {
@@ -328,7 +336,7 @@ void write_string(std::string data, std::string const& namefile)
 	std::ofstream file;
 	file.open(namefile, std::ios::trunc);
 	if(!file.is_open()) {
-		throw FileNotFoundException();
+		throw FileException("файл не открылся");
 	}
 	file << data;
 
