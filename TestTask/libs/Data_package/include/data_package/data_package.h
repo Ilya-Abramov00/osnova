@@ -49,13 +49,7 @@ struct Msg {
 public:
 	Msg(std::string const& data_string, uint16_t const id) : id(id)
 	{
-		for(int i = 0; i != data_string.size(); i++) {
-			data[i] = data_string[i];
-		}
-	}
-	Msg(std::string const& data_string, uint16_t const id, size_t const N) : id(id)
-	{
-		for(int i = 0; i != N; i++) {
+		for(int i = 0; i != T; i++) {
 			if(i < data_string.size()) {
 				data[i] = data_string[i];
 			}
@@ -64,6 +58,7 @@ public:
 			}
 		}
 	}
+
 	uint16_t const& get_id()
 	{
 		return id;
@@ -108,7 +103,7 @@ public:
 				buffer.clear();
 			}
 		}
-		Messeges_data.emplace_back(Msg<T>(buffer, ++id, T));
+		Messeges_data.emplace_back(Msg<T>(buffer, ++id));
 		buffer.clear();
 		return Messeges_data;
 	}
@@ -261,19 +256,18 @@ public:
 	{
 		std::string string_data = "";
 		auto end                = Messeges_data.end();
-		auto begin              = this->Messeges_data.begin();
-		--end;
+		auto begin              = Messeges_data.begin();
+
 		while(begin != end) {
-			for(int j = 0; j != T; j++) {
-				string_data.push_back(begin->get_data()[j]);
-			}
+			string_data.append(begin->get_data(),T);
 			begin++;
 		}
 
-		int i = 0;
-		while((i != T) && (end->get_data()[i] != '^')) {
-			string_data.push_back(end->get_data()[i++]);
-		}
+		char c='^';
+		auto begin_string=string_data.end();
+		begin_string-=T;
+			string_data.erase(std::remove(begin_string, string_data.end(), c), string_data.end());
+
 		return string_data;
 	}
 
