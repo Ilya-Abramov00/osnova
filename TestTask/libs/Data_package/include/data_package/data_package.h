@@ -128,16 +128,11 @@ public:
 	{
 		state = State::Magicbegin;
 
-		uint16_t id = 0;
-
-		uint8_t* magBuf = reinterpret_cast<uint8_t*>(&magic);
 		std::string data;
 		data.reserve(T + 2);
 
-		char count_id = 0;
-
 		for(int i = 0; i != bufferfile.size(); i++) {
-			write_magic(bufferfile.at(i), magBuf);
+			write_magic(bufferfile.at(i));
 
 			switch(state) {
 			case(State::Magicbegin):
@@ -147,12 +142,12 @@ public:
 				break;
 
 			case(State::Idcollecting):
-				func_Idcollecting(count_id, id);
+				func_Idcollecting();
 
 				break;
 
 			case(State::Datacollecting):
-				func_Datacollecting(data, bufferfile.at(i), Messeges_data, id);
+				func_Datacollecting(data, bufferfile.at(i), Messeges_data);
 				break;
 
 			case(State::Magicend):
@@ -176,10 +171,12 @@ private:
 	uint16_t Head;
 	uint16_t Tail;
 	uint16_t magic;
+	uint8_t* magBuf = reinterpret_cast<uint8_t*>(&magic);
 	bool flag = 1;
+	uint16_t id     = 0;
+	char count_id   = 0;
 
-	void func_Datacollecting(std::string& data, char const& data_is_bufferfile, Messeges<T>& Messeges_data,
-	                         uint16_t& id)
+	void func_Datacollecting(std::string& data, char const& data_is_bufferfile, Messeges<T>& Messeges_data)
 	{
 		data += data_is_bufferfile;
 		if(magic == Tail) {
@@ -190,7 +187,7 @@ private:
 			data.clear();
 		}
 	}
-	void func_Idcollecting(char& count_id, uint16_t& id)
+	void func_Idcollecting()
 	{
 		count_id++;
 		if(count_id == 2) {
@@ -205,7 +202,7 @@ private:
 			state = State::Idcollecting;
 		}
 	}
-	void write_magic(char const data_is_bufferfile, uint8_t* magBuf)
+	void write_magic(char const data_is_bufferfile)
 	{
 		if(flag) {
 			magBuf[1] = data_is_bufferfile;
