@@ -16,7 +16,7 @@ string z("123456789abcde");
 write_string(z,str_1);
     File_parser<10> q;
 
-    File_Package<10> qe( q.get_File_parser(str_1) );
+    File_Package<10> qe(q.get_File_Messeges(str_1) );
 
     qe.write(str_2);
 
@@ -59,7 +59,7 @@ TEST(data_package, write_one)
     write_string(a,str_1);
     File_parser<6> q;
 
-    File_Package<6> qw(q.get_File_parser(str_1) );
+    File_Package<6> qw(q.get_File_Messeges(str_1) );
 
     auto e=qw.Data_Repoirter();
     ASSERT_TRUE(e==a);
@@ -78,7 +78,7 @@ TEST(data_package, 2) {
 
     File_parser<20> q;
 
-    File_Package<20> qe( q.get_File_parser(str_1) );
+    File_Package<20> qe(q.get_File_Messeges(str_1) );
 
     qe.shuffle_write(str_2);
 
@@ -126,7 +126,7 @@ TEST(data_package, StateMachine)
     write_string(a,str_1);
 
     File_parser<3> q;
-    auto c=q.get_File_parser(str_1);
+    auto c= q.get_File_Messeges(str_1);
     File_Package<3> qe(c);
     qe.write(str_2);
 qe.clear();
