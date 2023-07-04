@@ -27,8 +27,7 @@ public:
 
 class StateMashinaException : public std::runtime_error {
 public:
-
-	StateMashinaException (std::string const& msg) : runtime_error(msg.c_str())
+	StateMashinaException(std::string const& msg) : runtime_error(msg.c_str())
 	{}
 };
 
@@ -49,8 +48,7 @@ std::vector<char> readfullfile(std::string const& namefile)
 
 	file.read(bufferfile.data(), sizefile);
 
-	if (file.fail()) {
-
+	if(file.fail()) {
 		throw FileException("ошибка чтения данных");
 	}
 
@@ -326,8 +324,8 @@ private:
 
 std::string read_string(std::string const& namefile)
 {
-	auto data=readfullfile(namefile);
-	char*  data_string=data.data();
+	auto data         = readfullfile(namefile);
+	char* data_string = data.data();
 
 	return data_string;
 }
