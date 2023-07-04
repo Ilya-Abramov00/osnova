@@ -25,7 +25,7 @@ std::vector<char> readfullfile(std::string& namefile){
   std::ifstream file;
   file.open(namefile);
 
-  if(!file. is_open() ) {std::cout<<"не открылся";}
+  if(!file. is_open() ) { throw "файл не открылся"; }
 
   file.seekg(0, std::ios::end);
   size_t sizefile = file.tellg();
@@ -36,7 +36,7 @@ std::vector<char> readfullfile(std::string& namefile){
 
   file.read(data,sizefile);
 
-  if (file.fail()) {std::cout<<"искл";}
+  if (file.fail()) { throw "ошибка чтения данных";}
 
   file.close();
 
@@ -112,8 +112,8 @@ private:
 
 enum class State{Idle,Magicbegin,Idcollecting,Datacollecting,Magicend};
 
-template < size_t T>
 
+template < size_t T>
 class StateMachine
 {
   public:
@@ -128,12 +128,10 @@ class StateMachine
             std::string data;  data.reserve(T+2);
             bool flag = 1;
 
-
-            int i_id=0;
+            char i_id=0;
 
             for(int i=0;i!=bufferfile.size();i++)
             {
-
                 if (flag) {
                     magBuf[1] = bufferfile.at(i);
                     flag = 0;
@@ -154,7 +152,6 @@ class StateMachine
                     i_id++;
                     if (i_id==2)
                     { id=magic; state=State::Datacollecting; i_id=0;}
-
                     break;
 
                 case (State::Datacollecting):
@@ -167,24 +164,22 @@ class StateMachine
                    Messeges_data.push_back(Msg<T>(data, id));
                      data.clear();
                     }
-
                     break;
 
                 case (State::Magicend):
                     state=State::Magicbegin;
                   break;
-
                 }
             }
-
             if(state==State::Magicend) { state=State::Idle;}
             return ;
     }
+
     State get_state(){
             return state;
     }
-  private:
 
+  private:
     State state;
 };
 
@@ -202,19 +197,19 @@ public:
     {
             std::ofstream file;
             file.open(filename ,std::ios::trunc);
-            //проверка
+            if(!file. is_open() ) { throw "файл не открылся"; }
 
             for (auto const& i :  this->Messeges_data) {
                 write_Msg_file(file,i);
             }
-
+            file.close();
     }
 
 
       void   read(std::string& namefile)
     {
-        stateMachine.ReadMesseges(readfullfile(namefile),this->Messeges_data, Head, Tail);
-        if (stateMachine.get_state()!=State::Idle) std::cout<<"дела плохи";
+            statemachine.ReadMesseges(readfullfile(namefile),this->Messeges_data, Head, Tail);
+        if (statemachine.get_state()!=State::Idle)  { throw "ошибка состояния StateMachine"; }
       }
 
 
@@ -249,50 +244,25 @@ public:
            return string_data;
         }
 
-     static void write_string(std::string data, std::string& str_3)
-     {
 
-             std::ofstream file;
-             file.open(str_3 ,std::ios::trunc);
-             file<<data;
-
-     }
-    static std::string read_string( std::string& str_3)
+    void shuffle_write(std::string&namefile)
     {
-
-            std::ifstream file2;
-            file2.open(str_3);
-            char c2;
-            std::string str2="";
-
-            while (file2.get(c2))
-            {
-                str2+=c2;
-            }
-            return  str2;
-    }
-
-    void shuffle_write(std::string& str_2  )
-    {
-try
-{
     std::vector<std::reference_wrapper<const Msg<T> >>v(Messeges_data.cbegin(), Messeges_data.cend());
     std::shuffle(v.begin(), v.end(), gen);
 
     std::ofstream file;
-    file.open(str_2,std::ios::trunc);
+    file.open(namefile,std::ios::trunc);
+    if(!file. is_open() ) { throw "файл не открылся"; }
 
-    for(int  i=0; i!=v.size(); i++){
+    for(int  i=0; i!=v.size(); i++)
+    {
         write_Msg_file(file, v.at(i).get() );
     }
-    file.close();
-}
 
- catch (const std::exception& ex)
- {
-    std::cout<<ex.what()<<"\n";
- }
+    file.close();
     }
+
+
     Messeges<T> const & get_Messeges_data()
     {
         return Messeges_data;
@@ -312,9 +282,35 @@ private:
       uint16_t Head=0xBABA;
       uint16_t Tail=0xDEDA;
     Messeges<T> Messeges_data;
-    StateMachine<T> stateMachine;
+    StateMachine<T> statemachine;
 };
 
 
 
+std::string read_string( std::string& namefile)
+{
+
+    std::ifstream file;
+    file.open(namefile);
+    if(!file. is_open() ) { throw "файл не открылся"; }
+    char c;
+    std::string data ="";
+
+    while (file.get(c))
+    {
+        data += c;
+    }
+    file.close();
+    return data;
+}
+ void write_string(std::string data, std::string& str_3)
+{
+
+    std::ofstream file;
+    file.open(str_3 ,std::ios::trunc);
+    if(!file. is_open() ) { throw "файл не открылся"; }
+    file<<data;
+
+    file.close();
+}
 #endif

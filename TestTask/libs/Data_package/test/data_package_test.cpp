@@ -13,7 +13,7 @@ std::string str_2="string_test/file_2.txt";
 
 string z("123456789abcde");
 
-File_Package<10>::write_string(z,str_1);
+write_string(z,str_1);
     File_parser<10> q;
 
     File_Package<10> qe( q.get_File_parser(str_1) );
@@ -56,7 +56,7 @@ TEST(data_package, write_one)
 
     string a("1234567");
 
-    File_Package<6>::write_string(a,str_1);
+    write_string(a,str_1);
     File_parser<6> q;
 
     File_Package<6> qw(q.get_File_parser(str_1) );
@@ -87,12 +87,12 @@ TEST(data_package, 2) {
 
      eq.sort_Messeges();
 
-    File_Package<20>::write_string(eq.Data_Repoirter(), str_4);
+   write_string(eq.Data_Repoirter(), str_4);
 
 
 
-    std::string str1=File_Package<20>::read_string(str_1);
-    std::string str2=File_Package<20>::read_string(str_4);;
+    std::string str1=read_string(str_1);
+    std::string str2=read_string(str_4);;
 
 
     ASSERT_TRUE( str1.size() == str2.size() );
@@ -106,7 +106,7 @@ TEST(data_package, write_read)
 
     string a("absegegd");
 
-    File_Package<12>::write_string(a,str_1);
+    write_string(a,str_1);
    auto e=readfullfile(str_1);
 
 
@@ -123,8 +123,7 @@ TEST(data_package, StateMachine)
 
 
 
-    File_Package<3> qw;
-    qw.write_string(a,str_1);
+    write_string(a,str_1);
 
     File_parser<3> q;
     auto c=q.get_File_parser(str_1);
