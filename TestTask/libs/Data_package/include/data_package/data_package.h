@@ -17,13 +17,21 @@ int random_l(int N);
 
 void geniration_string(int n, int N, std::string const& namefile);
 
+class FileNotFoundException : public std::runtime_error {
+public:
+	FileNotFoundException() : runtime_error("File not found")
+	{}
+	FileNotFoundException(std::string& msg) : runtime_error(msg.c_str())
+	{}
+};
+
 std::vector<char> readfullfile(std::string const& namefile)
 {
 	std::ifstream file;
 	file.open(namefile);
 
 	if(!file.is_open()) {
-		throw "файл не открылся";
+		throw FileNotFoundException();
 	}
 
 	file.seekg(0, std::ios::end);
@@ -34,8 +42,8 @@ std::vector<char> readfullfile(std::string const& namefile)
 
 	file.read(bufferfile.data(), sizefile);
 
-	if(file.fail()) {
-		throw "ошибка чтения данных";
+	if(!file.is_open()) {
+		throw FileNotFoundException();
 	}
 
 	file.close();
@@ -167,7 +175,7 @@ private:
 	uint16_t Tail;
 	uint16_t magic;
 	uint8_t* magBuf = reinterpret_cast<uint8_t*>(&magic);
-	bool flag = 1;
+	bool flag       = 1;
 	uint16_t id     = 0;
 	char count_id   = 0;
 
@@ -224,11 +232,11 @@ public:
 		std::ofstream file;
 		file.open(filename, std::ios::trunc);
 		if(!file.is_open()) {
-			throw "файл не открылся";
+			throw FileNotFoundException();
 		}
 
 		for(auto i: Messeges_data) {
-			write_Msg_file(file, i);
+			write_Msg_file(i, file);
 		}
 		file.close();
 	}
@@ -259,14 +267,14 @@ public:
 		auto begin              = Messeges_data.begin();
 
 		while(begin != end) {
-			string_data.append(begin->get_data(),T);
+			string_data.append(begin->get_data(), T);
 			begin++;
 		}
 
-		char c='^';
-		auto begin_string=string_data.end();
-		begin_string-=T;
-			string_data.erase(std::remove(begin_string, string_data.end(), c), string_data.end());
+		char c     = '^';
+		auto anEnd = string_data.end();
+		anEnd -= T;
+		string_data.erase(std::remove(anEnd, string_data.end(), c), string_data.end());
 
 		return string_data;
 	}
@@ -279,11 +287,11 @@ public:
 		std::ofstream file;
 		file.open(namefile, std::ios::trunc);
 		if(!file.is_open()) {
-			throw "файл не открылся";
+			throw FileNotFoundException();
 		}
 
 		for(int i = 0; i != v.size(); i++) {
-			write_Msg_file(file, v.at(i).get());
+			write_Msg_file(v.at(i).get(), file);
 		}
 
 		file.close();
@@ -294,7 +302,7 @@ public:
 		return Messeges_data;
 	}
 
-	void write_Msg_file(std::ofstream& file, Msg<T> msg)
+	void write_Msg_file(Msg<T> msg, std::ofstream& file)
 	{
 		file.write((char*)&Head, sizeof(Head));
 		file.write((char*)&msg.get_id(), sizeof(msg.get_id()));
@@ -313,7 +321,7 @@ std::string read_string(std::string const& namefile)
 	std::ifstream file;
 	file.open(namefile);
 	if(!file.is_open()) {
-		throw "файл не открылся";
+		throw FileNotFoundException();
 	}
 	char c;
 	std::string data = "";
@@ -329,7 +337,7 @@ void write_string(std::string data, std::string const& namefile)
 	std::ofstream file;
 	file.open(namefile, std::ios::trunc);
 	if(!file.is_open()) {
-		throw "файл не открылся";
+		throw FileNotFoundException();
 	}
 	file << data;
 
