@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 
 #include "DataPackage/ReadPackage.h"
+#include "DataPackage/WritePackage.h"
+#include "DataPackage/CommonData.h"
 
 using namespace std;
-
-
 
 TEST(data_package, write_messeges_data_1)
 {
@@ -16,10 +16,9 @@ TEST(data_package, write_messeges_data_1)
 	write_string(data_test, str_1);
 
 
-
-	File_Package<3> filepackage1;
-	filepackage1.get_File_Messeges(str_1);
-	filepackage1.write_messeges(str_2);
+	FilePackageWrite<3> filepackagewrite;
+	filepackagewrite.get_File_Messeges(str_1);
+	filepackagewrite.write_messeges(str_2);
 
 auto data_file= readfullfile(str_2);
 
@@ -45,9 +44,9 @@ write_string(data_test, str_1);
 
 
 
-File_Package<3> filepackage1;
-filepackage1.get_File_Messeges(str_1);
-filepackage1.write_messeges(str_2);
+FilePackageWrite<3> filepackagewrite;
+filepackagewrite.get_File_Messeges(str_1);
+filepackagewrite.write_messeges(str_2);
 
 auto data_file= readfullfile(str_2);
 ASSERT_TRUE((uint8_t) data_file[0]==0XBA);
@@ -81,16 +80,16 @@ TEST(data_package, write_read_messeges_data_1)
 
 
 
-	File_Package<10> filepackage1;
-	filepackage1.get_File_Messeges(str_1);
-	filepackage1.write_messeges(str_2);
+	FilePackageWrite<10> filepackagewrite;
+	filepackagewrite.get_File_Messeges(str_1);
+	filepackagewrite.write_messeges(str_2);
 
-	File_Package<10> filepackage2;
-	filepackage2.read_messeges(str_2);
+	FilePackageRead<10> filepackageread;
+	filepackageread.read_messeges(str_2);
 
-	ASSERT_TRUE(filepackage2.get_Messeges().size() == filepackage1.get_Messeges().size());
+	ASSERT_TRUE(filepackageread.get_Messeges().size() == filepackagewrite.get_Messeges().size());
 
-	ASSERT_TRUE(filepackage2.Data_Repoirter() == filepackage1.Data_Repoirter());
+	ASSERT_TRUE(filepackageread.Data_Repoirter() == data_test);
 }
 
 TEST(data_package, write_read_messeges_data_2)
@@ -102,16 +101,16 @@ TEST(data_package, write_read_messeges_data_2)
 
 	write_string(data_test, str_1);
 
-	File_Package<10> filepackage1;
-	filepackage1.get_File_Messeges(str_1);
-	filepackage1.write_messeges(str_2);
+	FilePackageWrite<10> filepackagewrite;
+	filepackagewrite.get_File_Messeges(str_1);
+	filepackagewrite.write_messeges(str_2);
 
-	File_Package<10> filepackage2;
-	filepackage2.read_messeges(str_2);
+	FilePackageRead<10> filepackageread;
+	filepackageread.read_messeges(str_2);
 
-	ASSERT_TRUE(filepackage2.get_Messeges().size() == filepackage1.get_Messeges().size());
+	ASSERT_TRUE(filepackageread.get_Messeges().size() == filepackagewrite.get_Messeges().size());
 
-	ASSERT_TRUE(filepackage2.Data_Repoirter() == filepackage1.Data_Repoirter());
+	ASSERT_TRUE(filepackageread.Data_Repoirter() == data_test);
 }
 
 TEST(data_package, write_read_messeges_data_3)
@@ -123,16 +122,16 @@ TEST(data_package, write_read_messeges_data_3)
 
 	write_string(data_test, str_1);
 
-	File_Package<10> filepackage1;
-	filepackage1.get_File_Messeges(str_1);
-	filepackage1.write_messeges(str_2);
+	FilePackageWrite<10> filepackagewrite;
+	filepackagewrite.get_File_Messeges(str_1);
+	filepackagewrite.write_messeges(str_2);
 
-	File_Package<10> filepackage2;
-	filepackage2.read_messeges(str_2);
+	FilePackageRead<10> filepackageread;
+	filepackageread.read_messeges(str_2);
 
-	ASSERT_TRUE(filepackage2.get_Messeges().size() == filepackage1.get_Messeges().size());
+	ASSERT_TRUE(filepackageread.get_Messeges().size() == filepackagewrite.get_Messeges().size());
 
-	ASSERT_TRUE(filepackage2.Data_Repoirter() == filepackage1.Data_Repoirter());
+	ASSERT_TRUE(filepackageread.Data_Repoirter() == data_test);
 }
 
 TEST(data_package, write_read_messeges_data_4)
@@ -140,18 +139,18 @@ TEST(data_package, write_read_messeges_data_4)
 	std::string str_1 = "string_test/file_1.txt";
 	std::string str_2 = "string_test/file_2.txt";
 
-	geniration_string(33, 100, str_1);
+	auto data_test=geniration_string(33, 100, str_1);
 
-	File_Package<10> filepackage1;
-	filepackage1.get_File_Messeges(str_1);
-	filepackage1.write_messeges(str_2);
+	FilePackageWrite<10> filepackagewrite;
+	filepackagewrite.get_File_Messeges(str_1);
+	filepackagewrite.write_messeges(str_2);
 
-	File_Package<10> filepackage2;
-	filepackage2.read_messeges(str_2);
+	FilePackageRead<10> filepackageread;
+	filepackageread.read_messeges(str_2);
 
-	ASSERT_TRUE(filepackage2.get_Messeges().size() == filepackage1.get_Messeges().size());
+	ASSERT_TRUE(filepackageread.get_Messeges().size() == filepackagewrite.get_Messeges().size());
 
-	ASSERT_TRUE(filepackage2.Data_Repoirter() == filepackage1.Data_Repoirter());
+	ASSERT_TRUE(filepackageread.Data_Repoirter() == data_test);
 }
 
 TEST(data_package, write_read_shuffle)
@@ -160,26 +159,24 @@ TEST(data_package, write_read_shuffle)
 	std::string str_2 = "string_test/file_2.txt";
 	std::string str_4 = "string_test/file_4.txt";
 
-	geniration_string(33, 100, str_1);
+	auto data_test=geniration_string(33, 100, str_1);
 
-	File_Package<10> filePackage1;
-	filePackage1.get_File_Messeges(str_1);
+	FilePackageWrite<10> filepackagewrite;
+	filepackagewrite.get_File_Messeges(str_1);
+	filepackagewrite.shuffle_write_messeges(str_2);
 
-	filePackage1.shuffle_write_messeges(str_2);
+	FilePackageRead<10> filepackageread;
+	filepackageread.read_messeges(str_2);
 
-	File_Package<10> filePackage2;
+	ASSERT_TRUE(filepackageread.get_Messeges().size() == filepackagewrite.get_Messeges().size());
 
-	filePackage2.read_messeges(str_2);
+	ASSERT_TRUE(filepackageread.Data_Repoirter() != data_test);
 
-	ASSERT_TRUE(filePackage1.get_Messeges().size() == filePackage2.get_Messeges().size());
+	filepackageread.sort_Messeges();
 
-	ASSERT_TRUE(filePackage1.Data_Repoirter() != filePackage2.Data_Repoirter());
+	ASSERT_TRUE(filepackageread.get_Messeges().size() == filepackagewrite.get_Messeges().size());
 
-	filePackage2.sort_Messeges();
-
-	ASSERT_TRUE(filePackage1.get_Messeges().size() == filePackage2.get_Messeges().size());
-
-	ASSERT_TRUE(filePackage1.Data_Repoirter() == filePackage2.Data_Repoirter());
+	ASSERT_TRUE(filepackageread.Data_Repoirter() == data_test);
 
 
 }
