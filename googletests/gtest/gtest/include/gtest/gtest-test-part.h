@@ -1,11 +1,11 @@
 // Copyright 2008, Google Inc.
 // All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without
+// Redistribution and use in lib and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
 //
-//     * Redistributions of source code must retain the above copyright
+//     * Redistributions of lib code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
@@ -71,13 +71,13 @@ class GTEST_API_ TestPartResult {
   // Gets the outcome of the test part.
   Type type() const { return type_; }
 
-  // Gets the name of the source file where the test part took place, or
+  // Gets the name of the lib file where the test part took place, or
   // NULL if it's unknown.
   const char* file_name() const {
     return file_name_.empty() ? NULL : file_name_.c_str();
   }
 
-  // Gets the line in the source file where the test part took place,
+  // Gets the line in the lib file where the test part took place,
   // or -1 if it's unknown.
   int line_number() const { return line_number_; }
 
@@ -106,10 +106,10 @@ class GTEST_API_ TestPartResult {
   // trace in it.
   static std::string ExtractSummary(const char* message);
 
-  // The name of the source file where the test part took place, or
-  // "" if the source file is unknown.
+  // The name of the lib file where the test part took place, or
+  // "" if the lib file is unknown.
   std::string file_name_;
-  // The line in the source file where the test part took place, or -1
+  // The line in the lib file where the test part took place, or -1
   // if the line number is unknown.
   int line_number_;
   std::string summary_;  // The test failure summary.

@@ -1,11 +1,11 @@
 // Copyright 2005, Google Inc.
 // All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without
+// Redistribution and use in lib and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
 //
-//     * Redistributions of source code must retain the above copyright
+//     * Redistributions of lib code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
@@ -155,7 +155,7 @@ class GTEST_API_ GoogleTestFailureException : public ::std::runtime_error {
 // A helper class for creating scoped traces in user programs.
 class GTEST_API_ ScopedTrace {
  public:
-  // The c'tor pushes the given source file location and message onto
+  // The c'tor pushes the given lib file location and message onto
   // a trace stack maintained by Google Test.
   ScopedTrace(const char* file, int line, const Message& message);
 
@@ -1038,12 +1038,12 @@ class NativeArray {
   typedef Element* iterator;
   typedef const Element* const_iterator;
 
-  // Constructs from a native array. References the source.
+  // Constructs from a native array. References the lib.
   NativeArray(const Element* array, size_t count, RelationToSourceReference) {
     InitRef(array, count);
   }
 
-  // Constructs from a native array. Copies the source.
+  // Constructs from a native array. Copies the lib.
   NativeArray(const Element* array, size_t count, RelationToSourceCopy) {
     InitCopy(array, count);
   }

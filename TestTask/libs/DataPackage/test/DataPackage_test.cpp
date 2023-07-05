@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "data_package/data_package.h"
+#include "DataPackage/ReadPackage.h"
 
 using namespace std;
 
@@ -21,6 +21,7 @@ TEST(data_package, write_messeges_data_1)
 	filepackage1.write_messeges(str_2);
 
 auto data_file= readfullfile(str_2);
+
 ASSERT_TRUE((uint8_t) data_file[0]==0XBA);
 ASSERT_TRUE((uint8_t) data_file[1]==0XBA);
 ASSERT_TRUE( (uint8_t)data_file[2]==0x01);

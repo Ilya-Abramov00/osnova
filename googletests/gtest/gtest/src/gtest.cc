@@ -1,11 +1,11 @@
 // Copyright 2005, Google Inc.
 // All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without
+// Redistribution and use in lib and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
 //
-//     * Redistributions of source code must retain the above copyright
+//     * Redistributions of lib code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
@@ -1679,7 +1679,7 @@ AssertionResult HRESULTFailureHelper(const char* expr,
   // Gets the system's human readable message string for this HRESULT.
   char error_text[kBufSize] = { '\0' };
   DWORD message_length = ::FormatMessageA(kFlags,
-                                          0,  // no source, we're asking system
+                                          0,  // no lib, we're asking system
                                           hr,  // the error
                                           0,  // no line width restrictions
                                           error_text,  // output buffer
@@ -2253,7 +2253,7 @@ void ReportFailureInUnknownLocation(TestPartResult::Type result_type,
   // AddTestPartResult.
   UnitTest::GetInstance()->AddTestPartResult(
       result_type,
-      NULL,  // No info about the source file where the exception occurred.
+      NULL,  // No info about the lib file where the exception occurred.
       -1,    // We have no info on which line caused the exception.
       message,
       "");   // No stack trace, either.
@@ -2865,7 +2865,7 @@ static void PrintTestPartResult(const TestPartResult& test_part_result) {
   // If the test program runs in Visual Studio or a debugger, the
   // following statements add the test part result message to the Output
   // window such that the user can double-click on it to jump to the
-  // corresponding source code location; otherwise they do nothing.
+  // corresponding lib code location; otherwise they do nothing.
 #if GTEST_OS_WINDOWS && !GTEST_OS_WINDOWS_MOBILE
   // We don't call OutputDebugString*() on Windows Mobile, as printing
   // to stdout is done by OutputDebugString() there already - we don't
@@ -3823,7 +3823,7 @@ void StreamingListener::SocketWriter::MakeConnection() {
 
 // Class ScopedTrace
 
-// Pushes the given source file location and message onto a per-thread
+// Pushes the given lib file location and message onto a per-thread
 // trace stack maintained by Google Test.
 ScopedTrace::ScopedTrace(const char* file, int line, const Message& message)
     GTEST_LOCK_EXCLUDED_(&UnitTest::mutex_) {

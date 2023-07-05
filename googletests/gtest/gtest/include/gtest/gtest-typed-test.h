@@ -1,11 +1,11 @@
 // Copyright 2008 Google Inc.
 // All Rights Reserved.
 //
-// Redistribution and use in source and binary forms, with or without
+// Redistribution and use in lib and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
 //
-//     * Redistributions of source code must retain the above copyright
+//     * Redistributions of lib code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
@@ -131,7 +131,7 @@ REGISTER_TYPED_TEST_CASE_P(FooTest,
 
 // Finally, you are free to instantiate the pattern with the types you
 // want.  If you put the above code in a header file, you can #include
-// it in multiple C++ source files and instantiate it multiple times.
+// it in multiple C++ lib files and instantiate it multiple times.
 //
 // To distinguish different instances of the pattern, the first
 // argument to the INSTANTIATE_* macro is a prefix that will be added

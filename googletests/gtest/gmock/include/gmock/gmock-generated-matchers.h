@@ -5,11 +5,11 @@
 // Copyright 2008, Google Inc.
 // All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without
+// Redistribution and use in lib and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
 //
-//     * Redistributions of source code must retain the above copyright
+//     * Redistributions of lib code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
@@ -1181,7 +1181,7 @@ AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8, M9 m9, M10 m10) {
 // The description string documents what the matcher does, and is used
 // to generate the failure message when the match fails.  Since a
 // MATCHER() is usually defined in a header file shared by multiple
-// C++ source files, we require the description to be a C-string
+// C++ lib files, we require the description to be a C-string
 // literal to avoid possible side effects.  It can be empty, in which
 // case we'll use the sequence of words in the matcher name as the
 // description.

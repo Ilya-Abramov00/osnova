@@ -1,7 +1,4 @@
-#include "data_package/data_package.h"
-
-
-
+#include "DataPackage/ReadPackage.h"
 
 int random_l(int N)
 {

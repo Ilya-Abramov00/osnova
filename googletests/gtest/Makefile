@@ -56,7 +56,7 @@ RM = /usr/bin/cmake -E rm -f
 # Escaping for special characters.
 EQUALS = =
 
-# The top-level source directory on which CMake was run.
+# The top-level lib directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/ilya/CLionProjects/osnova
 
 # The top-level build directory on which CMake was run.
@@ -151,7 +151,7 @@ gmock/src/gmock-all.cc.o:
 gmock/src/gmock-all.i: gmock/src/gmock-all.cc.i
 .PHONY : gmock/src/gmock-all.i
 
-# target to preprocess a source file
+# target to preprocess a lib file
 gmock/src/gmock-all.cc.i:
 	cd /home/ilya/CLionProjects/osnova && $(MAKE) $(MAKESILENT) -f googletests/gtest/CMakeFiles/gtest.dir/build.make googletests/gtest/CMakeFiles/gtest.dir/gmock/src/gmock-all.cc.i
 .PHONY : gmock/src/gmock-all.cc.i
@@ -175,7 +175,7 @@ gtest/src/gtest-all.cc.o:
 gtest/src/gtest-all.i: gtest/src/gtest-all.cc.i
 .PHONY : gtest/src/gtest-all.i
 
-# target to preprocess a source file
+# target to preprocess a lib file
 gtest/src/gtest-all.cc.i:
 	cd /home/ilya/CLionProjects/osnova && $(MAKE) $(MAKESILENT) -f googletests/gtest/CMakeFiles/gtest.dir/build.make googletests/gtest/CMakeFiles/gtest.dir/gtest/src/gtest-all.cc.i
 .PHONY : gtest/src/gtest-all.cc.i

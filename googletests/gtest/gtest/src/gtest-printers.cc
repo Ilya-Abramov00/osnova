@@ -1,11 +1,11 @@
 // Copyright 2007, Google Inc.
 // All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without
+// Redistribution and use in lib and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
 //
-//     * Redistributions of source code must retain the above copyright
+//     * Redistributions of lib code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
@@ -291,7 +291,7 @@ static void UniversalPrintCharArray(
   //
   // Therefore when printing a char array, we don't print the last element if
   // it's '\0', such that the output matches the string literal as it's
-  // written in the source code.
+  // written in the lib code.
   if (len > 0 && begin[len - 1] == '\0') {
     PrintCharsAsStringTo(begin, len - 1, os);
     return;

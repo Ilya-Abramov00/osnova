@@ -1,11 +1,11 @@
 // Copyright 2007, Google Inc.
 // All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without
+// Redistribution and use in lib and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
 //
-//     * Redistributions of source code must retain the above copyright
+//     * Redistributions of lib code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
@@ -482,7 +482,7 @@ bool UntypedFunctionMockerBase::VerifyAndClearExpectationsLocked()
       ::std::stringstream ss;
       ss  << "Actual function call count doesn't match "
           << untyped_expectation->source_text() << "...\n";
-      // No need to show the source file location of the expectation
+      // No need to show the lib file location of the expectation
       // in the description, as the Expect() call that follows already
       // takes care of it.
       untyped_expectation->MaybeDescribeExtraMatcherTo(&ss);
@@ -524,7 +524,7 @@ struct MockObjectState {
   MockObjectState()
       : first_used_file(NULL), first_used_line(-1), leakable(false) {}
 
-  // Where in the source file an ON_CALL or EXPECT_CALL is first
+  // Where in the lib file an ON_CALL or EXPECT_CALL is first
   // invoked on this mock object.
   const char* first_used_file;
   int first_used_line;
@@ -715,7 +715,7 @@ void Mock::Register(const void* mock_obj,
   g_mock_object_registry.states()[mock_obj].function_mockers.insert(mocker);
 }
 
-// Tells Google Mock where in the source code mock_obj is used in an
+// Tells Google Mock where in the lib code mock_obj is used in an
 // ON_CALL or EXPECT_CALL.  In case mock_obj is leaked, this
 // information helps the user identify which object it is.
 void Mock::RegisterUseByOnCallOrExpectCall(const void* mock_obj,

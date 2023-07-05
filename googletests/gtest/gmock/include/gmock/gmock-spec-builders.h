@@ -1,11 +1,11 @@
 // Copyright 2007, Google Inc.
 // All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without
+// Redistribution and use in lib and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
 //
-//     * Redistributions of source code must retain the above copyright
+//     * Redistributions of lib code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
@@ -248,7 +248,7 @@ class UntypedOnCallSpecBase {
   UntypedOnCallSpecBase(const char* a_file, int a_line)
       : file_(a_file), line_(a_line), last_clause_(kNone) {}
 
-  // Where in the source file was the default action spec defined?
+  // Where in the lib file was the default action spec defined?
   const char* file() const { return file_; }
   int line() const { return line_; }
 
@@ -347,7 +347,7 @@ class OnCallSpec : public UntypedOnCallSpecBase {
   //
   // is recorded in the data members like this:
   //
-  //   source file that contains the statement => file_
+  //   lib file that contains the statement => file_
   //   line number of the statement            => line_
   //   matchers                                => matchers_
   //   multi-argument-matcher                  => extra_matcher_
@@ -448,7 +448,7 @@ class GTEST_API_ Mock {
       internal::UntypedFunctionMockerBase* mocker)
           GTEST_LOCK_EXCLUDED_(internal::g_gmock_mutex);
 
-  // Tells Google Mock where in the source code mock_obj is used in an
+  // Tells Google Mock where in the lib code mock_obj is used in an
   // ON_CALL or EXPECT_CALL.  In case mock_obj is leaked, this
   // information helps the user identify which object it is.
   static void RegisterUseByOnCallOrExpectCall(
@@ -689,19 +689,19 @@ GTEST_API_ extern ThreadLocal<Sequence*> g_gmock_implicit_sequence;
 // This class is internal and mustn't be used by user code directly.
 class GTEST_API_ ExpectationBase {
  public:
-  // source_text is the EXPECT_CALL(...) source that created this Expectation.
+  // source_text is the EXPECT_CALL(...) lib that created this Expectation.
   ExpectationBase(const char* file, int line, const string& source_text);
 
   virtual ~ExpectationBase();
 
-  // Where in the source file was the expectation spec defined?
+  // Where in the lib file was the expectation spec defined?
   const char* file() const { return file_; }
   int line() const { return line_; }
   const char* source_text() const { return source_text_.c_str(); }
   // Returns the cardinality specified in the expectation spec.
   const Cardinality& cardinality() const { return cardinality_; }
 
-  // Describes the source file location of this expectation.
+  // Describes the lib file location of this expectation.
   void DescribeLocationTo(::std::ostream* os) const {
     *os << FormatFileLocation(file(), line()) << " ";
   }
@@ -845,7 +845,7 @@ class GTEST_API_ ExpectationBase {
   // an EXPECT_CALL() statement finishes.
   const char* file_;          // The file that contains the expectation.
   int line_;                  // The line number of the expectation.
-  const string source_text_;  // The EXPECT_CALL(...) source text.
+  const string source_text_;  // The EXPECT_CALL(...) lib text.
   // True iff the cardinality is specified explicitly.
   bool cardinality_specified_;
   Cardinality cardinality_;            // The cardinality of the expectation.

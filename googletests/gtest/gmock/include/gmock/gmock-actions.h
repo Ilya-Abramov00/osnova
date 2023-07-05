@@ -1,11 +1,11 @@
 // Copyright 2007, Google Inc.
 // All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without
+// Redistribution and use in lib and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
 //
-//     * Redistributions of source code must retain the above copyright
+//     * Redistributions of lib code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
@@ -945,7 +945,7 @@ class IgnoreResultAction {
 // ReferenceWrapper<T> can be copied and can survive template type
 // inference.  This is used to support by-reference arguments in the
 // InvokeArgument<N>(...) action.  The idea was from "reference
-// wrappers" in tr1, which we don't have in our source tree yet.
+// wrappers" in tr1, which we don't have in our lib tree yet.
 template <typename T>
 class ReferenceWrapper {
  public:

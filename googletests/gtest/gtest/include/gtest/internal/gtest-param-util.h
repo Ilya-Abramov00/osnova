@@ -1,11 +1,11 @@
 // Copyright 2008 Google Inc.
 // All Rights Reserved.
 //
-// Redistribution and use in source and binary forms, with or without
+// Redistribution and use in lib and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
 //
-//     * Redistributions of source code must retain the above copyright
+//     * Redistributions of lib code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
@@ -285,8 +285,8 @@ class RangeGenerator : public ParamGeneratorInterface<T> {
 
 
 // Generates values from a pair of STL-style iterators. Used in the
-// ValuesIn() function. The elements are copied from the source range
-// since the source can be located on the stack, and the generator
+// ValuesIn() function. The elements are copied from the lib range
+// since the lib can be located on the stack, and the generator
 // is likely to persist beyond that stack frame.
 template <typename T>
 class ValuesInIteratorRangeGenerator : public ParamGeneratorInterface<T> {

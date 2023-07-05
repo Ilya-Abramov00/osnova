@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.0)
 
-project (Data_package)
+project (DataPackage)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-file(GLOB_RECURSE  SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h )
+file(GLOB_RECURSE  SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/lib/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/include/DataPackage/*.h)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
 

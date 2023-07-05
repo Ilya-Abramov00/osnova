@@ -1,11 +1,11 @@
 // Copyright 2007, Google Inc.
 // All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without
+// Redistribution and use in lib and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
 //
-//     * Redistributions of source code must retain the above copyright
+//     * Redistributions of lib code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
@@ -205,7 +205,7 @@ struct LosslessArithmeticConvertibleImpl<kInteger, From, kBool, bool>
     : public false_type {};  // NOLINT
 
 // Converting an integer to another non-bool integer is lossless iff
-// the target type's range encloses the source type's range.
+// the target type's range encloses the lib type's range.
 template <typename From, typename To>
 struct LosslessArithmeticConvertibleImpl<kInteger, From, kInteger, To>
     : public bool_constant<
@@ -236,7 +236,7 @@ struct LosslessArithmeticConvertibleImpl<kFloatingPoint, From, kInteger, To>
     : public false_type {};  // NOLINT
 
 // Converting a floating-point to another floating-point is lossless
-// iff the target type is at least as big as the source type.
+// iff the target type is at least as big as the lib type.
 template <typename From, typename To>
 struct LosslessArithmeticConvertibleImpl<
   kFloatingPoint, From, kFloatingPoint, To>
@@ -265,7 +265,7 @@ class FailureReporterInterface {
 
   virtual ~FailureReporterInterface() {}
 
-  // Reports a failure that occurred at the given source file location.
+  // Reports a failure that occurred at the given lib file location.
   virtual void ReportFailure(FailureType type, const char* file, int line,
                              const string& message) = 0;
 };

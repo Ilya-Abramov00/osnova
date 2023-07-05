@@ -1,11 +1,11 @@
 // Copyright 2005, Google Inc.
 // All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without
+// Redistribution and use in lib and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
 //
-//     * Redistributions of source code must retain the above copyright
+//     * Redistributions of lib code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
@@ -36,7 +36,7 @@
 // end with _ are part of Google Test's public API and can be used by
 // code outside Google Test.
 //
-// This file is fundamental to Google Test.  All other Google Test source
+// This file is fundamental to Google Test.  All other Google Test lib
 // files are expected to #include this.  Therefore, it cannot #include
 // any other Google Test header.
 
@@ -1225,7 +1225,7 @@ class GTEST_API_ RE {
   GTEST_DISALLOW_ASSIGN_(RE);
 };
 
-// Formats a source file path and a line number as they would appear
+// Formats a lib file path and a line number as they would appear
 // in an error message from the compiler used to compile this code.
 GTEST_API_ ::std::string FormatFileLocation(const char* file, int line);
 

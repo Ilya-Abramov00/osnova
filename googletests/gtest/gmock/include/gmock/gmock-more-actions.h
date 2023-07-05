@@ -1,11 +1,11 @@
 // Copyright 2007, Google Inc.
 // All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without
+// Redistribution and use in lib and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
 //
-//     * Redistributions of source code must retain the above copyright
+//     * Redistributions of lib code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
@@ -195,10 +195,10 @@ ACTION_TEMPLATE(SetArgReferee,
 }
 
 // Action SetArrayArgument<k>(first, last) copies the elements in
-// source range [first, last) to the array pointed to by the k-th
+// lib range [first, last) to the array pointed to by the k-th
 // (0-based) argument, which can be either a pointer or an
 // iterator. The action does not take ownership of the elements in the
-// source range.
+// lib range.
 ACTION_TEMPLATE(SetArrayArgument,
                 HAS_1_TEMPLATE_PARAMS(int, k),
                 AND_2_VALUE_PARAMS(first, last)) {

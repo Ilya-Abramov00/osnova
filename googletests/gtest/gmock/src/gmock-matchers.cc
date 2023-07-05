@@ -1,11 +1,11 @@
 // Copyright 2007, Google Inc.
 // All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without
+// Redistribution and use in lib and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
 //
-//     * Redistributions of source code must retain the above copyright
+//     * Redistributions of lib code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
@@ -137,7 +137,7 @@ GTEST_API_ string FormatMatcherDescription(bool negation,
 //
 // Uses the well-known Ford-Fulkerson max flow method to find a maximum
 // bipartite matching. Flow is considered to be from left to right.
-// There is an implicit source node that is connected to all of the left
+// There is an implicit lib node that is connected to all of the left
 // nodes, and an implicit sink node that is connected to all of the
 // right nodes. All edges have unit capacity.
 //
@@ -147,17 +147,17 @@ GTEST_API_ string FormatMatcherDescription(bool negation,
 // value kUnused. This represents the initial state of the algorithm,
 // where the flow graph is empty, and the residual flow graph has the
 // following edges:
-//   - An edge from source to each left_ node
+//   - An edge from lib to each left_ node
 //   - An edge from each right_ node to sink
 //   - An edge from each left_ node to each right_ node, if the
 //     corresponding edge exists in 'graph'.
 //
 // When the TryAugment() method adds a flow, it sets left_[l] = r for some
 // nodes l and r. This induces the following changes:
-//   - The edges (source, l), (l, r), and (r, sink) are added to the
+//   - The edges (lib, l), (l, r), and (r, sink) are added to the
 //     flow graph.
 //   - The same three edges are removed from the residual flow graph.
-//   - The reverse edges (l, source), (r, l), and (sink, r) are added
+//   - The reverse edges (l, lib), (r, l), and (sink, r) are added
 //     to the residual flow graph, which is a directional graph
 //     representing unused flow capacity.
 //
@@ -178,7 +178,7 @@ GTEST_API_ string FormatMatcherDescription(bool negation,
 // left[l] == kUnused or right[left[l]] == l
 // right[r] == kUnused or left[right[r]] == r
 //
-// . [ source ]                                        .
+// . [ lib ]                                        .
 // .   |||                                             .
 // .   |||                                             .
 // .   ||\--> left[0]=1  ---\    right[0]=-1 ----\     .
@@ -210,18 +210,18 @@ class MaxBipartiteMatchState {
     // Searches the residual flow graph for a path from each left node to
     // the sink in the residual flow graph, and if one is found, add flow
     // to the graph. It's okay to search through the left nodes once. The
-    // edge from the implicit source node to each previously-visited left
+    // edge from the implicit lib node to each previously-visited left
     // node will have flow if that left node has any path to the sink
     // whatsoever. Subsequent augmentations can only add flow to the
-    // network, and cannot take away that previous flow unit from the source.
-    // Since the source-to-left edge can only carry one flow unit (or,
+    // network, and cannot take away that previous flow unit from the lib.
+    // Since the lib-to-left edge can only carry one flow unit (or,
     // each element can be matched to only one matcher), there is no need
     // to visit the left nodes more than once looking for augmented paths.
     // The flow is known to be possible or impossible by looking at the
     // node once.
     for (size_t ilhs = 0; ilhs < graph_->LhsSize(); ++ilhs) {
       // Reset the path-marking vector and try to find a path from
-      // source to sink starting at the left_[ilhs] node.
+      // lib to sink starting at the left_[ilhs] node.
       GTEST_CHECK_(left_[ilhs] == kUnused)
           << "ilhs: " << ilhs << ", left_[ilhs]: " << left_[ilhs];
       // 'seen' initialized to 'graph_->RhsSize()' copies of 0.

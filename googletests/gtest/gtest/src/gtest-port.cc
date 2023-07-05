@@ -1,11 +1,11 @@
 // Copyright 2008, Google Inc.
 // All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without
+// Redistribution and use in lib and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
 //
-//     * Redistributions of source code must retain the above copyright
+//     * Redistributions of lib code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
@@ -680,7 +680,7 @@ std::string FormatRegexSyntaxError(const char* regex, int index) {
 // otherwise returns true.
 bool ValidateRegex(const char* regex) {
   if (regex == NULL) {
-    // TODO(wan@google.com): fix the source file location in the
+    // TODO(wan@google.com): fix the lib file location in the
     // assertion failures to match where the regex is used in user
     // code.
     ADD_FAILURE() << "NULL is not a valid simple regular expression.";
@@ -875,7 +875,7 @@ void RE::Init(const char* regex) {
 
 const char kUnknownFile[] = "unknown file";
 
-// Formats a source file path and a line number as they would appear
+// Formats a lib file path and a line number as they would appear
 // in an error message from the compiler used to compile this code.
 GTEST_API_ ::std::string FormatFileLocation(const char* file, int line) {
   const std::string file_name(file == NULL ? kUnknownFile : file);
@@ -1130,7 +1130,7 @@ void Abort() {
 
 // Returns the name of the environment variable corresponding to the
 // given flag.  For example, FlagToEnvVar("foo") will return
-// "GTEST_FOO" in the open-source version.
+// "GTEST_FOO" in the open-lib version.
 static std::string FlagToEnvVar(const char* flag) {
   const std::string full_flag =
       (Message() << GTEST_FLAG_PREFIX_ << flag).GetString();

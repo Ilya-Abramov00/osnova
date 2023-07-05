@@ -37,7 +37,7 @@ add_subdirectory(TestTask/libs/list)
 
 add_subdirectory(TestTask/libs/GraficiProject)
 
-add_subdirectory(TestTask/libs/Data_package)
+add_subdirectory(TestTask/libs/DataPackage)
 
 if(UNITTEST)
         message(" output lib dir " ${CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG})
@@ -61,7 +61,7 @@ target_link_libraries(${PROJECT_NAME} List)
 
 target_link_libraries(${PROJECT_NAME} GraficiProject)
 
-target_link_libraries(${PROJECT_NAME} Data_package)
+target_link_libraries(${PROJECT_NAME} DataPackage)
 
 if(UNIX)
         add_custom_target( distclean COMMAND find . -name *_automoc.cpp -type f -delete
