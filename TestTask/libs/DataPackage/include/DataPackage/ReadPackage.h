@@ -1,14 +1,10 @@
 #ifndef READ_PACKAGE_H
 #define READ_PACKAGE_H
 
-#include <iostream>
-#include <vector>
-#include <list>
-#include <fstream>
+
 #include <algorithm>
 #include <iterator>
-#include <random>
-#include <cstdint>
+
 
 #include "DataPackage/CommonData.h"
 
