@@ -15,9 +15,10 @@ TEST(data_package, write_messeges_data_1)
 
 	write_string(data_test, str_1);
 
-	File_parser<3> fileParser;
 
-	File_Package<3> filepackage1(fileParser.get_File_Messeges(str_1));
+
+	File_Package<3> filepackage1;
+	filepackage1.get_File_Messeges(str_1);
 	filepackage1.write_messeges(str_2);
 
 auto data_file= readfullfile(str_2);
@@ -42,9 +43,10 @@ string data_test("12345");
 
 write_string(data_test, str_1);
 
-File_parser<3> fileParser;
 
-File_Package<3> filepackage1(fileParser.get_File_Messeges(str_1));
+
+File_Package<3> filepackage1;
+filepackage1.get_File_Messeges(str_1);
 filepackage1.write_messeges(str_2);
 
 auto data_file= readfullfile(str_2);
@@ -77,9 +79,10 @@ TEST(data_package, write_read_messeges_data_1)
 
 	write_string(data_test, str_1);
 
-	File_parser<10> fileParser;
 
-	File_Package<10> filepackage1(fileParser.get_File_Messeges(str_1));
+
+	File_Package<10> filepackage1;
+	filepackage1.get_File_Messeges(str_1);
 	filepackage1.write_messeges(str_2);
 
 	File_Package<10> filepackage2;
@@ -99,9 +102,8 @@ TEST(data_package, write_read_messeges_data_2)
 
 	write_string(data_test, str_1);
 
-	File_parser<10> fileParser;
-
-	File_Package<10> filepackage1(fileParser.get_File_Messeges(str_1));
+	File_Package<10> filepackage1;
+	filepackage1.get_File_Messeges(str_1);
 	filepackage1.write_messeges(str_2);
 
 	File_Package<10> filepackage2;
@@ -121,9 +123,8 @@ TEST(data_package, write_read_messeges_data_3)
 
 	write_string(data_test, str_1);
 
-	File_parser<10> fileParser;
-
-	File_Package<10> filepackage1(fileParser.get_File_Messeges(str_1));
+	File_Package<10> filepackage1;
+	filepackage1.get_File_Messeges(str_1);
 	filepackage1.write_messeges(str_2);
 
 	File_Package<10> filepackage2;
@@ -141,9 +142,8 @@ TEST(data_package, write_read_messeges_data_4)
 
 	geniration_string(33, 100, str_1);
 
-	File_parser<10> fileParser;
-
-	File_Package<10> filepackage1(fileParser.get_File_Messeges(str_1));
+	File_Package<10> filepackage1;
+	filepackage1.get_File_Messeges(str_1);
 	filepackage1.write_messeges(str_2);
 
 	File_Package<10> filepackage2;
@@ -162,13 +162,12 @@ TEST(data_package, write_read_shuffle)
 
 	geniration_string(33, 100, str_1);
 
-	File_parser<20> fileParser;
-
-	File_Package<20> filePackage1(fileParser.get_File_Messeges(str_1));
+	File_Package<10> filePackage1;
+	filePackage1.get_File_Messeges(str_1);
 
 	filePackage1.shuffle_write_messeges(str_2);
 
-	File_Package<20> filePackage2;
+	File_Package<10> filePackage2;
 
 	filePackage2.read_messeges(str_2);
 
@@ -182,7 +181,7 @@ TEST(data_package, write_read_shuffle)
 
 	ASSERT_TRUE(filePackage1.Data_Repoirter() == filePackage2.Data_Repoirter());
 
-	write_string(filePackage2.Data_Repoirter(), str_4);
+
 }
 
 TEST(data_package, writestring_readfullfile)

@@ -1,5 +1,5 @@
-#ifndef DATA_PACKAGE_H
-#define DATA_PACKAGE_H
+#ifndef READ_PACKAGE_H
+#define READ_PACKAGE_H
 
 #include <iostream>
 #include <vector>
@@ -9,6 +9,9 @@
 #include <iterator>
 #include <random>
 #include <cstdint>
+#include <cstdint>
+
+#include "DataPackage/CommonData.h"
 
 std::random_device rd;
 std::mt19937 gen(rd());
@@ -16,14 +19,6 @@ std::mt19937 gen(rd());
 int random_l(int N);
 
 void geniration_string(int n, int N, std::string const& namefile);
-
-class MyException : public std::runtime_error {
-public:
-	MyException() : runtime_error("File not found")
-	{}
-	MyException(std::string const& msg) : runtime_error(msg.c_str())
-	{}
-};
 
 std::vector<char> readfullfile(std::string const& namefile)
 {
@@ -51,75 +46,25 @@ std::vector<char> readfullfile(std::string const& namefile)
 	return bufferfile;
 }
 
-template <size_t T>
-
-struct Msg {
-public:
-	Msg(std::string const& data_string, uint16_t const id) : id(id)
-	{
-		for(int i = 0; i != T; i++) {
-			if(i < data_string.size()) {
-				data[i] = data_string[i];
-			}
-			else {
-				data[i] = '^';
-			}
-		}
-	}
-
-	uint16_t const& get_id()
-	{
-		return id;
-	}
-
-	char const* get_data()
-	{
-		return data;
-	}
-
-private:
-	uint16_t id;
-	char data[T];
-};
-
-template <size_t T>
-bool operator<(Msg<T>& x, Msg<T>& y)
+std::string read_string(std::string const& namefile)
 {
-	return x.get_id() < y.get_id();
+	auto data         = readfullfile(namefile);
+	char* data_string = data.data();
+
+	return data_string;
 }
 
-template <size_t T>
-using Messeges = std::list<Msg<T>>;
-
-template <size_t T>
-
-class File_parser {
-public:
-	Messeges<T> get_File_Messeges(std::string const& namefile)
-	{
-		Messeges<T> Messeges_data;
-		uint16_t id     = 0;
-		auto bufferfile = readfullfile(namefile);
-		std::string buffer;
-		buffer.reserve(T);
-
-		for(int i = 1; i != bufferfile.size() + 1; i++) {
-			buffer.push_back(bufferfile.at(i - 1));
-
-			if(!(i % T)) {
-				Messeges_data.emplace_back(Msg<T>(buffer, ++id));
-				buffer.clear();
-			}
-		}
-		if(buffer.size() != 0) {
-			Messeges_data.emplace_back(Msg<T>(buffer, ++id));
-			buffer.clear();
-		}
-		return Messeges_data;
+void write_string(std::string data, std::string const& namefile)
+{
+	std::ofstream file;
+	file.open(namefile, std::ios::trunc);
+	if(!file.is_open()) {
+		throw MyException("файл не открылся");
 	}
+	file << data;
 
-private:
-};
+	file.close();
+}
 
 enum class State { Idle, Magicbegin, Idcollecting, Datacollecting, Magicend };
 
@@ -229,6 +174,27 @@ public:
 	File_Package()
 	{}
 
+	void get_File_Messeges(std::string const& namefile)
+	{
+		uint16_t id     = 0;
+		auto bufferfile = readfullfile(namefile);
+		std::string buffer;
+		buffer.reserve(T);
+
+		for(int i = 1; i != bufferfile.size() + 1; i++) {
+			buffer.push_back(bufferfile.at(i - 1));
+
+			if(!(i % T)) {
+				Messeges_data.emplace_back(Msg<T>(buffer, ++id));
+				buffer.clear();
+			}
+		}
+		if(buffer.size() != 0) {
+			Messeges_data.emplace_back(Msg<T>(buffer, ++id));
+			buffer.clear();
+		}
+	}
+
 	void write_messeges(std::string& filename)
 	{
 		std::ofstream file;
@@ -250,6 +216,24 @@ public:
 		if(statemachine.get_state() != State::Idle) {
 			throw MyException("ошибка состояния StateMachine");
 		}
+	}
+
+	void shuffle_write_messeges(std::string const& namefile)
+	{
+		std::vector<std::reference_wrapper<const Msg<T>>> v(Messeges_data.cbegin(), Messeges_data.cend());
+		std::shuffle(v.begin(), v.end(), gen);
+
+		std::ofstream file;
+		file.open(namefile, std::ios::trunc);
+		if(!file.is_open()) {
+			throw MyException("файл не открылся");
+		}
+
+		for(int i = 0; i != v.size(); i++) {
+			write_Msg_file(v.at(i).get(), file);
+		}
+
+		file.close();
 	}
 
 	void sort_Messeges()
@@ -281,29 +265,12 @@ public:
 		return string_data;
 	}
 
-	void shuffle_write_messeges(std::string const& namefile)
-	{
-		std::vector<std::reference_wrapper<const Msg<T>>> v(Messeges_data.cbegin(), Messeges_data.cend());
-		std::shuffle(v.begin(), v.end(), gen);
-
-		std::ofstream file;
-		file.open(namefile, std::ios::trunc);
-		if(!file.is_open()) {
-			throw MyException("файл не открылся");
-		}
-
-		for(int i = 0; i != v.size(); i++) {
-			write_Msg_file(v.at(i).get(), file);
-		}
-
-		file.close();
-	}
-
 	Messeges<T> const& get_Messeges()
 	{
 		return Messeges_data;
 	}
 
+private:
 	void write_Msg_file(Msg<T> msg, std::ofstream& file)
 	{
 		file.write((char*)&Head, sizeof(Head));
@@ -312,28 +279,9 @@ public:
 		file.write((char*)&Tail, sizeof(Tail));
 	}
 
-private:
 	uint16_t Head = 0xBABA;
 	uint16_t Tail = 0xDEDA;
 	Messeges<T> Messeges_data;
 };
 
-std::string read_string(std::string const& namefile)
-{
-	auto data         = readfullfile(namefile);
-	char* data_string = data.data();
-
-	return data_string;
-}
-void write_string(std::string data, std::string const& namefile)
-{
-	std::ofstream file;
-	file.open(namefile, std::ios::trunc);
-	if(!file.is_open()) {
-		throw MyException("файл не открылся");
-	}
-	file << data;
-
-	file.close();
-}
 #endif

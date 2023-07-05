@@ -1,10 +1,13 @@
 #ifndef WRITE_PACKAGE_H
 #define WRITE_PACKAGE_H
 
-#include <iostream>
-void func();
+#include "DataPackage/CommonData.h"
 
-void func(int a){
-	std::cout<<"WRITE_PACKAGE\n";
-}
+#include <iostream>
+#include <list>
+
+
+
+
+
 #endif
