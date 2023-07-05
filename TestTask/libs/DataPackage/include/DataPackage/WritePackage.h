@@ -10,8 +10,8 @@
 #include <algorithm>
 #include <random>
 
-std::random_device rd0;
-std::mt19937 gen1(rd0());
+std::random_device static rd;
+std::mt19937 static gen(rd());
 
 template <size_t T>
 class FilePackageWrite {
@@ -43,7 +43,7 @@ class FilePackageWrite {
 	void shuffle_write_messeges(std::string const& namefile)
 	{
 		std::vector<std::reference_wrapper<const Msg<T>>> v(Messeges_data.cbegin(), Messeges_data.cend());
-		std::shuffle(v.begin(), v.end(), gen1);
+		std::shuffle(v.begin(), v.end(), gen);
 
 		std::ofstream file;
 		file.open(namefile, std::ios::trunc);

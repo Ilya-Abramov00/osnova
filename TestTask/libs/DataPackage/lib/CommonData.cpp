@@ -1,7 +1,7 @@
 #include "DataPackage/CommonData.h"
 
-std::random_device rd;
-std::mt19937 gen(rd());
+std::random_device static rd;
+std::mt19937 static gen(rd());
 
 int random_l(int N)
 {
