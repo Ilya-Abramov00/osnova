@@ -103,7 +103,7 @@ public:
 		std::string buffer;
 		buffer.reserve(T);
 
-		for(int i = 1; i != bufferfile.size() +1; i++) {
+		for(int i = 1; i != bufferfile.size() + 1; i++) {
 			buffer.push_back(bufferfile.at(i - 1));
 
 			if(!(i % T)) {
@@ -111,7 +111,7 @@ public:
 				buffer.clear();
 			}
 		}
-		if (buffer.size()!=0) {
+		if(buffer.size() != 0) {
 			Messeges_data.emplace_back(Msg<T>(buffer, ++id));
 			buffer.clear();
 		}
@@ -304,20 +304,18 @@ public:
 		return Messeges_data;
 	}
 
-
+	void write_Msg_file(Msg<T> msg, std::ofstream& file)
+	{
+		file.write((char*)&Head, sizeof(Head));
+		file.write((char*)&(msg.get_id()), sizeof(msg.get_id()));
+		file.write(msg.get_data(), T);
+		file.write((char*)&Tail, sizeof(Tail));
+	}
 
 private:
 	uint16_t Head = 0xBABA;
 	uint16_t Tail = 0xDEDA;
 	Messeges<T> Messeges_data;
-
-	void write_Msg_file(Msg<T> msg, std::ofstream& file)
-	{
-		file.write((char*)&Head, sizeof(Head));
-		file.write((char*)&msg.get_id(), sizeof(msg.get_id()));
-		file.write(msg.get_data(), T);
-		file.write((char*)&Tail, sizeof(Tail));
-	}
 };
 
 std::string read_string(std::string const& namefile)
