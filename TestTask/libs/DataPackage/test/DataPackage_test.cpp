@@ -141,5 +141,3 @@ TEST(DataPackage, writestring_readstring)
 
 	ASSERT_TRUE(data_1 == data_2);
 }
-
-

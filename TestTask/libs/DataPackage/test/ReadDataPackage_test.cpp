@@ -47,16 +47,15 @@ TEST(ReadDataPackage, write_messeges_data_2)
 	auto dataMesseges = filepackageread.get_Messeges();
 	int count         = 1;
 
-	auto begin=dataMesseges.begin();
+	auto begin = dataMesseges.begin();
 
 	ASSERT_TRUE(begin->get_id() == 1);
 
-	std::string data=begin->get_data();
+	std::string data = begin->get_data();
 	ASSERT_TRUE(data == "123");
 	begin++;
 
 	ASSERT_TRUE(begin->get_id() == 2);
-	data=begin->get_data();
+	data = begin->get_data();
 	ASSERT_TRUE(data == "45^");
 }
-
