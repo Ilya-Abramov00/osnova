@@ -10,12 +10,7 @@
 #include <random>
 #include <cstdint>
 
-
 #include "DataPackage/CommonData.h"
-
-
-
-
 
 enum class State { Idle, Magicbegin, Idcollecting, Datacollecting, Magicend };
 
@@ -125,8 +120,6 @@ public:
 	FilePackageRead()
 	{}
 
-
-
 	void read_messeges(std::string const& namefile)
 	{
 		StateMachine<T> statemachine(Head, Tail);
@@ -135,8 +128,6 @@ public:
 			throw MyException("ошибка состояния StateMachine");
 		}
 	}
-
-
 
 	void sort_Messeges()
 	{
@@ -173,8 +164,6 @@ public:
 	}
 
 private:
-
-
 	uint16_t Head = 0xBABA;
 	uint16_t Tail = 0xDEDA;
 	Messeges<T> Messeges_data;
