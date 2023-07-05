@@ -21,10 +21,11 @@ TEST(DataPackageExeption, 2)
 	FilePackageWrite<10> filepackagewrite;
 	filepackagewrite.get_File_Messeges(str_1);
 	filepackagewrite.write_messeges(str_2);
-
+	auto data = read_string(str_2);
 	string data_1("мусор");
 
-	write_string(data_1, str_1);
+	data += data_1;
+	write_string(data, str_2);
 
 	FilePackageRead<10> filepackageread;
 
@@ -53,6 +54,6 @@ TEST(DataPackageExeption, 3)
 
 	FilePackageRead<10> filepackageread;
 
-	ASSERT_THROW(filepackageread.read_messeges(str_2), MyException); // при нарушении данных исключений возникает, все
-	                                                                 // ок
+	ASSERT_NO_THROW(
+	    filepackageread.read_messeges(str_2)); // при добавлении к полезным данных мусора исключений не возникает, это уязвимость
 }

@@ -61,7 +61,7 @@ std::vector<char> readfullfile(std::string const& namefile)
 std::string read_string(std::string const& namefile)
 {
 	auto data         = readfullfile(namefile);
-	char* data_string = data.data();
+	std::string data_string(data.begin(), data.end());
 
 	return data_string;
 }

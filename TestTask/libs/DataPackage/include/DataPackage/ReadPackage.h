@@ -51,7 +51,7 @@ public:
 				break;
 			}
 		}
-		if(state == State::Magicend) {
+		if( (state == State::Magicend) || (state == State::Magicbegin) ) {
 			state = State::Idle;
 		}
 		return;
