@@ -79,10 +79,10 @@ class FilePackageWrite {
 
 private:
 
-	void write_Msg_file(Msg<T> msg, std::ofstream& file)
+	void write_Msg_file(const Msg<T>& msg, std::ofstream& file)
 	{
 		file.write((char*)&Head, sizeof(Head));
-		file.write((char*)&(msg.get_id()), sizeof(msg.get_id()));
+		file.write((const char*)&(msg.get_id()), sizeof(msg.get_id()));
 		file.write(msg.get_data(), T);
 		file.write((char*)&Tail, sizeof(Tail));
 	}

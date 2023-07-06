@@ -51,12 +51,12 @@ public:
 		}
 	}
 
-	uint16_t const& get_id()
+	uint16_t const& get_id() const
 	{
 		return id;
 	}
 
-	char const* get_data()
+	char const* get_data() const
 	{
 		return data;
 	}
