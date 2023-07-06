@@ -43,6 +43,8 @@ class FilePackageWrite {
 
 	void shuffle_write_messeges(std::string const& namefile)
 	{
+		std::random_device  rd;
+		std::mt19937  gen(rd());
 		std::vector<std::reference_wrapper<const Msg<T>>> v(Messeges_data.cbegin(), Messeges_data.cend());
 		std::shuffle(v.begin(), v.end(), gen);
 
@@ -96,6 +98,8 @@ private:
 	uint16_t Head = 0xBABA;
 	uint16_t Tail = 0xDEDA;
 	Messeges<T> Messeges_data;
+
+
 };
 
 

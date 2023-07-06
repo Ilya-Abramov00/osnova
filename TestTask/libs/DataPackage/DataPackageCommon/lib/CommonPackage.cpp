@@ -1,5 +1,17 @@
 #include "DataPackageCommon/CommonPackage.h"
 
+
+std::random_device  rd;
+std::mt19937  gen(rd());
+
+
+
+MyException::MyException() : runtime_error("File not found")
+{}
+
+MyException::MyException(std::string const& msg) : runtime_error(msg.c_str())
+{}
+
 int random_l(int N)
 {
 	std::uniform_int_distribution<> dist(1, 10 * N);

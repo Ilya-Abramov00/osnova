@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include "DataPackageWrite/WritePackage.h"
 #include "DataPackageRead/ReadPackage.h"
 
 using namespace std;

@@ -5,6 +5,6 @@
 int main()
 {
 
-	FilePackageRead<2> zx();
+
 
 }
