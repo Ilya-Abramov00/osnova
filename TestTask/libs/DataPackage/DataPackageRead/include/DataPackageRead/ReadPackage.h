@@ -15,7 +15,7 @@
 
 
 #include "DataPackageCommon/CommonPackage.h"
-
+#include "DataPackageCommon/MsgPackage.h"
 template <size_t T>
 class FilePackageRead {
 public:
@@ -63,7 +63,7 @@ public:
 		return string_data;
 	}
 
-	Messeges<T> const& get_Messeges()
+	Messeges<T> const& get_Messeges() const
 	{
 		return Messeges_data;
 	}
@@ -118,7 +118,7 @@ private:
 			return;
 		}
 
-		State get_state()
+		State const& get_state() const
 		{
 			return state;
 		}

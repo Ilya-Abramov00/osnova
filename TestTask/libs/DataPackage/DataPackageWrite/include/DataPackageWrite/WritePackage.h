@@ -1,8 +1,6 @@
 #ifndef WRITE_PACKAGE_H
 #define WRITE_PACKAGE_H
 
-
-
 #include <algorithm>
 
 #include <iostream>
@@ -11,12 +9,12 @@
 #include <fstream>
 #include <random>
 
-
 #include "DataPackageCommon/CommonPackage.h"
+#include "DataPackageCommon/MsgPackage.h"
 
 template <size_t T>
 class FilePackageWrite {
-	public:
+public:
 	FilePackageWrite()
 	{}
 
@@ -43,8 +41,8 @@ class FilePackageWrite {
 
 	void shuffle_write_messeges(std::string const& namefile)
 	{
-		std::random_device  rd;
-		std::mt19937  gen(rd());
+		std::random_device rd;
+		std::mt19937 gen(rd());
 		std::vector<std::reference_wrapper<const Msg<T>>> v(Messeges_data.cbegin(), Messeges_data.cend());
 		std::shuffle(v.begin(), v.end(), gen);
 
@@ -80,13 +78,12 @@ class FilePackageWrite {
 		Messeges_data.clear();
 	}
 
-	Messeges<T> const& get_Messeges()
+	Messeges<T> const& get_Messeges() const
 	{
 		return Messeges_data;
 	}
 
 private:
-
 	void write_Msg_file(const Msg<T>& msg, std::ofstream& file)
 	{
 		file.write((char*)&Head, sizeof(Head));
@@ -98,10 +95,6 @@ private:
 	uint16_t Head = 0xBABA;
 	uint16_t Tail = 0xDEDA;
 	Messeges<T> Messeges_data;
-
-
 };
-
-
 
 #endif
