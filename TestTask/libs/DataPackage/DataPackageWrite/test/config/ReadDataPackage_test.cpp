@@ -1,10 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "DataPackage/ReadPackage.h"
-#include "DataPackage/WritePackage.h"
-#include "DataPackage/CommonData.h"
 
-using namespace std;
+
 TEST(ReadDataPackage, write_messeges_data_1)
 {
 	std::string str_1 = "string_test/file_5.txt";

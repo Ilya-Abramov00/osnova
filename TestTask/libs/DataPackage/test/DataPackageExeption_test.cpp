@@ -1,8 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "DataPackage/ReadPackage.h"
-#include "DataPackage/WritePackage.h"
-#include "DataPackage/CommonData.h"
+#include "DataPackageWrite/WritePackage.h"
+#include "DataPackageRead/ReadPackage.h"
 
 using namespace std;
 

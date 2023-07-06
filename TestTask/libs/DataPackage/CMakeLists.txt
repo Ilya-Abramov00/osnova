@@ -1,16 +1,15 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.5)
 
-project (DataPackage)
+project(DataPackage LANGUAGES CXX)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+add_subdirectory(DataPackageCommon)
+add_subdirectory(DataPackageRead)
+add_subdirectory(DataPackageWrite)
 
-file(GLOB_RECURSE  SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/lib/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/include/DataPackage/*.h)
 
-add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
+add_library(${PROJECT_NAME} INTERFACE)
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/lib)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME} INTERFACE DataPackageRead DataPackageWrite DataPackageCommon)
 
 
 include("unittest.cmake")
