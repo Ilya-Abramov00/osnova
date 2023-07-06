@@ -41,5 +41,5 @@ TEST(WriteReadString, readstring)
 
 	auto data = read_string(str_1);
 
-	ASSERT_TRUE(data_test== data);
+	ASSERT_TRUE(data_test == data);
 }
