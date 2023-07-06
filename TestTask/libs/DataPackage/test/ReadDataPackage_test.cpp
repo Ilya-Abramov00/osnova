@@ -26,6 +26,7 @@ TEST(ReadDataPackage, write_messeges_data_1)
 
 		std::string data = i.get_data();
 		ASSERT_TRUE(data == data_test);
+		ASSERT_TRUE(dataMesseges.size() == 1);
 	}
 }
 
@@ -58,4 +59,6 @@ TEST(ReadDataPackage, write_messeges_data_2)
 	ASSERT_TRUE(begin->get_id() == 2);
 	data = begin->get_data();
 	ASSERT_TRUE(data == "45^");
+
+	ASSERT_TRUE(dataMesseges.size() == 2);
 }
