@@ -6,8 +6,7 @@
 #include <algorithm>
 
 
-std::random_device static rd;
-std::mt19937 static gen(rd());
+
 
 template <size_t T>
 class FilePackageWrite {

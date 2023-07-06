@@ -1,36 +1,28 @@
 #include "DataPackage/CommonData.h"
 
-std::random_device static rd;
-std::mt19937 static gen(rd());
-
 int random_l(int N)
 {
-	std::uniform_int_distribution<> dist(1, 10*N );
+	std::uniform_int_distribution<> dist(1, 10 * N);
 	return dist(gen);
 }
-std::string geniration_string(int n, int N, std::string const & namefile)
+std::string geniration_string(int n, int N, std::string const& namefile)
 {
-
 	std::ofstream file;
 	file.open(namefile, std::ios::trunc);
-	std::string data="";
-
+	std::string data = "";
 
 	if(!file.is_open()) {
 		throw MyException("файл не открылся");
 	}
-	for (int i = 0; i != n; i++) {
-
+	for(int i = 0; i != n; i++) {
 		data.append(std::string(random_l(N), '*'));
 		data.push_back('\n');
 	}
 	file << data;
 	file.close();
 
-
 	return data;
 }
-
 
 std::vector<char> readfullfile(std::string const& namefile)
 {
@@ -60,7 +52,7 @@ std::vector<char> readfullfile(std::string const& namefile)
 
 std::string read_string(std::string const& namefile)
 {
-	auto data         = readfullfile(namefile);
+	auto data = readfullfile(namefile);
 	std::string data_string(data.begin(), data.end());
 
 	return data_string;
@@ -77,4 +69,3 @@ void write_string(std::string& data, std::string const& namefile)
 
 	file.close();
 }
-

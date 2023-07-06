@@ -10,6 +10,8 @@
 #include <random>
 
 
+std::random_device inline rd;
+std::mt19937 inline gen(rd());
 
 
 class MyException : public std::runtime_error {
